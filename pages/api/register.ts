@@ -10,9 +10,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const { email, name, password } = req.body;
 
+    console.log(req.body)
+
     const existingUser = await prismadb.user.findUnique({
       where: {
-        email
+        email,
       }
     })
 
@@ -35,7 +37,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     
     return res.status(200).json(user);
   } catch (error) {
-    console.log("Biggy Dick")
     return res.status(400).json({ error: `Something went wrong: ${error}` });
   }
 }
