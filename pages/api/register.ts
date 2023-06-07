@@ -10,8 +10,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const { email, name, password } = req.body;
 
-    console.log(req.body)
-
     const existingUser = await prismadb.user.findUnique({
       where: {
         email,
