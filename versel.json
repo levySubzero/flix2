@@ -1,0 +1,15 @@
+{
+    "builds": [
+      {
+        "src": "pages",
+        "use": "@vercel/node",
+        "config": {
+          "prerender": false,
+          "commands": {
+            "build": "prisma generate && yarn build"
+          }
+        }
+      }
+    ]
+  }
+  
