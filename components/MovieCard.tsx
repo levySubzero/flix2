@@ -1,27 +1,33 @@
 import React, { useCallback } from 'react';
 import { useRouter } from 'next/router';
 // import { ChevronDownIcon } from '@heroicons/react/24/outline';
-import { PlayIcon } from '@heroicons/react/24/solid';
+// import { PlayIcon } from '@heroicons/react/24/solid';
 import { BsFillPlayFill  } from 'react-icons/bs';
 import { BiChevronDown  } from 'react-icons/bi';
 
-import { MovieInterface } from '@/types';
+// import { MovieInterface } from '@/types';
 import FavoriteButton from '@/components/FavoriteButton';
 import useInfoModalStore from '@/hooks/useInfoModalStore';
 
 interface MovieCardProps {
-  data: MovieInterface;
+  id: string;
+  title: string;
+  description: string;
+  thumbnailUrl: string;
+  videoUrl: string;
+  duration: string;
+  genre: string;
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
+const MovieCard: React.FC<MovieCardProps> = ({ id, title, description, thumbnailUrl, videoUrl, duration, genre }) => {
   const router = useRouter();
   const { openModal } = useInfoModalStore();
 
-  const redirectToWatch = useCallback(() => router.push(`/watch/${data.id}`), [router, data.id]);
+  const redirectToWatch = useCallback(() => router.push(`/watch/${id}`), [router, id]);
 
   return (
     <div className="group bg-zinc-900 col-span relative h-[12vw]">
-      <img onClick={redirectToWatch} src={data.thumbnailUrl} alt="Movie" draggable={false} className="
+      <img onClick={redirectToWatch} src={thumbnailUrl} alt="Movie" draggable={false} className="
         cursor-pointer
         object-cover
         transition
@@ -51,7 +57,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
         group-hover:translate-x-[2vw]
         group-hover:opacity-100
       ">
-        <img onClick={redirectToWatch} src={data.thumbnailUrl} alt="Movie" draggable={false} className="
+        <img onClick={redirectToWatch} src={thumbnailUrl} alt="Movie" draggable={false} className="
           cursor-pointer
           object-cover
           transition
@@ -77,8 +83,8 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
               {/* <PlayIcon className="text-black w-4 lg:w-6" /> */}
               <BsFillPlayFill className="text-black w-4 lg:w-6" />
             </div>
-            <FavoriteButton movieId={data?.id} />
-            <div onClick={() => openModal(data?.id)} className="cursor-pointer ml-auto group/item w-6 h-6 lg:w-10 lg:h-10 border-white border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300">
+            <FavoriteButton movieId={id} />
+            <div onClick={() => openModal(id)} className="cursor-pointer ml-auto group/item w-6 h-6 lg:w-10 lg:h-10 border-white border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300">
               <BiChevronDown className="text-white group-hover/item:text-neutral-300 w-4 lg:w-6" />
             </div>
           </div>
@@ -86,10 +92,10 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
             New <span className="text-white">2023</span>
           </p>
           <div className="flex flex-row mt-4 gap-2 items-center"> 
-            <p className="text-white text-[10px] lg:text-sm">{data.duration}</p>
+            <p className="text-white text-[10px] lg:text-sm">{duration}</p>
           </div>
           <div className="flex flex-row items-center gap-2 mt-4 text-[8px] text-white lg:text-sm">
-            <p>{data.genre}</p>
+            <p>{genre}</p>
           </div>
         </div>
       </div>
