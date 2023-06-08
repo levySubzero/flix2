@@ -18,6 +18,7 @@
     "bcrypt": "^5.1.0",
     "eslint": "8.42.0",
     "eslint-config-next": "13.4.4",
+    "heroicons": "^2.0.18",
     "next": "13.4.4",
     "next-auth": "^4.22.1",
     "prisma": "^4.15.0",
