@@ -1,14 +1,12 @@
 import { useCallback, useState } from 'react';
 import axios from 'axios';
 import { getSession, signIn } from 'next-auth/react';
-import { useRouter } from 'next/router';
 import Input from "../components/input";
 import { FcGoogle } from 'react-icons/fc';
 import { FaGithub } from 'react-icons/fa';
 
 
 const Auth = () => {
-  const router = useRouter();
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
@@ -24,15 +22,13 @@ const Auth = () => {
       await signIn('credentials', {
         email,
         password,
-        redirect: false,
-        callbackUrl: '/'
+        callbackUrl: '/profiles'
       });
 
-      router.push('/profiles');
     } catch (error) {
       console.log(error);
     }
-  }, [email, password, router]);
+  }, [email, password ]);
 
 
   const register = useCallback(async () => {
