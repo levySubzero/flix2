@@ -7,15 +7,24 @@ import useMovieList from '@/hooks/useMovieList';
 import useDeleteModal from '@/hooks/useDeleteModal';
 import DeleteModal from '@/components/DeleteModal';
 import useCurrentUser from '@/hooks/useCurrentUser';
-import { useRouter } from 'next/router';
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
+  const { data: currentUser } = useCurrentUser();
   
   if (!session) {
     return {
       redirect: {
         destination: '/auth',
+        permanent: false,
+      }
+    }
+  }
+
+  if (!currentUser?.isAdmin) {
+    return  {
+      redirect: {
+        destination: '/',
         permanent: false,
       }
     }
@@ -29,14 +38,7 @@ export async function getServerSideProps(context: NextPageContext) {
 export default function DeleteMovie() {
   const { data: movies = [] } = useMovieList();
   const { isOpen, closeModal } = useDeleteModal();
-  const { data: currentUser } = useCurrentUser();
-  const router = useRouter();
-
-  if (!currentUser?.isAdmin) {
-    router.push('/');
-  }
-
-
+  
   return (
     <>
       <DeleteModal visible={isOpen} onClose={closeModal} />

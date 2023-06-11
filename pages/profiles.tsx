@@ -17,21 +17,27 @@ interface UserCardProps {
 }
 
 export async function getServerSideProps(context: NextPageContext) {
-    const session = await getSession(context);
+  const session = await getSession(context);
+  const { data: currentUser } = useCurrentUser();
   
-    if (!session) {
-      return {
-        redirect: {
-          destination: '/auth',
-          permanent: false,
-        }
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/auth',
+        permanent: false,
       }
     }
-  
-    return {
-      props: {}
+  }
+
+  if (!currentUser?.isAdmin) {
+    return  {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      }
     }
   }
+}
 
 const UserCard: React.FC<UserCardProps> = ({ name }) => {
   const imgSrc = images[Math.floor(Math.random() * 4)];
@@ -70,14 +76,6 @@ const Profiles = () => {
     const delMovie = useCallback(() => {
       router.push('/delMovie');
     }, [router]);
-
-    const adminPanel = () => {
-      if (currentUser?.isAdmin) {
-        setIsAdmin(true);
-      }
-    };
-      
-    adminPanel();
 
     return (
         <div className="flex items-center h-full justify-center">

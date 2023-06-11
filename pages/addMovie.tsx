@@ -5,6 +5,30 @@ import Input from "../components/input";
 import serverAuth from '@/lib/serverAuth';
 import useCurrentUser from '@/hooks/useCurrentUser';
 import { useRouter } from 'next/router';
+import { NextPageContext } from 'next';
+
+export async function getServerSideProps(context: NextPageContext) {
+    const session = await getSession(context);
+    const { data: currentUser } = useCurrentUser();
+    
+    if (!session) {
+      return {
+        redirect: {
+          destination: '/auth',
+          permanent: false,
+        }
+      }
+    }
+  
+    if (!currentUser?.isAdmin) {
+      return  {
+        redirect: {
+          destination: '/',
+          permanent: false,
+        }
+      }
+    }
+}    
 
 
 const AddMovie = () => {
