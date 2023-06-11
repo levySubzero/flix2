@@ -6,29 +6,30 @@ import MovieList from '@/components/MovieList';
 import useMovieList from '@/hooks/useMovieList';
 import useDeleteModal from '@/hooks/useDeleteModal';
 import DeleteModal from '@/components/DeleteModal';
-import useCurrentUser from '@/hooks/useCurrentUser';
+import axios from 'axios';
 
 export async function getServerSideProps(context: NextPageContext) {
-  const session = await getSession(context);
-  const { data: currentUser } = useCurrentUser();
+    const session = await getSession(context);
+    const response = await axios.get('/api/current')
+    const currentUser = response.data;
+    
+    if (!session) {
+      return {
+        redirect: {
+          destination: '/auth',
+          permanent: false,
+        }
+      }
+    }
   
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/auth',
-        permanent: false,
+    if (!currentUser?.isAdmin) {
+      return  {
+        redirect: {
+          destination: '/',
+          permanent: false,
+        }
       }
-    }
-  }
-
-  if (!currentUser?.isAdmin) {
-    return  {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      }
-    }
-  }
+    }  
 
   return {
     props: {}

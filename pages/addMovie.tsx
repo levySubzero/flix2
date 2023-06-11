@@ -9,7 +9,8 @@ import { NextPageContext } from 'next';
 
 export async function getServerSideProps(context: NextPageContext) {
     const session = await getSession(context);
-    const { data: currentUser } = useCurrentUser();
+    const response = await axios.get('/api/current')
+    const currentUser = response.data;
     
     if (!session) {
       return {
@@ -28,8 +29,10 @@ export async function getServerSideProps(context: NextPageContext) {
         }
       }
     }
-}    
-
+    return {
+        props: {}
+      }
+}
 
 const AddMovie = () => {
   const [title, setTitle] = useState('');

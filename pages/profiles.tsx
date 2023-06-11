@@ -1,4 +1,5 @@
 import useCurrentUser from "@/hooks/useCurrentUser";
+import axios from "axios";
 import { NextPageContext } from "next";
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -18,7 +19,8 @@ interface UserCardProps {
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
-  const { data: currentUser } = useCurrentUser();
+  const response = await axios.get('/api/current')
+  const currentUser = response.data;
   
   if (!session) {
     return {
@@ -36,7 +38,11 @@ export async function getServerSideProps(context: NextPageContext) {
         permanent: false,
       }
     }
-  }
+  }  
+
+return {
+  props: {}
+}
 }
 
 const UserCard: React.FC<UserCardProps> = ({ name }) => {
