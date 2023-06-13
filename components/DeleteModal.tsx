@@ -27,8 +27,9 @@ const InfoModal: React.FC<DeleteModalProps> = ({ visible, onClose }) => {
     }, 300);
   }, [onClose]);
 
-  const handleOk = useCallback(async () => {
+  const handleOk = useCallback(async (movieId: any) => {
     setIsVisible(false);
+    // console.log(movieId)
     await axios.delete(`/api/movies/${data.id}`);
     setTimeout(() => {
       onClose();
@@ -50,10 +51,10 @@ const InfoModal: React.FC<DeleteModalProps> = ({ visible, onClose }) => {
           <div className="px-12 py-8">
             <div className="flex flex-col items-center gap-2 mb-8 mt-10">
               <p className="text-green-400 font-semibold text-lg">
-                Sure to Delete this Movie?
+                Sure to Delete {data.title}?
               </p>
               <div className='w-1/2' >
-                <button onClick={handleOk} className="bg-red-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition">
+                <button onClick={() => handleOk(data.id)} className="bg-red-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition">
                   OK
                 </button>
               </div>
