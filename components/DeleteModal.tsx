@@ -3,6 +3,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 import useMovie from '@/hooks/useMovie';
 import useDeleteModal from '@/hooks/useDeleteModal';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 interface DeleteModalProps {
   visible?: boolean;
@@ -11,7 +12,7 @@ interface DeleteModalProps {
 
 const InfoModal: React.FC<DeleteModalProps> = ({ visible, onClose }) => {
   const [isVisible, setIsVisible] = useState<boolean>(!!visible);
-
+  const router = useRouter();
   const { movieId } = useDeleteModal();
   const { data = {} } = useMovie(movieId);
 
@@ -27,15 +28,15 @@ const InfoModal: React.FC<DeleteModalProps> = ({ visible, onClose }) => {
     }, 300);
   }, [onClose]);
 
-  const handleOk = useCallback(async (movieId: any) => {
+  async function handleOk(id: any) {
     setIsVisible(false);
-    // console.log(movieId)
-    await axios.delete(`/api/movies/${data.id}`);
-    setTimeout(() => {
-      onClose();
-    }, 300);
-  }, [onClose]);
-
+    setTimeout(async () => {
+    console.log(id)
+    await axios.delete(`/api/movies/${id}`);
+    onClose();
+    router.push(`/`)
+    }, 1500);
+  }
   if (!visible) {
     return null;
   }
