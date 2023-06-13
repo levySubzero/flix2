@@ -4,6 +4,7 @@ import MobileMenu from '@/components/MobileMenu';
 import AccountMenu from "./AccountMenu";
 // import { BellIcon, MagnifyingGlassIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import { BsBell, BsSearch, BsChevronDown } from 'react-icons/bs';
+import { useRouter } from "next/router";
 
 const TOP_OFFSET = 66; 
 
@@ -11,6 +12,7 @@ const Navbar = () => {
     const [showAccountMenu, setShowAccountMenu] = useState(false);
     const [showMobileMenu, setShowMobileMenu] = useState(false);
     const [showBackground, setShowBackground] = useState(false);
+    const router = useRouter();
   
     useEffect(() => {
       const handleScroll = () => {
@@ -40,14 +42,12 @@ const Navbar = () => {
     return (
       <nav className="w-full fixed z-40">
         <div className={`px-4 md:px-16 py-6 flex flex-row items-center transition duration-500 ${showBackground ? 'bg-zinc-900 bg-opacity-90' : ''}`}>
-          <img src="/images/logo.jpeg" className="h-12 w-14 lg:h-9" alt="Logo" />
+          <img onClick={() => router.push(`/`)} src="/images/logo.jpeg" className="h-12 w-14 lg:h-9" alt="Logo" />
           <div className="flex-row ml-8 gap-7 hidden lg:flex">
-            <NavbarItem label="Home" active />
-            <NavbarItem label="Series" />
-            <NavbarItem label="Films" />
-            <NavbarItem label="New & Popular" />
-            <NavbarItem label="My List" />
-            <NavbarItem label="Browse by Languages" />
+            <span onClick={() => router.push(`/`)}><NavbarItem label="Home" /></span>
+            <span onClick={() => router.push(`/series`)}><NavbarItem label="Series" /></span>
+            <span onClick={() => router.push(`/films`)}><NavbarItem label="Films" /></span>
+            <span onClick={() => router.push(`/myList`)}><NavbarItem label="My List" /></span>
           </div>
           <div onClick={toggleMobileMenu} className="lg:hidden flex flex-row items-center gap-2 ml-8 cursor-pointer relative">
             <p className="text-white text-sm">Browse</p>

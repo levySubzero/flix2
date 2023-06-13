@@ -2,7 +2,7 @@ import React from 'react';
 import { NextPageContext } from 'next';
 import { getSession } from 'next-auth/react';
 import Navbar from '@/components/Navbar';
-import MovieList from '@/components/MovieList';
+import MovieListDel from '@/components/MovieListDel';
 import useMovieList from '@/hooks/useMovieList';
 import useDeleteModal from '@/hooks/useDeleteModal';
 import DeleteModal from '@/components/DeleteModal';
@@ -10,8 +10,6 @@ import axios from 'axios';
 
 export async function getServerSideProps(context: NextPageContext) {
     const session = await getSession(context);
-    const response = await axios.get('/api/current')
-    const currentUser = response.data;
     
     if (!session) {
       return {
@@ -21,16 +19,6 @@ export async function getServerSideProps(context: NextPageContext) {
         }
       }
     }
-  
-    if (!currentUser?.isAdmin) {
-      return  {
-        redirect: {
-          destination: '/',
-          permanent: false,
-        }
-      }
-    }  
-
   return {
     props: {}
   }
@@ -44,13 +32,8 @@ export default function DeleteMovie() {
     <>
       <DeleteModal visible={isOpen} onClose={closeModal} />
       <Navbar />
-      <div>
-        <p className="text-red-400 font-semibold mt-4">
-            Tap on Movie to Delete
-        </p>
-      </div>
-      <div className="pb-40">
-        <MovieList title="Movies" data={movies} />
+      <div className='pt-60 flex flex-col items-center'>
+          <MovieListDel title="Select Movies to Delete" data={movies} />
       </div>
     </>
   )

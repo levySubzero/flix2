@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import { getSession, signIn } from 'next-auth/react';
 import Input from "../components/input";
@@ -9,8 +9,6 @@ import { NextPageContext } from 'next';
 
 export async function getServerSideProps(context: NextPageContext) {
     const session = await getSession(context);
-    const response = await axios.get('/api/current')
-    const currentUser = response.data;
     
     if (!session) {
       return {
@@ -20,18 +18,13 @@ export async function getServerSideProps(context: NextPageContext) {
         }
       }
     }
-  
-    if (!currentUser?.isAdmin) {
-      return  {
-        redirect: {
-          destination: '/',
-          permanent: false,
-        }
-      }
+    if (session) {
+      // User is authenticated
+      console.log(session.user); // Access user data like username, email, etc.
     }
     return {
         props: {}
-      }
+    }
 }
 
 const AddMovie = () => {
@@ -42,15 +35,25 @@ const AddMovie = () => {
   const [genre, setGenre] = useState('');
   const [duration, setDuration] = useState('');
   const { data: currentUser } = useCurrentUser();
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [notAdmin, setNotAdmin] = useState(false);
   const router = useRouter();
 
-  if (!currentUser?.isAdmin) {
-    router.push('/');
-  }
+  // if (!currentUser?.isAdmin) {
+  //   router.push('/');
+  // }
+  useEffect(() => {
+    if (currentUser?.isAdmin) { 
+        setIsAdmin(true)
+    } else {
+      // router.push('/');
+    }
+
+  }, [currentUser]); 
 
   const saveMovie = useCallback(async () => {
     try {
-      await axios.post('/api/register', {
+      await axios.post('/api/newMovie', {
         title,
         description,
         videoUrl,
@@ -58,7 +61,7 @@ const AddMovie = () => {
         genre,
         duration
       });
-
+      router.push('/');
     } catch (error) {
         console.log(error);
     }
@@ -66,7 +69,10 @@ const AddMovie = () => {
 
 
   return (
-    <div className="relative h-full w-full bg-[url('/images/hero.jpg')] bg-no-repeat bg-center bg-fixed bg-cover">
+    <div>
+      <div>{!isAdmin && <p className='mt-80 text-green'>ADMIN ONLY</p>}</div>
+    
+    {isAdmin && <div className="relative h-full w-full bg-[url('/images/hero.jpg')] bg-no-repeat bg-center bg-fixed bg-cover">
       <div className="bg-black w-full h-full lg:bg-opacity-50">
         <nav className="px-12 py-5">
           <img src="/images/logo.jpeg" className="h-full w-16" alt="Logo" />
@@ -127,6 +133,7 @@ const AddMovie = () => {
           </div>    
         </div>
       </div>
+    </div> }
     </div>
   )
 }
