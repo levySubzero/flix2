@@ -69,10 +69,10 @@ const AddMovie = () => {
 
 
   return (
-    <div>
+    <div className="relative h-full w-full bg-[url('/images/hero.jpg')] bg-no-repeat bg-center bg-fixed bg-cover">
       <div>{!isAdmin && <p className='mt-80 text-green'>ADMIN ONLY</p>}</div>
     
-    {isAdmin && <div className="relative h-full w-full bg-[url('/images/hero.jpg')] bg-no-repeat bg-center bg-fixed bg-cover">
+    {isAdmin && 
       <div className="bg-black w-full h-full lg:bg-opacity-50">
         <nav className="px-12 py-5">
           <img src="/images/logo.jpeg" className="h-full w-16" alt="Logo" />
@@ -133,7 +133,7 @@ const AddMovie = () => {
           </div>    
         </div>
       </div>
-    </div> }
+     }
     </div>
   )
 }
