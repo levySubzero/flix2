@@ -69,5 +69,25 @@ model Movie {
   thumbnailUrl String
   genre String
   duration String
+  year String @default("2023")
+}
+
+model Series {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  description String
+  genre String
+  thumbnailUrl String
+  episodes String[] @db.ObjectId
+  year String
+}
+
+model Episode {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  description String
+  videoUrl String
+  thumbnailUrl String
+  duration String
 }
 

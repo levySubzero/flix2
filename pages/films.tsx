@@ -2,7 +2,6 @@ import React from 'react';
 import { NextPageContext } from 'next';
 import { getSession } from 'next-auth/react';
 import Navbar from '@/components/Navbar';
-import Billboard from '@/components/Billboard';
 import MovieList from '@/components/MovieList';
 import useMovieList from '@/hooks/useMovieList';
 import useFavorites from '@/hooks/useFavorites';
@@ -26,9 +25,8 @@ export async function getServerSideProps(context: NextPageContext) {
   }
 }
 
-export default function Home() {
+export default function Films() {
   const { data: movies = [] } = useMovieList();
-  const { data: favorites = [] } = useFavorites();
   const { isOpen, closeModal } = useInfoModalStore();
 
   return (
