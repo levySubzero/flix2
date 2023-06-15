@@ -78,7 +78,7 @@ model Series {
   description String
   genre String
   thumbnailUrl String
-  episodes String[] @db.ObjectId
+  episodes Episode[]
   year String
 }
 
@@ -89,5 +89,7 @@ model Episode {
   videoUrl String
   thumbnailUrl String
   duration String
+  seriesId String @db.ObjectId
+  series Series @relation(fields: [seriesId], references: [id], onDelete: Cascade)
 }
 

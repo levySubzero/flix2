@@ -79,6 +79,18 @@ const Profiles = () => {
       router.push('/addMovie');
     }, [router]);
 
+    const addSeries = useCallback(() => {
+      router.push('/addSeries');
+    }, [router]);
+
+    const addEpisode = useCallback(() => {
+      router.push('/addEpisode');
+    }, [router]);
+    
+    const manageSeries = useCallback(() => {
+      router.push('/manageSeries');
+    }, [router]);
+
     const delMovie = useCallback(() => {
       router.push('/delMovie');
     }, [router]);
@@ -110,6 +122,15 @@ const Profiles = () => {
               </div>
                 <button onClick={addMovie} className="bg-green-600 py-3 text-white rounded-md w-full mt-10 hover:bg-green-700 transition">
                   + New Movie
+                </button>
+                <button onClick={addSeries} className="bg-green-600 py-3 text-white rounded-md w-full mt-10 hover:bg-green-700 transition">
+                  + New Series
+                </button>
+                <button onClick={addEpisode} className="bg-green-600 py-3 text-white rounded-md w-full mt-10 hover:bg-green-700 transition">
+                  + New Episode
+                </button>
+                <button onClick={manageSeries} className="bg-green-600 py-3 text-white rounded-md w-full mt-10 hover:bg-green-700 transition">
+                  Manage Series
                 </button>
                 <button onClick={delMovie} className="bg-red-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition">
                   Delete Movie

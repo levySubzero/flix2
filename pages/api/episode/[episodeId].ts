@@ -4,29 +4,39 @@ import serverAuth from "@/lib/serverAuth";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { seriesId } = req.query;
+    const { episodeId } = req.query;
     await serverAuth(req, res);
 
-    console.log(typeof seriesId)
-    if (typeof seriesId !== 'string') {
+    if (typeof episodeId !== 'string') {
       throw new Error('Invalid Id');
     }
 
-    if (!seriesId) {
+    if (!episodeId) {
       throw new Error('Missing Id');
     }
     if (req.method == 'GET') {
-      const episodes = await prismadb.episode.findMany({
+     
+
+      const episode = await prismadb.episode.findUnique({
         where: {
-          seriesId: seriesId 
+          id: episodeId
         }
       });
-      
-      if (!episodes) {
-          throw new Error('Invalid Id');
-      }
 
-      return res.status(200).json(episodes);
+      if (!episode) {
+          throw new Error('Invalid Id');
+        }
+
+      return res.status(200).json(episode);
+    } else if (req.method === 'DELETE') {
+      // Delete the data by ID
+      const deletedData = await prismadb.episode.delete({
+        where: {
+          id: episodeId
+        }
+      });
+
+      res.status(200).json({ message: 'Data deleted successfully' });
     } else {
       return res.status(405).end();
     }

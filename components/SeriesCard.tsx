@@ -5,28 +5,23 @@ import { useRouter } from 'next/router';
 import { BsFillPlayFill  } from 'react-icons/bs';
 import { BiChevronDown  } from 'react-icons/bi';
 
-import { MovieInterface } from '@/types';
+import { SeriesInterface } from '@/types';
 import FavoriteButton from '@/components/FavoriteButton';
 import useInfoModalStore from '@/hooks/useInfoModalStore';
 
-interface MovieCardProps {
-  data: MovieInterface;
+interface SeriesCardProps {
+  data: SeriesInterface;
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
+const SeriesCard: React.FC<SeriesCardProps> = ({ data }) => {
   const router = useRouter();
   const { openModal } = useInfoModalStore();
-  const redirectToWatch = () => {};
 
-  if( !data.genre ) {
-    const redirectToWatch = useCallback(() => router.push(`/watchSeries/${data.id}`), [router, data.id]);
-  } else {
-    const redirectToWatch = useCallback(() => router.push(`/watch/${data.id}`), [router, data.id]);
-  }
+  const redirectToSeries = useCallback(() => router.push(`/seriess/${data.id}`), [router, data.id]);
 
   return (
     <div className="group bg-zinc-900 col-span relative h-[12vw]">
-      <img onClick={redirectToWatch} src={data.thumbnailUrl} alt="Movie" draggable={false} className="
+      <img onClick={redirectToSeries} src={data.thumbnailUrl} alt="Series" draggable={false} className="
         cursor-pointer
         object-cover
         transition
@@ -56,7 +51,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
         group-hover:translate-x-[2vw]
         group-hover:opacity-100
       ">
-        <img onClick={redirectToWatch} src={data.thumbnailUrl} alt="Movie" draggable={false} className="
+        <img onClick={redirectToSeries} src={data.thumbnailUrl} alt="Series" draggable={false} className="
           cursor-pointer
           object-cover
           transition
@@ -78,23 +73,23 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
           rounded-b-md
           ">
           <div className="flex flex-row items-center gap-3">
-            <div onClick={redirectToWatch} className="cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex justify-center items-center transition hover:bg-neutral-300">
+            <div onClick={redirectToSeries} className="cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex justify-center items-center transition hover:bg-neutral-300">
               {/* <PlayIcon className="text-black w-4 lg:w-6" /> */}
               <BsFillPlayFill className="text-black w-4 lg:w-6" />
             </div>
-            <FavoriteButton movieId={data?.id} />
+            {/* <FavoriteButton seriesId={data?.id} /> */}
             <div onClick={() => openModal(data.id)} className="cursor-pointer ml-auto group/item w-6 h-6 lg:w-10 lg:h-10 border-white border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300">
               <BiChevronDown className="text-white group-hover/item:text-neutral-300 w-4 lg:w-6" />
             </div>
           </div>
           <p className="text-green-400 font-semibold mt-4">
-            {data.title} <span className="text-white">{data.year && data.year}</span>
+            {data.title} <span className="text-white">{data.year}</span>
           </p>
           <div className="flex flex-row mt-4 gap-2 items-center"> 
-            <p className="text-white text-[10px] lg:text-sm">{data.duration}</p>
+            <p className="text-white text-[10px] lg:text-sm"></p>
           </div>
           <div className="flex flex-row items-center gap-2 mt-4 text-[8px] text-white lg:text-sm">
-            <p>{data.genre && data.genre}</p>
+            <p>{data.genre}</p>
           </div>
         </div>
       </div>
@@ -102,4 +97,4 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
   )
 }
 
-export default MovieCard;
+export default SeriesCard;

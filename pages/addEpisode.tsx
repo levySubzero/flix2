@@ -27,17 +27,17 @@ export async function getServerSideProps(context: NextPageContext) {
     }
 }
 
-const AddMovie = () => {
+const AddEpisode = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [videoUrl, setVideoUrl] = useState('');
   const [thumbnailUrl, setThumbnailUrl] = useState('');
-  const [genre, setGenre] = useState('');
+  const [videoUrl, setVideoUrl] = useState('');
   const [duration, setDuration] = useState('');
   const { data: currentUser } = useCurrentUser();
   const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
 
+  
   useEffect(() => {
     if (currentUser?.isAdmin) { 
         setIsAdmin(true)
@@ -47,21 +47,20 @@ const AddMovie = () => {
 
   }, [currentUser]); 
 
-  const saveMovie = useCallback(async () => {
+  const saveEpisode = useCallback(async () => {
     try {
-      await axios.post('/api/newMovie', {
+      await axios.post('/api/newEpisode', {
         title,
         description,
         videoUrl,
         thumbnailUrl,
-        genre,
         duration
       });
       router.push('/');
     } catch (error) {
         console.log(error);
     }
-  }, [title, description, videoUrl, thumbnailUrl, genre, duration]);
+  }, [title, description, videoUrl, thumbnailUrl, duration]);
 
 
   return (
@@ -76,7 +75,7 @@ const AddMovie = () => {
         <div className="flex justify-center">
           <div className="bg-black bg-opacity-70 px-16 py-16 self-center mt-2 lg:w-2/5 lg:max-w-md rounded-md w-full">
             <h2 className="text-white text-4xl mb-8 font-semibold">
-              Add New Movie
+              Add New Episode
             </h2>
             <div className="flex flex-col gap-4">
               <Input 
@@ -93,26 +92,19 @@ const AddMovie = () => {
                 value={description}
                 onChange={(e: any) => setDescription(e.target.value)} 
               />
-              <Input 
-                id="videoUrl"
-                type="videoUrl"
-                label="Enter Movie Url/link"
-                value={videoUrl}
-                onChange={(e: any) => setVideoUrl(e.target.value)}  
-              />
+                <Input 
+                  id="genre"
+                  type="genre"
+                  label="Movie genre"
+                  value={videoUrl}
+                  onChange={(e: any) => setVideoUrl(e.target.value)}  
+                />
               <Input
                 type="thumbnailUrl" 
                 id="Enter Thumbnail Url/link" 
                 label="thumbnailUrl" 
                 value={thumbnailUrl}
                 onChange={(e: any) => setThumbnailUrl(e.target.value)} 
-              />
-              <Input 
-                id="genre"
-                type="genre"
-                label="Movie genre"
-                value={genre}
-                onChange={(e: any) => setGenre(e.target.value)}  
               />
               <Input
                 type="duration" 
@@ -123,7 +115,7 @@ const AddMovie = () => {
               />
               
             </div>
-            <button onClick={saveMovie} className="bg-green-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition">
+            <button onClick={saveEpisode} className="bg-green-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition">
               Save
             </button>
           </div>    
@@ -134,4 +126,4 @@ const AddMovie = () => {
   )
 }
 
-export default AddMovie;
+export default AddEpisode;

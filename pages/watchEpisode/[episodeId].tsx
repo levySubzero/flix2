@@ -2,15 +2,15 @@ import React from 'react';
 // import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { useRouter } from 'next/router';
-import useMovie from '@/hooks/useMovie';
-import useAdModal from '@/hooks/useAdModal';
+import useEpisode from '@/hooks/useEpisode';
 import AdModal from '@/components/AdModal';
+import useAdModal from '@/hooks/useAdModal';
 
 const Watch = () => {
   const router = useRouter();
-  const { movieId } = router.query;
-  const { data } = useMovie(movieId as string);
+  const { episodeId } = router.query;
   const { isOpen, closeModal } = useAdModal();
+  const { data } = useEpisode(episodeId as string);
   const { openModal } = useAdModal();
   setTimeout(() => openModal(data?.id), 2000);
   

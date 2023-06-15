@@ -1,14 +1,15 @@
 import React from 'react';
 
-import { MovieInterface } from '@/types';
-import MovieCard from '@/components/MovieCard';
+import { SeriesInterface } from '@/types';
+import SeriesCard from '@/components/SeriesCard';
 import { isEmpty } from 'lodash';
 
-interface MovieListProps {
-  data: MovieInterface[];
+interface SeriesListProps {
+  data: SeriesInterface[];
   title: string;
 }
-const MovieList: React.FC<MovieListProps> = ({ data, title }) => {
+
+const SeriesList: React.FC<SeriesListProps> = ({ data, title }) => {
   if (isEmpty(data)) {
     return null;
   }
@@ -18,8 +19,8 @@ const MovieList: React.FC<MovieListProps> = ({ data, title }) => {
       <div>
         <p className="text-white text-md md:text-xl lg:text-2xl font-semibold mb-4">{title}</p>
         <div className="grid grid-cols-4 gap-2">
-          {data.map((movie) => (
-            <MovieCard key={movie.id} data={movie} />
+          {data.map((series) => (
+            <SeriesCard key={series.id} data={series} />
           ))}
         </div>
       </div>
@@ -27,4 +28,4 @@ const MovieList: React.FC<MovieListProps> = ({ data, title }) => {
   );
 }
 
-export default MovieList;
+export default SeriesList;

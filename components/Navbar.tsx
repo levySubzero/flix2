@@ -45,7 +45,7 @@ const Navbar = () => {
           <img onClick={() => router.push(`/`)} src="/images/logo.jpeg" className="h-12 w-14 lg:h-9" alt="Logo" />
           <div className="flex-row ml-8 gap-7 hidden lg:flex">
             <span onClick={() => router.push(`/`)}><NavbarItem label="Home" /></span>
-            <span onClick={() => router.push(`/series`)}><NavbarItem label="Series" /></span>
+            <span onClick={() => router.push(`/seriesP`)}><NavbarItem label="Series" /></span>
             <span onClick={() => router.push(`/films`)}><NavbarItem label="Films" /></span>
             <span onClick={() => router.push(`/myList`)}><NavbarItem label="My List" /></span>
           </div>
