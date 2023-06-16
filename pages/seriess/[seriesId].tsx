@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import EpisodeList from '@/components/EpisodeList';
 import InfoModalEpisode from '@/components/InfoModalEpisode';
 import useInfoModalEpisodeStore from '@/hooks/useInfoModalEpisodeStore';
+import SeriesEpBillboard from '@/components/SeriesEpBillboard';
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
@@ -36,7 +37,8 @@ export default function Series() {
     <>
       <InfoModalEpisode visible={isOpen} onClose={closeModal} />
       <Navbar />
-      <div className='pt-60 flex flex-col items-center'>
+      <SeriesEpBillboard id={seriesId as string}/>
+      <div className='flex flex-col items-center'>
         <EpisodeList title="Episodes" data={episodes} />
       </div>
     </>

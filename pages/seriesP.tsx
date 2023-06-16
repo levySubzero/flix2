@@ -6,6 +6,7 @@ import SeriesList from '@/components/SeriesList';
 import useSeriesList from '@/hooks/useSeriesList';
 import useInfoModalSeriesStore from '@/hooks/useInfoModalSeriesStore';
 import InfoModalSeries from '@/components/InfoModalSeries';
+import SeriesBillboard from '@/components/SeriesBillboard';
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
@@ -32,7 +33,8 @@ export default function Series() {
     <>
       <InfoModalSeries visible={isOpen} onClose={closeModal} />
       <Navbar />
-      <div className='pt-60 flex flex-col items-center'>
+      <SeriesBillboard />
+      <div className='flex flex-col items-center'>
         <SeriesList title="Series" data={series} />
       </div>
     </>

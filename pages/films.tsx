@@ -7,6 +7,7 @@ import useMovieList from '@/hooks/useMovieList';
 import useFavorites from '@/hooks/useFavorites';
 import useInfoModalStore from '@/hooks/useInfoModalStore';
 import InfoModal from '@/components/InfoModal';
+import FilmsBillboard from '@/components/FilmsBillboard';
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
@@ -33,7 +34,8 @@ export default function Films() {
     <>
       <InfoModal visible={isOpen} onClose={closeModal} />
       <Navbar />
-      <div className='pt-60 flex flex-col items-center'>
+      <FilmsBillboard />
+      <div className='flex flex-col items-center'>
         <MovieList title="Films" data={movies} />
       </div>
     </>

@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
-import useSeriesBillboard from '@/hooks/useSeriesBillboard';
+import useMyListBillboard from '@/hooks/useMyListBillboard';
 
-const SeriesBillboard: React.FC = () => {
-  const { data } = useSeriesBillboard();
+const MyListBillboard: React.FC = () => {
+  const { data } = useMyListBillboard();
 
   return (
     <div className="relative h-[46.25vw]">
@@ -10,4 +10,4 @@ const SeriesBillboard: React.FC = () => {
     </div>
   )
 }
-export default SeriesBillboard;
+export default MyListBillboard;
