@@ -7,7 +7,8 @@ const useEpisodeList = (id?: string) => {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
   });
-  console.log(id)
+  // console.log(id)
+  // console.log("how")
   return {
     data,
     error,

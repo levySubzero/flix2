@@ -34,6 +34,7 @@ const AddMovie = () => {
   const [thumbnailUrl, setThumbnailUrl] = useState('');
   const [genre, setGenre] = useState('');
   const [duration, setDuration] = useState('');
+  const [year, setYear] = useState('');
   const { data: currentUser } = useCurrentUser();
   const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
@@ -55,13 +56,14 @@ const AddMovie = () => {
         videoUrl,
         thumbnailUrl,
         genre,
-        duration
+        duration,
+        year
       });
       router.push('/');
     } catch (error) {
         console.log(error);
     }
-  }, [title, description, videoUrl, thumbnailUrl, genre, duration]);
+  }, [title, description, videoUrl, thumbnailUrl, genre, duration, year]);
 
 
   return (
@@ -120,6 +122,13 @@ const AddMovie = () => {
                 label="Movie duration" 
                 value={duration}
                 onChange={(e: any) => setDuration(e.target.value)} 
+              />
+              <Input
+                type="duration" 
+                id="duration" 
+                label="Year" 
+                value={year}
+                onChange={(e: any) => setYear(e.target.value)} 
               />
               
             </div>

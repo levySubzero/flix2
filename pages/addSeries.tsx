@@ -18,10 +18,7 @@ export async function getServerSideProps(context: NextPageContext) {
         }
       }
     }
-    if (session) {
-      // User is authenticated
-      console.log(session.user); // Access user data like username, email, etc.
-    }
+    
     return {
         props: {}
     }
@@ -88,7 +85,7 @@ const AddSeries = () => {
               <Input
                 type="description" 
                 id="description" 
-                label="Movie Description" 
+                label="Series Description" 
                 value={description}
                 onChange={(e: any) => setDescription(e.target.value)} 
               />
@@ -102,14 +99,14 @@ const AddSeries = () => {
               <Input 
                 id="genre"
                 type="genre"
-                label="Movie genre"
+                label="Series genre"
                 value={genre}
                 onChange={(e: any) => setGenre(e.target.value)}  
               />
               <Input
                 type="duration" 
                 id="duration" 
-                label="Movie duration" 
+                label="Year" 
                 value={year}
                 onChange={(e: any) => setYear(e.target.value)} 
               />

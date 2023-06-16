@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { BsFillPlayFill  } from 'react-icons/bs';
 import { BiChevronDown  } from 'react-icons/bi';
 import { SeriesInterface } from '@/types';
-import useInfoModalStore from '@/hooks/useInfoModalStore';
+import useInfoModalSeriesStore from '@/hooks/useInfoModalSeriesStore';
 
 interface SeriesCardProps {
   data: SeriesInterface;
@@ -11,7 +11,7 @@ interface SeriesCardProps {
 
 const SeriesCard: React.FC<SeriesCardProps> = ({ data }) => {
   const router = useRouter();
-  const { openModal } = useInfoModalStore();
+  const { openModal } = useInfoModalSeriesStore();
 
   const redirectToSeries = useCallback(() => router.push(`/seriess/${data.id}`), [router, data.id]);
   console.log(data.id)

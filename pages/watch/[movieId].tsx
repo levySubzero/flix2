@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 // import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { useRouter } from 'next/router';
@@ -12,8 +12,11 @@ const Watch = () => {
   const { data } = useMovie(movieId as string);
   const { isOpen, closeModal } = useAdModal();
   const { openModal } = useAdModal();
-  setTimeout(() => openModal(data?.id), 2000);
-  
+
+  useEffect(() => {
+    setTimeout(() => openModal(data?.id), 5000);
+  }, []);
+
   return (
     <>
     <AdModal visible={isOpen} onClose={closeModal} />

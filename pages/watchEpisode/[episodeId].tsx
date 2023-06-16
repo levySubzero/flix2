@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 // import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { useRouter } from 'next/router';
@@ -12,7 +12,10 @@ const Watch = () => {
   const { isOpen, closeModal } = useAdModal();
   const { data } = useEpisode(episodeId as string);
   const { openModal } = useAdModal();
-  setTimeout(() => openModal(data?.id), 2000);
+  
+  useEffect(() => {
+    setTimeout(() => openModal(data?.id), 2000);
+  }, []);
   
   return (
     <>

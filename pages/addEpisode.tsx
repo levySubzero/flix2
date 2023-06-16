@@ -54,7 +54,7 @@ const AddEpisode = () => {
         description,
         videoUrl,
         thumbnailUrl,
-        duration
+        duration,
       });
       router.push('/');
     } catch (error) {
@@ -88,14 +88,14 @@ const AddEpisode = () => {
               <Input
                 type="description" 
                 id="description" 
-                label="Movie Description" 
+                label="Episode Description" 
                 value={description}
                 onChange={(e: any) => setDescription(e.target.value)} 
               />
                 <Input 
                   id="genre"
                   type="genre"
-                  label="Movie genre"
+                  label="Episode genre"
                   value={videoUrl}
                   onChange={(e: any) => setVideoUrl(e.target.value)}  
                 />
@@ -109,7 +109,7 @@ const AddEpisode = () => {
               <Input
                 type="duration" 
                 id="duration" 
-                label="Movie duration" 
+                label="Episode duration" 
                 value={duration}
                 onChange={(e: any) => setDuration(e.target.value)} 
               />
