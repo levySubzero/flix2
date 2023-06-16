@@ -14,6 +14,7 @@ const SeriesCard: React.FC<SeriesCardProps> = ({ data }) => {
   const { openModal } = useInfoModalStore();
 
   const redirectToSeries = useCallback(() => router.push(`/seriess/${data.id}`), [router, data.id]);
+  console.log(data.id)
 
   return (
     <div className="group bg-zinc-900 col-span relative h-[12vw]">
