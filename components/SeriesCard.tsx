@@ -1,12 +1,8 @@
 import React, { useCallback } from 'react';
 import { useRouter } from 'next/router';
-// import { ChevronDownIcon } from '@heroicons/react/24/outline';
-// import { PlayIcon } from '@heroicons/react/24/solid';
 import { BsFillPlayFill  } from 'react-icons/bs';
 import { BiChevronDown  } from 'react-icons/bi';
-
 import { SeriesInterface } from '@/types';
-import FavoriteButton from '@/components/FavoriteButton';
 import useInfoModalStore from '@/hooks/useInfoModalStore';
 
 interface SeriesCardProps {

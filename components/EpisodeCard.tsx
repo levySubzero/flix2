@@ -1,12 +1,8 @@
 import React, { useCallback } from 'react';
 import { useRouter } from 'next/router';
-// import { ChevronDownIcon } from '@heroicons/react/24/outline';
-// import { PlayIcon } from '@heroicons/react/24/solid';
 import { BsFillPlayFill  } from 'react-icons/bs';
 import { BiChevronDown  } from 'react-icons/bi';
-
-import { EpisodeInterface, SeriesInterface } from '@/types';
-import FavoriteButton from '@/components/FavoriteButton';
+import { EpisodeInterface } from '@/types';
 import useInfoModalStore from '@/hooks/useInfoModalStore';
 
 interface EpisodeCardProps {
@@ -17,11 +13,11 @@ const EpisodeCard: React.FC<EpisodeCardProps> = ({ data }) => {
   const router = useRouter();
   const { openModal } = useInfoModalStore();
 
-  const addToSeries = useCallback(() => router.push(`/seriess/${data.id}`), [router, data.id]);
+  const redirectToWatch = useCallback(() => router.push(`/watchEpisode/${data.id}`), [router, data.id]);
 
   return (
     <div className="group bg-zinc-900 col-span relative h-[12vw]">
-      <img onClick={addToSeries} src={data.thumbnailUrl} alt="Series" draggable={false} className="
+      <img onClick={redirectToWatch} src={data.thumbnailUrl} alt="Episode" draggable={false} className="
         cursor-pointer
         object-cover
         transition
@@ -51,7 +47,7 @@ const EpisodeCard: React.FC<EpisodeCardProps> = ({ data }) => {
         group-hover:translate-x-[2vw]
         group-hover:opacity-100
       ">
-        <img onClick={addToSeries} src={data.thumbnailUrl} alt="Series" draggable={false} className="
+        <img onClick={redirectToWatch} src={data.thumbnailUrl} alt="Episode" draggable={false} className="
           cursor-pointer
           object-cover
           transition
@@ -73,24 +69,22 @@ const EpisodeCard: React.FC<EpisodeCardProps> = ({ data }) => {
           rounded-b-md
           ">
           <div className="flex flex-row items-center gap-3">
-            {/* <div onClick={addToSeries} className="cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex justify-center items-center transition hover:bg-neutral-300">
-               <PlayIcon className="text-black w-4 lg:w-6" /> 
+            <div onClick={redirectToWatch} className="cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex justify-center items-center transition hover:bg-neutral-300">
               <BsFillPlayFill className="text-black w-4 lg:w-6" />
-            </div> */}
-            {/* <FavoriteButton seriesId={data?.id} /> */}
-            {/* <div onClick={() => openModal(data.id)} className="cursor-pointer ml-auto group/item w-6 h-6 lg:w-10 lg:h-10 border-white border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300">
+            </div>
+            <div onClick={() => openModal(data.id)} className="cursor-pointer ml-auto group/item w-6 h-6 lg:w-10 lg:h-10 border-white border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300">
               <BiChevronDown className="text-white group-hover/item:text-neutral-300 w-4 lg:w-6" />
-            </div> */}
+            </div>
           </div>
           <p className="text-green-400 font-semibold mt-4">
             {data.title} <span className="text-white"></span>
           </p>
-          {/* <div className="flex flex-row mt-4 gap-2 items-center"> 
-            <p className="text-white text-[10px] lg:text-sm">{data.episodes.length} Episodes</p>
+          <div className="flex flex-row mt-4 gap-2 items-center"> 
+            <p className="text-white text-[10px] lg:text-sm">{data.duration}</p>
           </div>
           <div className="flex flex-row items-center gap-2 mt-4 text-[8px] text-white lg:text-sm">
-            <p>{data.genre}</p>
-          </div> */}
+            {/* <p>{data.genre}</p> */}
+          </div>
         </div>
       </div>
     </div>

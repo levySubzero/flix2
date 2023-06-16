@@ -16,13 +16,7 @@ interface MovieCardProps {
 const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
   const router = useRouter();
   const { openModal } = useInfoModalStore();
-  const redirectToWatch = () => {};
-
-  if( !data.genre ) {
-    const redirectToWatch = useCallback(() => router.push(`/watchSeries/${data.id}`), [router, data.id]);
-  } else {
-    const redirectToWatch = useCallback(() => router.push(`/watch/${data.id}`), [router, data.id]);
-  }
+  const redirectToWatch = useCallback(() => router.push(`/watch/${data.id}`), [router, data.id]);  
 
   return (
     <div className="group bg-zinc-900 col-span relative h-[12vw]">
@@ -88,13 +82,13 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
             </div>
           </div>
           <p className="text-green-400 font-semibold mt-4">
-            {data.title} <span className="text-white">{data.year && data.year}</span>
+            {data.title} <span className="text-white">{data.year}</span>
           </p>
           <div className="flex flex-row mt-4 gap-2 items-center"> 
             <p className="text-white text-[10px] lg:text-sm">{data.duration}</p>
           </div>
           <div className="flex flex-row items-center gap-2 mt-4 text-[8px] text-white lg:text-sm">
-            <p>{data.genre && data.genre}</p>
+            <p>{data.genre}</p>
           </div>
         </div>
       </div>
