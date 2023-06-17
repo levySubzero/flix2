@@ -69,7 +69,7 @@ const SeriesCard: React.FC<SeriesCardProps> = ({ data }) => {
           shadow-md
           rounded-b-md
           ">
-          <div className="flex flex-row items-center gap-3">
+          <div onClick={() => openModal(data.id)} className="flex flex-row items-center gap-3">
             <div onClick={redirectToSeries} className="cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex justify-center items-center transition hover:bg-neutral-300">
               {/* <PlayIcon className="text-black w-4 lg:w-6" /> */}
               <BsFillPlayFill className="text-black w-4 lg:w-6" />

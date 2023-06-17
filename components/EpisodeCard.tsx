@@ -16,10 +16,12 @@ const EpisodeCard: React.FC<EpisodeCardProps> = ({ data }) => {
   const redirectToWatch = useCallback(() => router.push(`/watchEpisode/${data.id}`), [router, data.id]);
 
   return (
-    <div className="w-100">
-      <div onClick={redirectToWatch} className="  flex flex-col items-center bg-zinc-900 border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-        <img onClick={redirectToWatch} className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" src={data.thumbnailUrl} alt="" />
-        <div className="flex flex-col justify-between p-4 leading-normal">
+    <div className="flex bg-zinc-800 items-center py-4 w-full">
+      <div className="w-1/3">
+        <img onClick={redirectToWatch} className="my-6 mx-4" src={data.thumbnailUrl} alt="" />
+      </div>
+      <div className="w-2/3">
+        <div className="ml-8">
           <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{data.title}</h5>
           <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{data.description}</p>
           <p className='text-white'>{data.duration}</p>
@@ -30,3 +32,4 @@ const EpisodeCard: React.FC<EpisodeCardProps> = ({ data }) => {
 }
 export default EpisodeCard;
 
+{/* onClick={redirectToWatch} */}
