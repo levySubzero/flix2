@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-// import { InformationCircleIcon } from '@heroicons/react/24/outline';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 
 import PlayButton from '@/components/PlayButton';
@@ -7,7 +6,6 @@ import useBillboard from '@/hooks/useBillboard';
 import useInfoModalStore from '@/hooks/useInfoModalStore';
 
 const Billboard: React.FC = () => {
-//   const { openModal } = useInfoModalStore();
   const { data } = useBillboard();
   const { openModal } = useInfoModalStore();
 
@@ -24,7 +22,7 @@ const Billboard: React.FC = () => {
         <p className="text-white text-1xl md:text-5xl h-full w-[50%] lg:text-6xl font-bold drop-shadow-xl">
           {data?.title}
         </p>
-        <p className="text-white text-[8px] md:text-lg mt-3 md:mt-8 w-[90%] md:w-[80%] lg:w-[50%] drop-shadow-xl">
+        <p className="text-white text-[10px] md:text-lg mt-3 md:mt-8 w-[90%] md:w-[80%] lg:w-[50%] drop-shadow-xl">
           {data?.description}
         </p>
         <div className="flex flex-row items-center mt-3 md:mt-4 gap-3">
@@ -51,29 +49,6 @@ const Billboard: React.FC = () => {
               <AiOutlineInfoCircle className="w-4 md:w-7 mr-1" />
               More Info
           </button>
-          {/* <button
-            // onClick={handleOpenModal}
-            className="
-            bg-white
-            text-white
-              bg-opacity-30 
-              rounded-md 
-              py-1 md:py-2 
-              px-2 md:px-4
-              w-auto 
-              text-xs lg:text-lg 
-              font-semibold
-              flex
-              flex-row
-              items-center
-              hover:bg-opacity-20
-              transition
-            "
-            >
-              <InformationCircleIcon className="w-4 md:w-7 mr-1" />
-              More Info
-          </button> */}
-
         </div>
       </div>
     </div>

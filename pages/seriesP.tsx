@@ -32,9 +32,9 @@ export default function Series() {
   return (
     <>
       <InfoModalSeries visible={isOpen} onClose={closeModal} />
-      <Navbar home={false}/>
-      {/* <SeriesBillboard /> */}
-      <div className='flex flex-col items-center'>
+      <Navbar home={true}/>
+      <SeriesBillboard />
+      <div className="pb-40 absolute xl:top-[70%] lg:top-[60%] md:top-[50%] sm:top-[40%] z-30">
         <SeriesList title="Series" data={series} />
       </div>
     </>
