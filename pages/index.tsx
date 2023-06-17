@@ -34,7 +34,7 @@ export default function Home() {
   return (
     <>
       <InfoModal visible={isOpen} onClose={closeModal} />
-      <Navbar />
+      <Navbar home={true} />
       <Billboard />
       <div className="pb-40">
         <MovieList title="Trending Now" data={movies} />

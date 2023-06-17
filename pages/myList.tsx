@@ -32,8 +32,8 @@ export default function MyList() {
   return (
     <>
       <InfoModal visible={isOpen} onClose={closeModal} />
-      <Navbar />
-      <MyListBillboard />
+      <Navbar home={false} />
+      {/* <MyListBillboard /> */}
       <div className='flex flex-col items-center'>
         <MovieList title="My List" data={favorites} />
       </div>

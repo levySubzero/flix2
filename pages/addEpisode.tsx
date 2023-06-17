@@ -6,6 +6,8 @@ import serverAuth from '@/lib/serverAuth';
 import useCurrentUser from '@/hooks/useCurrentUser';
 import { useRouter } from 'next/router';
 import { NextPageContext } from 'next';
+import Dropdown from '@/components/Dropdown';
+import useSeriesList from '@/hooks/useSeriesList';
 
 export async function getServerSideProps(context: NextPageContext) {
     const session = await getSession(context);
@@ -33,7 +35,9 @@ const AddEpisode = () => {
   const [thumbnailUrl, setThumbnailUrl] = useState('');
   const [videoUrl, setVideoUrl] = useState('');
   const [duration, setDuration] = useState('');
+  const [seriesId, setSeriesId] = useState('');
   const { data: currentUser } = useCurrentUser();
+  const { data: series = [] } = useSeriesList();
   const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
 
@@ -55,12 +59,13 @@ const AddEpisode = () => {
         videoUrl,
         thumbnailUrl,
         duration,
+        seriesId
       });
       router.push('/');
     } catch (error) {
         console.log(error);
     }
-  }, [title, description, videoUrl, thumbnailUrl, duration]);
+  }, [title, description, videoUrl, thumbnailUrl, duration, seriesId]);
 
 
   return (
@@ -112,6 +117,13 @@ const AddEpisode = () => {
                 label="Episode duration" 
                 value={duration}
                 onChange={(e: any) => setDuration(e.target.value)} 
+              />
+              <Dropdown 
+                id="seriesId" 
+                label="Select Series" 
+                value={seriesId}
+                series={series}
+                onChange={(e: any) => setSeriesId(e.target.value)} 
               />
               
             </div>

@@ -46,7 +46,7 @@ const AddSeries = () => {
 
   const saveSeries = useCallback(async () => {
     try {
-      await axios.post('/api/addSeries', {
+      await axios.post('/api/newSeries', {
         title,
         description,
         thumbnailUrl,

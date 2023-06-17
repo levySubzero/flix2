@@ -8,7 +8,11 @@ import { useRouter } from "next/router";
 
 const TOP_OFFSET = 66; 
 
-const Navbar = () => {
+interface NavbarProps {
+  home: boolean;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ home }) => {
     const [showAccountMenu, setShowAccountMenu] = useState(false);
     const [showMobileMenu, setShowMobileMenu] = useState(false);
     const [showBackground, setShowBackground] = useState(false);
@@ -40,7 +44,7 @@ const Navbar = () => {
     }, []);
   
     return (
-      <nav className="w-full fixed z-40">
+      <nav className={`w-full fixed ${home ? 'z-40' : ''}`}>
         <div className={`px-4 md:px-16 py-6 flex flex-row items-center transition duration-500 ${showBackground ? 'bg-zinc-900 bg-opacity-90' : ''}`}>
           <img onClick={() => router.push(`/`)} src="/images/logo.jpeg" className="h-12 w-14 lg:h-9" alt="Logo" />
           <div className="flex-row ml-8 gap-7 hidden lg:flex">

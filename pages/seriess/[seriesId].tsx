@@ -31,13 +31,11 @@ export default function Series() {
   const { seriesId } = router.query;
   const { data: episodes = [] } = useEpisodeList(seriesId as string);
   const { isOpen, closeModal } = useInfoModalEpisodeStore();
-  // console.log(seriesId)
-  // console.log("seriesId")
   return (
     <>
       <InfoModalEpisode visible={isOpen} onClose={closeModal} />
-      <Navbar />
-      <SeriesEpBillboard id={seriesId as string}/>
+      <Navbar home={false} />
+      {/* <SeriesEpBillboard id={seriesId as string}/> */}
       <div className='flex flex-col items-center'>
         <EpisodeList title="Episodes" data={episodes} />
       </div>

@@ -34,7 +34,7 @@ export default function Episodes() {
   return (
     <>
       <InfoModal visible={isOpen} onClose={closeModal} />
-      <Navbar />
+      <Navbar home={false} />
       <Billboard />
       <div className="pb-40">
         <MovieList title="Trending Now" data={movies} />

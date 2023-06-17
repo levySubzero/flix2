@@ -33,8 +33,8 @@ export default function Films() {
   return (
     <>
       <InfoModal visible={isOpen} onClose={closeModal} />
-      <Navbar />
-      <FilmsBillboard />
+      <Navbar home={false} />
+      {/* <FilmsBillboard /> */}
       <div className='flex flex-col items-center'>
         <MovieList title="Films" data={movies} />
       </div>
