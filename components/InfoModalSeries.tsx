@@ -48,27 +48,48 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
                 {data?.title}
               </p>
               <div className="flex flex-row gap-4 items-center">
+                <PlayButton movieId={data?.id} />
+                <FavoriteButton movieId={data?.id} />
               </div>
             </div>
           </div>
-
           <div className="px-12 py-8">
-            <div className="flex flex-row items-center gap-2 mb-8">
-              <p className="text-green-400 font-semibold text-lg">
-                {data?.title}
-              </p>
-              <p className="text-white text-lg">
-                {data?.duration}
-              </p>
-              <p className="text-white text-lg">
-                {data?.genre}
-              </p>
+            <div className="grid grid-cols-2">
+              <div className="col-span-1 ">
+                <div className="flex flex-col items-start gap-2 mb-8">
+                  <div className="flex flex-row text-left gap-2 mb-8">
+                    <p className="text-green-400 font-semibold text-lg">
+                      {data?.year}
+                    </p>
+                    <p className="text-white">
+                      {data?.duration}
+                    </p>
+                  </div>
+                  <p className="text-white mt-[-20px]">
+                    {data?.genre}
+                  </p>
+                  <div className="">
+                    <p className="text-white">
+                      {data?.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="col-span-1 mt-20">
+                <div className="flex flex-col  text-right gap-2 mb-8">
+                  <p className="text-white">
+                    <span className="text-gray-400">Cast:  </span>{data?.cast}
+                  </p>
+                  <p className="text-white">
+                    <span className="text-gray-400">Genres:  </span>{data?.subGenres}
+                  </p>
+                  <p className="text-white">
+                    <span className="text-gray-400">The film is:  </span>{data?.shortDesc}
+                  </p>
+                </div>    
+              </div>
             </div>
-            <p className="text-white text-lg">
-              {data?.description}
-            </p>
           </div>
-
         </div>
       </div>
     </div>

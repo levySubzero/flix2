@@ -70,6 +70,10 @@ model Movie {
   genre String
   duration String
   year String @default("2023")
+  subGenres String
+  trailerUrl String
+  cast String
+  shortDesc String
 }
 
 model Series {
@@ -80,6 +84,10 @@ model Series {
   thumbnailUrl String
   episodes Episode[]
   year String
+  subGenres String
+  trailerUrl String
+  cast String
+  shortDesc String
 }
 
 model Episode {
