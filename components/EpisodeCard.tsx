@@ -16,79 +16,17 @@ const EpisodeCard: React.FC<EpisodeCardProps> = ({ data }) => {
   const redirectToWatch = useCallback(() => router.push(`/watchEpisode/${data.id}`), [router, data.id]);
 
   return (
-    <div className="group bg-zinc-900 col-span relative h-[12vw]">
-      <img onClick={redirectToWatch} src={data.thumbnailUrl} alt="Episode" draggable={false} className="
-        cursor-pointer
-        object-cover
-        transition
-        duration
-        shadow-xl
-        rounded-md
-        group-hover:opacity-90
-        sm:group-hover:opacity-0
-        delay-300
-        w-full
-        h-[12vw]
-      " />
-      <div className="
-        opacity-0
-        absolute
-        top-0
-        transition
-        duration-200
-        z-10
-        invisible
-        sm:visible
-        delay-300
-        w-full
-        scale-0
-        group-hover:scale-110
-        group-hover:-translate-y-[6vw]
-        group-hover:translate-x-[2vw]
-        group-hover:opacity-100
-      ">
-        <img onClick={redirectToWatch} src={data.thumbnailUrl} alt="Episode" draggable={false} className="
-          cursor-pointer
-          object-cover
-          transition
-          duration
-          shadow-xl
-          rounded-t-md
-          w-full
-          h-[12vw]
-        " />
-        <div className="
-          z-10
-          bg-zinc-800
-          p-2
-          lg:p-4
-          absolute
-          w-full
-          transition
-          shadow-md
-          rounded-b-md
-          ">
-          <div className="flex flex-row items-center gap-3">
-            <div onClick={redirectToWatch} className="cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex justify-center items-center transition hover:bg-neutral-300">
-              <BsFillPlayFill className="text-black w-4 lg:w-6" />
-            </div>
-            <div onClick={() => openModal(data.id)} className="cursor-pointer ml-auto group/item w-6 h-6 lg:w-10 lg:h-10 border-white border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300">
-              <BiChevronDown className="text-white group-hover/item:text-neutral-300 w-4 lg:w-6" />
-            </div>
-          </div>
-          <p className="text-green-400 font-semibold mt-4">
-            {data.title} <span className="text-white"></span>
-          </p>
-          <div className="flex flex-row mt-4 gap-2 items-center"> 
-            <p className="text-white text-[10px] lg:text-sm">{data.duration}</p>
-          </div>
-          <div className="flex flex-row items-center gap-2 mt-4 text-[8px] text-white lg:text-sm">
-            {/* <p>{data.genre}</p> */}
-          </div>
+    <div className="w-100">
+      <div onClick={redirectToWatch} className="  flex flex-col items-center bg-zinc-900 border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+        <img onClick={redirectToWatch} className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" src={data.thumbnailUrl} alt="" />
+        <div className="flex flex-col justify-between p-4 leading-normal">
+          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{data.title}</h5>
+          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{data.description}</p>
+          <p className='text-white'>{data.duration}</p>
         </div>
       </div>
     </div>
-  )
+  );
 }
-
 export default EpisodeCard;
+

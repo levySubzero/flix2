@@ -5,6 +5,8 @@ import PlayButton from '@/components/PlayButton';
 import FavoriteButton from '@/components/FavoriteButton';
 import useInfoModalSeriesStore from '@/hooks/useInfoModalSeriesStore';
 import useSeries from '@/hooks/useSeries';
+import useEpisodeList from '@/hooks/useEpisodeList';
+import EpisodeList from './EpisodeList';
 
 interface InfoModalProps {
   visible?: boolean;
@@ -13,9 +15,9 @@ interface InfoModalProps {
 
 const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
   const [isVisible, setIsVisible] = useState<boolean>(!!visible);
-
   const { seriesId } = useInfoModalSeriesStore();
   const { data = {} } = useSeries(seriesId);
+  const { data: episodes = [] } = useEpisodeList(seriesId as string);
 
   useEffect(() => {
     setIsVisible(!!visible);
@@ -54,7 +56,7 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
             </div>
           </div>
           <div className="px-12 py-8">
-            <div className="grid grid-cols-2">
+            <div className="grid grid-cols-2 gap-5">
               <div className="col-span-1 ">
                 <div className="flex flex-col items-start gap-2 mb-8">
                   <div className="flex flex-row text-left gap-2 mb-8">
@@ -62,7 +64,7 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
                       {data?.year}
                     </p>
                     <p className="text-white">
-                      {data?.duration}
+                      {data?.episodes}
                     </p>
                   </div>
                   <p className="text-white mt-[-20px]">
@@ -76,7 +78,7 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
                 </div>
               </div>
               <div className="col-span-1 mt-20">
-                <div className="flex flex-col  text-right gap-2 mb-8">
+                <div className="flex flex-col ml-20 flex items-start justify-end gap-2 mb-8">
                   <p className="text-white">
                     <span className="text-gray-400">Cast:  </span>{data?.cast}
                   </p>
@@ -88,7 +90,11 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
                   </p>
                 </div>    
               </div>
+             
             </div>
+          </div>
+          <div className="w-auto object-cover">
+            <EpisodeList title="Episodes" data={episodes} />
           </div>
         </div>
       </div>

@@ -5,6 +5,8 @@ import PlayButton from '@/components/PlayButton';
 import FavoriteButton from '@/components/FavoriteButton';
 import useInfoModalStore from '@/hooks/useInfoModalStore';
 import useMovie from '@/hooks/useMovie';
+import MovieList from '@/components/MovieList';
+import useMovieList from '@/hooks/useMovieList';
 
 interface InfoModalProps {
   visible?: boolean;
@@ -13,7 +15,7 @@ interface InfoModalProps {
 
 const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
   const [isVisible, setIsVisible] = useState<boolean>(!!visible);
-
+  const { data: movies = [] } = useMovieList();
   const { movieId } = useInfoModalStore();
   const { data = {} } = useMovie(movieId);
 
@@ -76,7 +78,7 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
                 </div>
               </div>
               <div className="col-span-1 mt-20">
-                <div className="flex flex-col  text-right gap-2 mb-8">
+                <div className="flex flex-col ml-20 flex items-start justify-end gap-2 mb-8">
                   <p className="text-white">
                     <span className="text-gray-400">Cast:  </span>{data?.cast}
                   </p>
@@ -89,6 +91,9 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
                 </div>    
               </div>
             </div>
+          </div>
+          <div className="pb-40 mt-[-10px]">
+            <MovieList title="More Like this" data={movies} />
           </div>
         </div>
       </div>
