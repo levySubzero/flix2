@@ -1,5 +1,4 @@
 import { SeriesInterface } from '@/types';
-import React from 'react';
 
 interface SeriesProps {
     data: SeriesInterface;
@@ -14,6 +13,7 @@ interface DropdownProps {
 }
 
 const Dropdown: React.FC<DropdownProps> = ({ id, onChange, value, label, series }) => {
+
   return (
     <div className="relative">
     <label 
@@ -57,9 +57,9 @@ const Dropdown: React.FC<DropdownProps> = ({ id, onChange, value, label, series 
           peer"
       >
         <option value="">Series</option>
-        {series?.map((seriesProp) => (
-          <option key={seriesProp.data.id} value={seriesProp.data.id}>
-            {seriesProp.data.title}
+        {series?.map((seriesProp?) => (
+          <option key={seriesProp?.data.id} value={seriesProp?.data.id}>
+            {seriesProp?.data.title}
           </option>
         ))}
       </select>

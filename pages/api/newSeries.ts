@@ -8,7 +8,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(405).end();
     }
 
-    const { title, description, thumbnailUrl, genre, year } = req.body;
+    const { title, description, thumbnailUrl, genre, year, subGenres, trailerUrl, cast, shortDesc } = req.body;
 
     const series = await prismadb.series.create({
       data: {
@@ -16,7 +16,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         description,
         thumbnailUrl,
         genre,
-        year
+        year,
+        subGenres,
+        trailerUrl,
+        cast,
+        shortDesc
       }
     })
     
