@@ -31,7 +31,7 @@ const SeriesCard: React.FC<SeriesCardProps> = ({ data }) => {
         w-full
         h-[12vw]
       " />
-      <div className="
+      <div  onClick={() => openModal(data.id)} className="
         opacity-0
         absolute
         top-0
@@ -58,7 +58,7 @@ const SeriesCard: React.FC<SeriesCardProps> = ({ data }) => {
           w-full
           h-[12vw]
         " />
-        <div className="
+        <div  onClick={() => openModal(data.id)} className="
           z-10
           bg-zinc-800
           p-2

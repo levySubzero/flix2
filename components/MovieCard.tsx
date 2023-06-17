@@ -19,7 +19,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
   const redirectToWatch = useCallback(() => router.push(`/watch/${data.id}`), [router, data.id]);  
 
   return (
-    <div onClick={() => openModal(data.id)} className="group bg-zinc-900 col-span relative h-[12vw]">
+    <div className="group bg-zinc-900 col-span relative h-[12vw]">
       <img onClick={redirectToWatch} src={data.thumbnailUrl} alt="Movie" draggable={false} className="
         cursor-pointer
         object-cover
@@ -33,7 +33,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
         w-full
         h-[12vw]
       " />
-      <div className="
+      <div onClick={() => openModal(data.id)} className="
         opacity-0
         absolute
         top-0
@@ -60,7 +60,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
           w-full
           h-[12vw]
         " />
-        <div className="
+        <div  onClick={() => openModal(data.id)} className="
           z-10
           bg-zinc-800
           p-2
