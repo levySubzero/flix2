@@ -45,7 +45,7 @@ export default function DeleteMovie() {
   return (
     <>
       <DeleteModal visible={isOpen} onClose={closeModal} />
-      <Navbar />
+      <Navbar home={false} />
       <div className='pt-60 flex flex-col items-center'>
           <MovieListDel title="Select Movies to Delete" data={movies} />
       </div>
