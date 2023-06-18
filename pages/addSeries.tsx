@@ -61,7 +61,7 @@ const AddSeries = () => {
         cast,
         shortDesc
       });
-      router.push('/');
+      router.push('/seriesP');
     } catch (error) {
         console.log(error);
     }

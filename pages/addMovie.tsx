@@ -67,7 +67,7 @@ const AddMovie = () => {
         cast, 
         shortDesc
       });
-      router.push('/');
+      router.push('/films');
     } catch (error) {
         console.log(error);
     }

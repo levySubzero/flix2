@@ -16,7 +16,7 @@ const EpisodeCard: React.FC<EpisodeCardProps> = ({ data }) => {
   const redirectToWatch = useCallback(() => router.push(`/watchEpisode/${data.id}`), [router, data.id]);
 
   return (
-    <div className="flex bg-zinc-800 items-center py-4 w-full">
+    <div className="flex bg-zinc-800 items-center my-3 py-4 w-full">
       <div className="w-1/3">
         <img onClick={redirectToWatch} className="my-6 mx-4" src={data.thumbnailUrl} alt="" />
       </div>

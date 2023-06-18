@@ -93,7 +93,7 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
              
             </div>
           </div>
-          <div className="">
+          <div className="mx-3">
             <EpisodeList title="Episodes" data={episodes} />
           </div>
         </div>
