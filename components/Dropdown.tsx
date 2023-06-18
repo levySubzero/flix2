@@ -9,7 +9,7 @@ interface DropdownProps {
   onChange: any;
   value: string;
   label: string;
-  series?: SeriesProps[];
+  series?: SeriesInterface[];
 }
 
 const Dropdown: React.FC<DropdownProps> = ({ id, onChange, value, label, series }) => {
@@ -58,8 +58,8 @@ const Dropdown: React.FC<DropdownProps> = ({ id, onChange, value, label, series 
       >
         <option value="">Series</option>
         {series?.map((seriesProp?) => (
-          <option key={seriesProp?.data.id} value={seriesProp?.data.id}>
-            {seriesProp?.data.title}
+          <option key={seriesProp?.id} value={seriesProp?.id}>
+            {seriesProp?.title}
           </option>
         ))}
       </select>

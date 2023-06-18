@@ -30,6 +30,10 @@ const AddSeries = () => {
   const [thumbnailUrl, setThumbnailUrl] = useState('');
   const [genre, setGenre] = useState('');
   const [year, setYear] = useState('');
+  const [subGenres, setSubGenres] = useState('');
+  const [trailerUrl, setTrailerUrl] = useState('');
+  const [cast, setCast] = useState('');
+  const [shortDesc, setShortDesc] = useState('');
   const { data: currentUser } = useCurrentUser();
   const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
@@ -51,13 +55,17 @@ const AddSeries = () => {
         description,
         thumbnailUrl,
         genre,
-        year
+        year,
+        subGenres,
+        trailerUrl,
+        cast,
+        shortDesc
       });
       router.push('/');
     } catch (error) {
         console.log(error);
     }
-  }, [title, description, thumbnailUrl, genre, year]);
+  }, [title, description, thumbnailUrl, genre, year, subGenres, trailerUrl, cast, shortDesc]);
 
 
   return (
@@ -104,13 +112,40 @@ const AddSeries = () => {
                 onChange={(e: any) => setGenre(e.target.value)}  
               />
               <Input
-                type="duration" 
-                id="duration" 
+                type="year" 
+                id="year" 
                 label="Year" 
                 value={year}
                 onChange={(e: any) => setYear(e.target.value)} 
               />
-              
+              <Input
+                type="subGenres" 
+                id="subGenres" 
+                label="subGenres" 
+                value={subGenres}
+                onChange={(e: any) => setSubGenres(e.target.value)} 
+              />
+              <Input
+                type="trailerUrl" 
+                id="trailerUrl" 
+                label="trailerUrl" 
+                value={trailerUrl}
+                onChange={(e: any) => setTrailerUrl(e.target.value)} 
+              />
+              <Input
+                type="cast" 
+                id="cast" 
+                label="cast" 
+                value={cast}
+                onChange={(e: any) => setCast(e.target.value)} 
+              />
+              <Input
+                type="shortDesc" 
+                id="shortDesc" 
+                label="shortDesc" 
+                value={shortDesc}
+                onChange={(e: any) => setShortDesc(e.target.value)} 
+              />
             </div>
             <button onClick={saveSeries} className="bg-green-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition">
               Save

@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { NextPageContext } from 'next';
 import Dropdown from '@/components/Dropdown';
 import useSeriesList from '@/hooks/useSeriesList';
+import { SeriesInterface } from '@/types';
 
 export async function getServerSideProps(context: NextPageContext) {
     const session = await getSession(context);
@@ -20,16 +21,25 @@ export async function getServerSideProps(context: NextPageContext) {
         }
       }
     }
-    if (session) {
-      // User is authenticated
-      console.log(session.user); // Access user data like username, email, etc.
-    }
-    return {
+    try{
+      const series = await prismadb.series.findMany();
+      return {
+        props: {
+          series
+        }
+      }
+    } catch (error){
+      return {
         props: {}
+      }
     }
 }
 
-const AddEpisode = () => {
+interface SeriesListProps {
+  data: SeriesInterface[];
+}
+
+const AddEpisode: React.FC<SeriesListProps>= ({ data: series }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [thumbnailUrl, setThumbnailUrl] = useState('');
@@ -37,7 +47,7 @@ const AddEpisode = () => {
   const [duration, setDuration] = useState('');
   const [seriesId, setSeriesId] = useState('');
   const { data: currentUser } = useCurrentUser();
-  const { data: series = [] } = useSeriesList();
+  // const { data: series = [] } = useSeriesList();
   const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
 
