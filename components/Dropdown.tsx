@@ -11,33 +11,12 @@ interface DropdownProps {
   series: SeriesInterface[];
 }
 
-export async function getServerSideProps(context: NextPageContext) {
-  
-  try{
-    const series = await prismadb.series.findMany();
-    return {
-      props: {
-        series
-      }
-    }
-  } catch (error){
-    return {
-      props: {}
-    }
-  }
-}
-
-interface SeriesListProps {
-data: SeriesInterface[];
-}
-
-
 const Dropdown: React.FC<DropdownProps> = ({ id, onChange, value, label, series }) => {
   const [options, setOptions] = useState<SeriesInterface[]>([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setOptions(series);
+    console.log(series)
   }, [series]);
   
   return (
@@ -83,7 +62,7 @@ const Dropdown: React.FC<DropdownProps> = ({ id, onChange, value, label, series 
           peer"
       >
         <option value="">Series</option>
-        {options.map((seriesProp?) => (
+        {options?.map((seriesProp?) => (
           <option key={seriesProp?.id} value={seriesProp?.id}>
             {seriesProp?.title}
           </option>

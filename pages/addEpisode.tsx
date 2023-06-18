@@ -9,6 +9,8 @@ import { NextPageContext } from 'next';
 import Dropdown from '@/components/Dropdown';
 import useSeriesList from '@/hooks/useSeriesList';
 import { SeriesInterface } from '@/types';
+import prismadb from '@/lib/prismadb';
+
 
 export async function getServerSideProps(context: NextPageContext) {
     const session = await getSession(context);
@@ -23,12 +25,16 @@ export async function getServerSideProps(context: NextPageContext) {
     }
     try{
       const series = await prismadb.series.findMany();
+      console.log(series)
+      console.log("series")
       return {
         props: {
-          series
+          
         }
       }
+
     } catch (error){
+      console.log(error)
       return {
         props: {}
       }
@@ -39,7 +45,7 @@ interface SeriesListProps {
   data: SeriesInterface[];
 }
 
-const AddEpisode: React.FC<SeriesListProps>= ({ data: series }) => {
+const AddEpisode= () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [thumbnailUrl, setThumbnailUrl] = useState('');
@@ -47,7 +53,8 @@ const AddEpisode: React.FC<SeriesListProps>= ({ data: series }) => {
   const [duration, setDuration] = useState('');
   const [seriesId, setSeriesId] = useState('');
   const { data: currentUser } = useCurrentUser();
-  // const { data: series = [] } = useSeriesList();
+  const { data: series = [] } = useSeriesList();
+  const [options, setOptions] = useState<SeriesInterface[]>([]);
   const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
 
@@ -59,7 +66,12 @@ const AddEpisode: React.FC<SeriesListProps>= ({ data: series }) => {
       // router.push('/');
     }
 
-  }, [currentUser]); 
+  }, [currentUser]);
+  
+  useEffect(() => {
+    setOptions(series);
+    console.log(series);
+  }, [series]);
 
   const saveEpisode = useCallback(async () => {
     try {
@@ -132,7 +144,7 @@ const AddEpisode: React.FC<SeriesListProps>= ({ data: series }) => {
                 id="seriesId" 
                 label="Select Series" 
                 value={seriesId}
-                series={series}
+                series={options}
                 onChange={(e: any) => setSeriesId(e.target.value)} 
               />
               
