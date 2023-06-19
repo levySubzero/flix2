@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 // import { XMarkIcon } from '@heroicons/react/24/outline';
 import { AiOutlineClose } from 'react-icons/ai';
 import PlayButton from '@/components/PlayButton';
@@ -18,6 +18,23 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
   const { seriesId } = useInfoModalSeriesStore();
   const { data = {} } = useSeries(seriesId);
   const { data: episodes = [] } = useEpisodeList(seriesId as string);
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+        onClose();
+      }
+    };
+
+    if (visible) {
+      document.addEventListener('mousedown', handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [visible, onClose]);
 
   useEffect(() => {
     setIsVisible(!!visible);
