@@ -20,10 +20,17 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
   const { data: episodes = [] } = useEpisodeList(seriesId as string);
   const modalRef = useRef<HTMLDivElement>(null);
 
+  const handleClose = useCallback(() => {
+    setIsVisible(false);
+    setTimeout(() => {
+      onClose();
+    }, 300);
+  }, [onClose]);
+
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-        onClose();
+        handleClose();
       }
     };
 
@@ -39,13 +46,6 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
   useEffect(() => {
     setIsVisible(!!visible);
   }, [visible]);
-
-  const handleClose = useCallback(() => {
-    setIsVisible(false);
-    setTimeout(() => {
-      onClose();
-    }, 300);
-  }, [onClose]);
 
   if (!visible) {
     return null;

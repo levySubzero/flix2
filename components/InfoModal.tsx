@@ -19,10 +19,17 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
   const { data = {} } = useMovie(movieId);
   const modalRef = useRef<HTMLDivElement>(null);
 
+  const handleClose = useCallback(() => {
+    setIsVisible(false);
+    setTimeout(() => {
+      onClose();
+    }, 300);
+  }, [onClose]);
+
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-        onClose();
+        handleClose();
       }
     };
 
@@ -39,13 +46,6 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
     setIsVisible(!!visible);
   }, [visible]);
 
-  const handleClose = useCallback(() => {
-    setIsVisible(false);
-    setTimeout(() => {
-      onClose();
-    }, 300);
-  }, [onClose]);
-
   if (!visible) {
     return null;
   }
@@ -58,7 +58,6 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
           <div className="relative h-96">
             <video poster={data?.thumbnailUrl} autoPlay muted loop src={data?.trailerUrl} className="w-full brightness-[60%] object-cover h-full" />
             <div onClick={handleClose} className="cursor-pointer absolute top-3 right-3 h-10 w-10 rounded-full bg-black bg-opacity-70 flex items-center justify-center">
-              {/* <XMarkIcon className="text-white w-6" /> */}
               <AiOutlineClose className="text-white w-6" />
             </div>
             <div className="absolute bottom-[10%] left-10">
