@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState, MouseEvent } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import PlayButton from '@/components/PlayButton';
 import FavoriteButton from '@/components/FavoriteButton';
