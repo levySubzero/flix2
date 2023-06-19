@@ -80,16 +80,15 @@ const AddMovie = () => {
     
     {isAdmin && 
       <div className="bg-black w-full h-full lg:bg-opacity-50">
-        <nav className="px-12 py-5">
-          <img onClick={() => router.push(`/`)} src="/images/logo.jpeg" className="h-full w-16" alt="Logo" />
+        <nav className="px-12 py-5 h-28">
+          <img onClick={() => router.push(`/`)} src="/images/logo.png" className="h-full w-28" alt="Logo" />
         </nav>
-        <div className="flex justify-center">
-          <div className="bg-black bg-opacity-70 px-16 py-16 self-center mt-2 lg:w-2/5 lg:max-w-md rounded-md w-full">
+        <div className="flex justify-center mx-4">
+          <div className="bg-black bg-opacity-70 px-16 py-16 self-center mt-2 rounded-md w-full">
             <h2 className="text-white text-4xl mb-8 font-semibold">
               Add New Movie
             </h2>
-            <div className="grid grid-cols-2 gap-2">
-              <div>
+            <div className="space-y-2 flex items-center  md:grid grid-cols-2 gap-2">
               <Input 
                 id="title"
                 type="title"
@@ -97,7 +96,6 @@ const AddMovie = () => {
                 value={title}
                 onChange={(e: any) => setTitle(e.target.value)}  
               />
-              </div>
               <Input
                 type="description" 
                 id="description" 
@@ -167,11 +165,11 @@ const AddMovie = () => {
                 label="shortDesc" 
                 value={shortDesc}
                 onChange={(e: any) => setShortDesc(e.target.value)} 
-              />
-            </div>
+                />
             <button onClick={saveMovie} className="bg-green-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition">
               Save
             </button>
+          </div>
           </div>    
         </div>
       </div>
