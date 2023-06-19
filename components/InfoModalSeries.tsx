@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState, MouseEvent } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import PlayButton from '@/components/PlayButton';
 import FavoriteButton from '@/components/FavoriteButton';
@@ -17,7 +17,6 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
   const { seriesId } = useInfoModalSeriesStore();
   const { data = {} } = useSeries(seriesId);
   const { data: episodes = [] } = useEpisodeList(seriesId as string);
-  const modalRef = useRef<HTMLDivElement>(null);
 
   const handleClose = useCallback(() => {
     setIsVisible(false);

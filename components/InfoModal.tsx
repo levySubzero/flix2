@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState, MouseEvent } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import PlayButton from '@/components/PlayButton';
 import FavoriteButton from '@/components/FavoriteButton';
@@ -17,7 +17,6 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
   const { data: movies = [] } = useMovieList();
   const { movieId } = useInfoModalStore();
   const { data = {} } = useMovie(movieId);
-  const modalRef = useRef<HTMLDivElement>(null);
 
   const handleClose = useCallback(() => {
     setIsVisible(false);

@@ -6,7 +6,6 @@ import MovieList from '@/components/MovieList';
 import useFavorites from '@/hooks/useFavorites';
 import useInfoModalStore from '@/hooks/useInfoModalStore';
 import InfoModal from '@/components/InfoModal';
-import MyListBillboard from '@/components/MyListBillboard';
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
@@ -32,7 +31,7 @@ export default function MyList() {
   return (
     <>
       <InfoModal visible={isOpen} onClose={closeModal} />
-      <Navbar home={false} />
+      <Navbar home={true} />
       <div className="pb-40 absolute top-[10%]">
         <MovieList title="My List" data={favorites} />
       </div>

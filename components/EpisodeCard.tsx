@@ -1,9 +1,6 @@
 import React, { useCallback } from 'react';
 import { useRouter } from 'next/router';
-import { BsFillPlayFill  } from 'react-icons/bs';
-import { BiChevronDown  } from 'react-icons/bi';
 import { EpisodeInterface } from '@/types';
-import useInfoModalEpisodeStore from '@/hooks/useInfoModalEpisodeStore';
 
 interface EpisodeCardProps {
   data: EpisodeInterface;
@@ -11,8 +8,6 @@ interface EpisodeCardProps {
 
 const EpisodeCard: React.FC<EpisodeCardProps> = ({ data }) => {
   const router = useRouter();
-  const { openModal } = useInfoModalEpisodeStore();
-
   const redirectToWatch = useCallback(() => router.push(`/watchEpisode/${data.id}`), [router, data.id]);
 
   return (
@@ -31,5 +26,3 @@ const EpisodeCard: React.FC<EpisodeCardProps> = ({ data }) => {
   );
 }
 export default EpisodeCard;
-
-{/* onClick={redirectToWatch} */}

@@ -1,8 +1,6 @@
 import React from 'react';
-
 import { EpisodeInterface } from '@/types';
 import EpisodeCard from '@/components/EpisodeCard';
-import { isEmpty } from 'lodash';
 
 interface EpisodeListProps {
   data: EpisodeInterface[];

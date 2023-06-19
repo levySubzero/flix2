@@ -88,7 +88,8 @@ const AddMovie = () => {
             <h2 className="text-white text-4xl mb-8 font-semibold">
               Add New Movie
             </h2>
-            <div className="flex flex-col gap-4">
+            <div className="grid grid-cols-2 gap-2">
+              <div>
               <Input 
                 id="title"
                 type="title"
@@ -96,6 +97,7 @@ const AddMovie = () => {
                 value={title}
                 onChange={(e: any) => setTitle(e.target.value)}  
               />
+              </div>
               <Input
                 type="description" 
                 id="description" 
