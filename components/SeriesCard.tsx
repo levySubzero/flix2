@@ -17,7 +17,7 @@ const SeriesCard: React.FC<SeriesCardProps> = ({ data }) => {
   console.log(data.id)
 
   return (
-    <div className="group bg-zinc-900 col-span relative h-[12vw]">
+    <div className="group bg-zinc-900 col-span relative h-[12vw] mx-2 my-5">
       <img onClick={redirectToSeries} src={data.thumbnailUrl} alt="Series" draggable={false} className="
         cursor-pointer
         object-cover

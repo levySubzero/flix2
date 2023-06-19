@@ -34,7 +34,7 @@ export default function Series() {
       <InfoModalSeries visible={isOpen} onClose={closeModal} />
       <Navbar home={true}/>
       <SeriesBillboard />
-      <div className="pb-40 absolute top-[90%] z-30">
+      <div className="pb-4 z-30">
         <SeriesList title="Series" data={series} />
       </div>
     </>
