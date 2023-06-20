@@ -28,7 +28,17 @@ const Watch = () => {
           <span className="font-light">Watching:</span> {data?.title}
         </p>
       </nav>
-      <video className="h-full w-full" autoPlay controls src={data?.videoUrl}></video>
+      {/* <video className="h-full w-full" autoPlay controls src={data?.videoUrl}></video> */}
+      <div className="relative" style={{ paddingTop: '56.25%' }}>
+        <iframe
+          src={data?.videoUrl}
+          loading="lazy"
+          className="absolute top-0 h-full w-full"
+          style={{ border: 'none' }}
+          allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+          allowFullScreen
+        ></iframe>
+      </div>
     </div>
     </>
   )
