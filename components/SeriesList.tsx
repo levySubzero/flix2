@@ -1,8 +1,6 @@
 import React from 'react';
-
 import { SeriesInterface } from '@/types';
 import SeriesCard from '@/components/SeriesCard';
-import { isEmpty } from 'lodash';
 
 interface SeriesListProps {
   data: SeriesInterface[];
