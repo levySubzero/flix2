@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-// import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import React, { useEffect, useState } from 'react';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { useRouter } from 'next/router';
 import useEpisode from '@/hooks/useEpisode';
@@ -12,24 +11,29 @@ const Watch = () => {
   const { isOpen, closeModal } = useAdModal();
   const { data } = useEpisode(episodeId as string);
   const { openModal } = useAdModal();
-  
+  const [adOver, setAdOver] = useState(false);
+
+
   useEffect(() => {
-    setTimeout(() => openModal(data?.id), 2000);
+    setTimeout(() => openModal(data?.id), 1500);
   }, []);
+
+  function handleClose () {
+    closeModal();
+    setAdOver(true);
+  }
   
   return (
     <>
-    <AdModal visible={isOpen} onClose={closeModal} />
+    <AdModal visible={isOpen} onClose={handleClose} />
     <div className="h-screen w-screen bg-black">
       <nav className="fixed w-full p-4 z-10 flex flex-row items-center gap-8 bg-black bg-opacity-70">
-        {/* <ArrowLeftIcon onClick={() => router.push('/')} className="w-4 md:w-10 text-white cursor-pointer hover:opacity-80 transition" /> */}
         <AiOutlineArrowLeft onClick={() => router.push('/')} className="text-white cursor-pointer" size={40} />
         <p className="text-white text-1xl md:text-3xl font-bold">
           <span className="font-light">Watching:</span> {data?.title}
         </p>
       </nav>
-      {/* <video className="h-full w-full" autoPlay controls src={data?.videoUrl}></video> */}
-      <div className="relative" style={{ paddingTop: '56.25%' }}>
+      {adOver && <div className="relative" style={{ paddingTop: '56.25%' }}>
         <iframe
           src={data?.videoUrl}
           loading="lazy"
@@ -38,7 +42,7 @@ const Watch = () => {
           allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
           allowFullScreen
         ></iframe>
-      </div>
+      </div>}
     </div>
     </>
   )

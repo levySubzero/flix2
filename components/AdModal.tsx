@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-// import { XMarkIcon } from '@heroicons/react/24/outline';
 import { AiOutlineClose } from 'react-icons/ai';
 import useAdModal from '@/hooks/useAdModal';
 import useMovie from '@/hooks/useMovie';
@@ -49,24 +48,6 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
               </div>
             </div>
           </div>
-
-          {/* <div className="px-12 py-8">
-            <div className="flex flex-row items-center gap-2 mb-8">
-              <p className="text-green-400 font-semibold text-lg">
-                New
-              </p>
-              {/* <p className="text-white text-lg">
-                {data?.duration}
-              </p>
-              <p className="text-white text-lg">
-                {data?.genre}
-              </p> 
-            </div>
-            <p className="text-white text-lg">
-              {/* {data?.description} 
-            </p>
-          </div> */}
-
         </div>
       </div>
     </div>

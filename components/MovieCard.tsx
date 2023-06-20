@@ -48,7 +48,8 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
         group-hover:translate-x-[2vw]
         group-hover:opacity-100
       ">
-        <img onClick={redirectToWatch} src={data.thumbnailUrl} alt="Movie" draggable={false} className="
+        {/* <img onClick={redirectToWatch} src={data.thumbnailUrl} alt="Movie" draggable={false} className=" */}
+        <video poster={data?.thumbnailUrl} className="w-full h-[56.25vw] object-cover brightness-[60%] transition duration-500
           cursor-pointer
           object-cover
           transition
@@ -57,8 +58,8 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
           rounded-t-md
           w-full
           h-full
-          object-fill
-        " />
+          object-fill"
+          autoPlay muted loop src={data?.videoUrl}></video>
         <div  onClick={() => openModal(data.id)} className="
           z-10
           bg-zinc-800
