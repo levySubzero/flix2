@@ -43,15 +43,18 @@ export default function Home() {
       <InfoModal visible={isOpen} onClose={closeModal} />
       <Navbar home={true} />
       <Billboard />
-      <div className="pb-4 z-30">
-        <MovieList title="Trending Now" data={movies} />
+      <div className="pb-4 z-30 xl:absolute top-[80%]">
+        <div className="mx-5">
+          <MovieList title="Trending Now" data={movies} />
+        </div>
+        <div className="mx-5">
+          <SeriesList title="Series" data={series} />
+        </div>
+        <div className="mx-5">
+          <MovieList title="My List" data={favorites} />
+        </div>
       </div>
-      <div className="pb-4 z-30">
-        <SeriesList title="Series" data={series} />
-      </div>
-      <div className="pb-4 z-30">
-        <MovieList title="My List" data={favorites} />
-      </div>
+      
     </>
   )
 }
