@@ -4,8 +4,9 @@ import PlayButton from '@/components/PlayButton';
 import FavoriteButton from '@/components/FavoriteButton';
 import useInfoModalStore from '@/hooks/useInfoModalStore';
 import useMovie from '@/hooks/useMovie';
-import MovieList from '@/components/MovieList';
+import ModalList from '@/components/ModalList';
 import useMovieList from '@/hooks/useMovieList';
+import ModalCard from './ModalCard';
 
 interface InfoModalProps {
   visible?: boolean;
@@ -90,8 +91,8 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
               </div>
             </div>
           </div>
-          <div className="pb-40 mt-[-10px]">
-            <MovieList title="More Like this" data={movies} />
+          <div className="pb-4 z-30">
+            <ModalList title="More Like this" data={movies} />
           </div>
         </div>
       </div>

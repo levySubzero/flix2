@@ -29,7 +29,8 @@ const SeriesCard: React.FC<SeriesCardProps> = ({ data }) => {
         sm:group-hover:opacity-0
         delay-300
         w-full
-        h-[12vw]
+        h-full
+        object-fill
       " />
       <div  onClick={() => openModal(data.id)} className="
         opacity-0
@@ -56,7 +57,8 @@ const SeriesCard: React.FC<SeriesCardProps> = ({ data }) => {
           shadow-xl
           rounded-t-md
           w-full
-          h-[12vw]
+          h-full
+          object-fill
         " />
         <div  onClick={() => openModal(data.id)} className="
           z-10
