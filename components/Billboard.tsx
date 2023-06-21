@@ -1,6 +1,6 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
-
+import { VscUnmute, VscMute  } from "react-icons/vsc";
 import PlayButton from '@/components/PlayButton';
 import useBillboard from '@/hooks/useBillboard';
 import useInfoModalStore from '@/hooks/useInfoModalStore';
@@ -8,16 +8,24 @@ import useInfoModalStore from '@/hooks/useInfoModalStore';
 const Billboard: React.FC = () => {
   const { data } = useBillboard();
   const { openModal } = useInfoModalStore();
+  const [mute, setMute] = useState(false);
 
   const handleOpenModal = useCallback(() => {
     openModal(data?.id);
   }, [openModal, data?.id]);
 
-
+  const toggleMute = useCallback(() => {
+    setMute(!mute);
+    console.log(mute);
+  }, [mute]);
 
   return (
     <div className="relative h-[56.25vw]">
-      <video poster={data?.thumbnailUrl} className="w-full h-[56.25vw] object-cover brightness-[60%] transition duration-500" autoPlay muted loop src={data?.videoUrl}></video>
+      <video poster={data?.thumbnailUrl} className="w-full h-[56.25vw] object-cover brightness-[60%] transition duration-500"
+       autoPlay 
+       loop 
+       src={data?.videoUrl}
+       muted={mute ? true : false}></video>
       <div className="absolute top-[30%] md:top-[40%] ml-4 md:ml-16">
         <p className="text-white text-1xl md:text-5xl h-full w-[50%] lg:text-6xl font-bold drop-shadow-xl">
           {data?.title}
@@ -49,6 +57,11 @@ const Billboard: React.FC = () => {
               <AiOutlineInfoCircle className="w-4 md:w-7 mr-1" />
               More Info
           </button>
+        </div>
+      </div>
+      <div onClick={toggleMute} className="absolute top-[70%] left-[70%] md:top-[70%] left-[80%] xl:left-[85%] ml-4 md:ml-16">
+        <div className="flex flex-row bg-black bg-opacity-10 items-center mt-3 md:mt-4 gap-3">
+          <VscUnmute className="w-40 h-50 text-white text-3xl md:w-7 mr-1" />
         </div>
       </div>
     </div>
