@@ -16,14 +16,13 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
   const redirectToWatch = useCallback(() => router.push(`/watch/${data.id}`), [router, data.id]);  
 
   return (
-    <div className="group bg-zinc-900 col-span relative h-[12vw] mx-2 my-5">
+    <div className="group bg-zinc-900 col-span relative h-40 sm:w-44 md:w-52 mdd:w-48 lg:w-52 xl:w-56 mx-2 my-5">
       <img onClick={redirectToWatch} src={data.thumbnailUrl} alt="Movie" draggable={false} className="
         cursor-pointer
         object-cover
         transition
         duration
         shadow-xl
-        rounded-md
         group-hover:opacity-90
         sm:group-hover:opacity-0
         delay-300

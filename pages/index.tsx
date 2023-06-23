@@ -43,7 +43,7 @@ export default function Home() {
       <InfoModal visible={isOpen} onClose={closeModal} />
       <Navbar home={true} />
       <Billboard />
-      <div className="pb-4 z-30 xl:absolute top-[80%]">
+      <div className="pb-4 z-30 xl:absolute xl:top-[60%]">
         <div className="mx-5">
           <MovieList title="Trending Now" data={movies} />
         </div>

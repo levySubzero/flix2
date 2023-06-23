@@ -58,7 +58,7 @@ const Billboard: React.FC = () => {
           </button>
         </div>
       </div>
-      <div onClick={toggleMute} className="absolute top-[70%] left-[70%] md:top-[70%] left-[80%] xl:left-[85%] ml-4 md:ml-16">
+      <div onClick={toggleMute} className="absolute top-[70%] left-[60%] md:top-[70%] sm:left-[70%] md:left-[85%] ml-4 md:ml-16">
         <div className="flex flex-row bg-black bg-opacity-5 items-center mt-3 md:mt-4 gap-3">
           {mute ? <VscMute className="w-40 h-50 text-white text-3xl md:w-7 mr-1" /> : <VscUnmute className="w-40 h-50 text-white text-3xl md:w-7 mr-1" />}
         </div>
