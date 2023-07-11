@@ -76,18 +76,32 @@ model Movie {
   shortDesc String
 }
 
-model Series {
+model Show {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   title String
   description String
   genre String
   thumbnailUrl String
+  seasons Series[]
+  year String
+  subGenres String
+  trailerUrl String
+  cast String
+  shortDesc String
+}
+
+model Series {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  description String
   episodes Episode[]
   year String
   subGenres String
   trailerUrl String
   cast String
   shortDesc String
+  showId String @db.ObjectId
+  show Show @relation(fields: [showId], references: [id], onDelete: Cascade)
 }
 
 model Episode {
