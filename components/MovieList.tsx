@@ -8,14 +8,14 @@ interface MovieListProps {
 }
 const MovieList: React.FC<MovieListProps> = ({ data, title }) => {
   return (
-    <div className="px-4 my-6 md:px-12 space-y-8">
+    <div className="flex justify-center flex-col py-16 pr-24 pl-36">
       <div>
         <p className="text-white text-md md:text-xl lg:text-2xl font-semibold ">{title}</p>
-        <div className="grid grid-cols-2 sm:grid-cols-3 mdd:grid-cols-4 ld:grid-cols-5">
-          {data.map((movie) => (
-            <MovieCard key={movie.id} data={movie} />
-          ))}
-        </div>
+      </div>
+      <div className="flex flex-row max-w-max overflow-x-scroll scrollbar-none">
+        {data.map((movie) => (
+          <MovieCard key={movie.id} data={movie} />
+        ))}
       </div>
     </div>
   );
