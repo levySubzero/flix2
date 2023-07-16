@@ -67,20 +67,24 @@ model Movie {
   description String
   videoUrl String
   thumbnailUrl String
-  genre String
+  genreId String @db.ObjectId
   duration String
   year String @default("2023")
   subGenres String
   trailerUrl String
   cast String
   shortDesc String
+  categoryId String @db.ObjectId
+  genre Genre @relation(fields: [genreId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
 }
 
 model Show {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   title String
   description String
-  genre String
+  genreId String @db.ObjectId
   thumbnailUrl String
   seasons Series[]
   year String
@@ -88,6 +92,9 @@ model Show {
   trailerUrl String
   cast String
   shortDesc String
+  categoryId String @db.ObjectId
+  genre Genre @relation(fields: [genreId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 }
 
 model Series {
@@ -102,6 +109,7 @@ model Series {
   shortDesc String
   showId String @db.ObjectId
   show Show @relation(fields: [showId], references: [id], onDelete: Cascade)
+  
 }
 
 model Episode {
@@ -113,5 +121,20 @@ model Episode {
   duration String
   seriesId String @db.ObjectId
   series Series @relation(fields: [seriesId], references: [id], onDelete: Cascade)
+}
+
+model Category {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  shows Show[]
+  movies Movie[]
+}
+
+model Genre {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  shows Show[]
+  movies Movie[]
+
 }
 
