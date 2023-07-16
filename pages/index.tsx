@@ -9,7 +9,7 @@ import useFavorites from '@/hooks/useFavorites';
 import useInfoModalStore from '@/hooks/useInfoModalStore';
 import InfoModal from '@/components/InfoModal';
 import SeriesList from '@/components/SeriesList';
-import useSeriesList from '@/hooks/useSeriesList';
+import useShowList from '@/hooks/useShowList';
 import useInfoModalSeriesStore from '@/hooks/useInfoModalSeriesStore';
 import InfoModalSeries from '@/components/InfoModalSeries';
 
@@ -33,7 +33,7 @@ export async function getServerSideProps(context: NextPageContext) {
 export default function Home() {
   const { data: movies = [] } = useMovieList();
   const { data: favorites = [] } = useFavorites();
-  const { data: series = [] } = useSeriesList();
+  const { data: shows = [] } = useShowList();
   const { isOpen: modalOpen, closeModal: modalClose } = useInfoModalSeriesStore();
   const { isOpen, closeModal } = useInfoModalStore();
 
@@ -48,7 +48,7 @@ export default function Home() {
           <MovieList title="Trending Now" data={movies} />
         </div>
         <div className="mx-5">
-          <SeriesList title="Series" data={series} />
+          <SeriesList title="Series" data={shows} />
         </div>
         <div className="mx-5">
           <MovieList title="My List" data={favorites} />

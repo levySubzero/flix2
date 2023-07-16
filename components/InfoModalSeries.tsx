@@ -3,7 +3,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 import PlayButton from '@/components/PlayButton';
 import FavoriteButton from '@/components/FavoriteButton';
 import useInfoModalSeriesStore from '@/hooks/useInfoModalSeriesStore';
-import useSeries from '@/hooks/useSeries';
+import useShow from '@/hooks/useShow';
 import useEpisodeList from '@/hooks/useEpisodeList';
 import EpisodeList from './EpisodeList';
 
@@ -15,9 +15,12 @@ interface InfoModalProps {
 const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
   const [isVisible, setIsVisible] = useState<boolean>(!!visible);
   const { seriesId } = useInfoModalSeriesStore();
-  const { data = {} } = useSeries(seriesId);
-  const { data: episodes = [] } = useEpisodeList(seriesId as string);
+  const { data = {} } = useShow(seriesId);
+  console.log(typeof seriesId)
+  console.log('kr', data)
 
+  // const { data: episodes = [] } = useEpisodeList(seriesId as string);
+  const episodes: any = []
   const handleClose = useCallback(() => {
     setIsVisible(false);
     setTimeout(() => {

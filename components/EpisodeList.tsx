@@ -7,6 +7,7 @@ interface EpisodeListProps {
   title: string;
 }
 const EpisodeList: React.FC<EpisodeListProps> = ({ data, title }) => {
+  console.log('k', data);
   return (
     <div className="mx-0">
       <div>

@@ -3,7 +3,7 @@ import { NextPageContext } from 'next';
 import { getSession } from 'next-auth/react';
 import Navbar from '@/components/Navbar';
 import SeriesList from '@/components/SeriesList';
-import useSeriesList from '@/hooks/useSeriesList';
+import useShowList from '@/hooks/useShowList';
 import useInfoModalSeriesStore from '@/hooks/useInfoModalSeriesStore';
 import InfoModalSeries from '@/components/InfoModalSeries';
 import SeriesBillboard from '@/components/SeriesBillboard';
@@ -26,7 +26,7 @@ export async function getServerSideProps(context: NextPageContext) {
 }
 
 export default function Series() {
-  const { data: series = [] } = useSeriesList();
+  const { data: shows = [] } = useShowList();
   const { isOpen, closeModal } = useInfoModalSeriesStore();
 
   return (
@@ -35,7 +35,7 @@ export default function Series() {
       <Navbar home={true}/>
       <SeriesBillboard />
       <div className="pb-4 z-30 xl:absolute top-[80%]">
-        <SeriesList title="Series" data={series} />
+        <SeriesList title="Series" data={shows} />
       </div>
     </>
   )

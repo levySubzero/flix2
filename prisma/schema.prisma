@@ -105,8 +105,6 @@ model Series {
   year String
   subGenres String
   trailerUrl String
-  cast String
-  shortDesc String
   showId String @db.ObjectId
   show Show @relation(fields: [showId], references: [id], onDelete: Cascade)
   
