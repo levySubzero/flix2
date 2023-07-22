@@ -38,6 +38,7 @@ const AddMovie = () => {
   const [subGenres, setSubGenres] = useState('');
   const [trailerUrl, setTrailerUrl] = useState('');
   const [cast, setCast] = useState('');
+  const [categoryId, setCategoryId] = useState('');
   const [shortDesc, setShortDesc] = useState('');
   const { data: currentUser } = useCurrentUser();
   const [isAdmin, setIsAdmin] = useState(false);
@@ -60,6 +61,7 @@ const AddMovie = () => {
         videoUrl,
         thumbnailUrl,
         genre,
+        categoryId,
         duration,
         year,
         subGenres, 
@@ -71,7 +73,7 @@ const AddMovie = () => {
     } catch (error) {
         console.log(error);
     }
-  }, [title, description, videoUrl, thumbnailUrl, genre, duration, year, subGenres, trailerUrl, cast, shortDesc]);
+  }, [title, description, videoUrl, thumbnailUrl, genre, duration, categoryId, year, subGenres, trailerUrl, cast, shortDesc]);
 
 
   return (
@@ -130,6 +132,13 @@ const AddMovie = () => {
                 label="Movie duration" 
                 value={duration}
                 onChange={(e: any) => setDuration(e.target.value)} 
+              />
+              <Input
+                type="category" 
+                id="category" 
+                label="Movie category" 
+                value={categoryId}
+                onChange={(e: any) => setCategoryId(e.target.value)} 
               />
               <Input
                 type="year" 
