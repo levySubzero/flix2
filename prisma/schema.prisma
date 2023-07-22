@@ -102,8 +102,9 @@ model Series {
   title String
   description String
   episodes Episode[]
+  thumbnailUrl String
   year String
-  subGenres String
+  cast String
   trailerUrl String
   showId String @db.ObjectId
   show Show @relation(fields: [showId], references: [id], onDelete: Cascade)

@@ -28,7 +28,7 @@ const AddSeries = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [thumbnailUrl, setThumbnailUrl] = useState('');
-  const [genre, setGenre] = useState('');
+  const [showId, setShowId] = useState('');
   const [year, setYear] = useState('');
   const [subGenres, setSubGenres] = useState('');
   const [trailerUrl, setTrailerUrl] = useState('');
@@ -54,18 +54,15 @@ const AddSeries = () => {
         title,
         description,
         thumbnailUrl,
-        genre,
         year,
-        subGenres,
         trailerUrl,
         cast,
-        shortDesc
       });
       router.push('/seriesP');
     } catch (error) {
         console.log(error);
     }
-  }, [title, description, thumbnailUrl, genre, year, subGenres, trailerUrl, cast, shortDesc]);
+  }, [title, description, thumbnailUrl, showId, year, trailerUrl, cast]);
 
 
   return (
@@ -105,11 +102,11 @@ const AddSeries = () => {
                 onChange={(e: any) => setThumbnailUrl(e.target.value)} 
               />
               <Input 
-                id="genre"
-                type="genre"
-                label="Series genre"
-                value={genre}
-                onChange={(e: any) => setGenre(e.target.value)}  
+                id="showId"
+                type="showId"
+                label="Select Show"
+                value={showId}
+                onChange={(e: any) => setShowId(e.target.value)}  
               />
               <Input
                 type="year" 
@@ -117,13 +114,6 @@ const AddSeries = () => {
                 label="Year" 
                 value={year}
                 onChange={(e: any) => setYear(e.target.value)} 
-              />
-              <Input
-                type="subGenres" 
-                id="subGenres" 
-                label="subGenres" 
-                value={subGenres}
-                onChange={(e: any) => setSubGenres(e.target.value)} 
               />
               <Input
                 type="trailerUrl" 
@@ -138,13 +128,6 @@ const AddSeries = () => {
                 label="cast" 
                 value={cast}
                 onChange={(e: any) => setCast(e.target.value)} 
-              />
-              <Input
-                type="shortDesc" 
-                id="shortDesc" 
-                label="shortDesc" 
-                value={shortDesc}
-                onChange={(e: any) => setShortDesc(e.target.value)} 
               />
             <button onClick={saveSeries} className="bg-green-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition">
               Save
