@@ -6,6 +6,8 @@ import serverAuth from '@/lib/serverAuth';
 import useCurrentUser from '@/hooks/useCurrentUser';
 import { useRouter } from 'next/router';
 import { NextPageContext } from 'next';
+import Select from 'react-select';
+
 
 export async function getServerSideProps(context: NextPageContext) {
     const session = await getSession(context);
@@ -43,6 +45,24 @@ const AddMovie = () => {
   const { data: currentUser } = useCurrentUser();
   const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
+
+  const genres = [
+    { label: 'Shark', value: 'Shark' },
+    { label: 'Dolphin', value: 'Dolphin' },
+    { label: 'Whale', value: 'Whale' },
+    { label: 'Octopus', value: 'Octopus' },
+    { label: 'Crab', value: 'Crab' },
+    { label: 'Lobster', value: 'Lobster' },
+  ];
+
+  const categories = [
+    { label: 'Shark', value: 'Shark' },
+    { label: 'Dolphin', value: 'Dolphin' },
+    { label: 'Whale', value: 'Whale' },
+    { label: 'Octopus', value: 'Octopus' },
+    { label: 'Crab', value: 'Crab' },
+    { label: 'Lobster', value: 'Lobster' },
+  ];
 
   useEffect(() => {
     if (currentUser?.isAdmin) { 
@@ -118,6 +138,12 @@ const AddMovie = () => {
                 label="thumbnailUrl" 
                 value={thumbnailUrl}
                 onChange={(e: any) => setThumbnailUrl(e.target.value)} 
+              />
+              <Select
+                options={genres}
+              />
+              <Select
+                options={categories}
               />
               <Input 
                 id="genre"
