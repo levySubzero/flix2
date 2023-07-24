@@ -57,6 +57,7 @@ const AddSeries = () => {
         year,
         trailerUrl,
         cast,
+        showId
       });
       router.push('/seriesP');
     } catch (error) {
@@ -67,7 +68,7 @@ const AddSeries = () => {
 
   return (
     <div className="relative h-full w-full bg-[url('/images/hero.jpg')] bg-no-repeat bg-center bg-fixed bg-cover">
-      <div>{!isAdmin && <p className='mt-80 text-green'>ADMIN ONLY</p>}</div>
+      <div>{!isAdmin && <p className='mt-80 text-red'>ARE YOU LOST!!!</p>}</div>
     
     {isAdmin && 
       <div className="bg-black w-full h-full lg:bg-opacity-50">

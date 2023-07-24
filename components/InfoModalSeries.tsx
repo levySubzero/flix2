@@ -16,8 +16,6 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
   const [isVisible, setIsVisible] = useState<boolean>(!!visible);
   const { seriesId } = useInfoModalSeriesStore();
   const { data = {} } = useShow(seriesId);
-  console.log(typeof seriesId)
-  console.log('kr', data)
 
   // const { data: episodes = [] } = useEpisodeList(seriesId as string);
   const episodes: any = []

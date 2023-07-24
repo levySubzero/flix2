@@ -32,7 +32,7 @@ const AddMovie = () => {
   const [description, setDescription] = useState('');
   const [videoUrl, setVideoUrl] = useState('');
   const [thumbnailUrl, setThumbnailUrl] = useState('');
-  const [genre, setGenre] = useState('');
+  const [genreId, setGenre] = useState('');
   const [duration, setDuration] = useState('');
   const [year, setYear] = useState('');
   const [subGenres, setSubGenres] = useState('');
@@ -60,7 +60,7 @@ const AddMovie = () => {
         description,
         videoUrl,
         thumbnailUrl,
-        genre,
+        genreId,
         categoryId,
         duration,
         year,
@@ -73,7 +73,7 @@ const AddMovie = () => {
     } catch (error) {
         console.log(error);
     }
-  }, [title, description, videoUrl, thumbnailUrl, genre, duration, categoryId, year, subGenres, trailerUrl, cast, shortDesc]);
+  }, [title, description, videoUrl, thumbnailUrl, genreId, duration, categoryId, year, subGenres, trailerUrl, cast, shortDesc]);
 
 
   return (
@@ -101,7 +101,7 @@ const AddMovie = () => {
               <Input
                 type="description" 
                 id="description" 
-                label="Movie Description" 
+                label="Description" 
                 value={description}
                 onChange={(e: any) => setDescription(e.target.value)} 
               />
@@ -122,8 +122,8 @@ const AddMovie = () => {
               <Input 
                 id="genre"
                 type="genre"
-                label="Movie genre"
-                value={genre}
+                label="Select genre"
+                value={genreId}
                 onChange={(e: any) => setGenre(e.target.value)}  
               />
               <Input
@@ -136,7 +136,7 @@ const AddMovie = () => {
               <Input
                 type="category" 
                 id="category" 
-                label="Movie category" 
+                label="Select a category" 
                 value={categoryId}
                 onChange={(e: any) => setCategoryId(e.target.value)} 
               />
