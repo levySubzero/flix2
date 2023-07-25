@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { NextPageContext } from 'next';
 import Select from 'react-select';
 import useCategories from '@/hooks/useCategories';
+import useGenres from '@/hooks/useGenres';
 
 
 export async function getServerSideProps(context: NextPageContext) {
@@ -45,6 +46,7 @@ const AddMovie = () => {
   const [shortDesc, setShortDesc] = useState('');
   const { data: currentUser } = useCurrentUser();
   const { data: cats = [] } = useCategories();
+  const { data: gnres = [] } = useGenres();
   const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
 
@@ -54,12 +56,12 @@ const AddMovie = () => {
   }
 
   const genres: Category[] = [];
-  cats[0].forEach((genre: { name: string; id: string; }) => {
+  cats.forEach((genre: { name: string; id: string; }) => {
     genres.push({label: genre.name, value: genre.id })
   });
 
   const categories: Category[] = [];
-  cats[0].forEach((category: { name: string; id: string; }) => {
+  gnres.forEach((category: { name: string; id: string; }) => {
     categories.push({label: category.name, value: category.id })
   });
 
@@ -112,6 +114,39 @@ const AddMovie = () => {
     }
   }, [title, description, videoUrl, thumbnailUrl, genreId, duration, categoryId, year, subGenres, trailerUrl, cast, shortDesc]);
 
+  const customStyles = {
+    option: (defaultStyles: any, state: any) => ({
+      ...defaultStyles,
+      color: state.isSelected ? "#212529" : "#fff",
+      backgroundColor: state.isSelected ? "black" : "black", 
+      opacity: 1,
+    }),
+
+    menu: (provided: any) => ({
+      ...provided,
+      backgroundColor: "black",
+      opacity: 1, // Set the opacity to 1 to make it fully opaque
+    }),
+
+    control: (defaultStyles: any) => ({
+      ...defaultStyles,
+      backgroundColor: "rgba(160, 160, 160, 1)",
+      padding: "10px",
+      border: "none",
+      boxShadow: "none",
+    }),
+    singleValue: (defaultStyles: any) => ({ ...defaultStyles, color: "#fff" }),
+  };
+
+  const handlecChange = (selected: any) => {
+    setCategoryId(selected.value);
+    console.log(categoryId);
+  };
+
+  const handlegChange = (selected: any) => {
+    setGenre(selected.value);
+    console.log(genreId);
+  };
 
   return (
     <div className="relative h-full w-full bg-[url('/images/hero.jpg')] bg-no-repeat bg-center bg-fixed bg-cover">
@@ -127,7 +162,7 @@ const AddMovie = () => {
             <h2 className="text-white text-4xl mb-8 font-semibold">
               Add New Movie
             </h2>
-            <div className="space-y-2 flex items-center  md:grid grid-cols-2 gap-2">
+            <div className="space-y-2 flex items-center grid md:grid-cols-2 gap-2">
               <Input 
                 id="title"
                 type="title"
@@ -157,17 +192,14 @@ const AddMovie = () => {
                 onChange={(e: any) => setThumbnailUrl(e.target.value)} 
               />
               <Select
-                options={genres}
-              />
-              <Select
+                styles={customStyles}
+                onChange={handlecChange}
                 options={categories}
               />
-              <Input 
-                id="genre"
-                type="genre"
-                label="Select genre"
-                value={genreId}
-                onChange={(e: any) => setGenre(e.target.value)}  
+              <Select
+                styles={customStyles}
+                onChange={handlegChange}
+                options={genres}
               />
               <Input
                 type="duration" 
@@ -175,13 +207,6 @@ const AddMovie = () => {
                 label="Movie duration" 
                 value={duration}
                 onChange={(e: any) => setDuration(e.target.value)} 
-              />
-              <Input
-                type="category" 
-                id="category" 
-                label="Select a category" 
-                value={categoryId}
-                onChange={(e: any) => setCategoryId(e.target.value)} 
               />
               <Input
                 type="year" 

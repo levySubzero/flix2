@@ -10,10 +10,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     await serverAuth(req, res);
 
-    const genres = await prismadb.genre.findMany();
     const categories = await prismadb.category.findMany();
 
-    return res.status(200).json([genres, categories]);
+    return res.status(200).json(categories);
   } catch (error) {
     console.log({ error })
     return res.status(500).end();
