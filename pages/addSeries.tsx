@@ -6,6 +6,8 @@ import serverAuth from '@/lib/serverAuth';
 import useCurrentUser from '@/hooks/useCurrentUser';
 import { useRouter } from 'next/router';
 import { NextPageContext } from 'next';
+import useShow from '@/hooks/useShow';
+import Select from 'react-select';
 
 export async function getServerSideProps(context: NextPageContext) {
     const session = await getSession(context);
@@ -35,6 +37,7 @@ const AddSeries = () => {
   const [cast, setCast] = useState('');
   const [shortDesc, setShortDesc] = useState('');
   const { data: currentUser } = useCurrentUser();
+  const { data: shows = [] } = useShow();
   const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
 
@@ -47,6 +50,10 @@ const AddSeries = () => {
     }
 
   }, [currentUser]); 
+
+  const showslist = shows.map((show: {id: string; title: string}) => (
+    {label: show.title, value: show.id}  
+  ))
 
   const saveSeries = useCallback(async () => {
     try {
@@ -101,6 +108,9 @@ const AddSeries = () => {
                 label="thumbnailUrl" 
                 value={thumbnailUrl}
                 onChange={(e: any) => setThumbnailUrl(e.target.value)} 
+              />
+              <Select
+                options={showslist}
               />
               <Input 
                 id="showId"
