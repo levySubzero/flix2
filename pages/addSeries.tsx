@@ -51,7 +51,7 @@ const AddSeries = () => {
 
   }, [currentUser]); 
 
-  const showslist = shows.map((show: {id: string; title: string}) => (
+  const showslist = shows.map((show: {id: string, title: string}) => (
     {label: show.title, value: show.id}  
   ))
 
