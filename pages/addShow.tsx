@@ -31,13 +31,11 @@ export async function getServerSideProps(context: NextPageContext) {
     }
 }
 
-const AddMovie = () => {
+const AddShow = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [videoUrl, setVideoUrl] = useState('');
   const [thumbnailUrl, setThumbnailUrl] = useState('');
   const [genreId, setGenre] = useState('');
-  const [duration, setDuration] = useState('');
   const [year, setYear] = useState('');
   const [subGenres, setSubGenres] = useState('');
   const [trailerUrl, setTrailerUrl] = useState('');
@@ -74,27 +72,25 @@ const AddMovie = () => {
 
   }, [currentUser]); 
 
-  const saveMovie = useCallback(async () => {
+  const saveShow = useCallback(async () => {
     try {
-      await axios.post('/api/newMovie', {
+      await axios.post('/api/newShow', {
         title,
         description,
-        videoUrl,
         thumbnailUrl,
         genreId,
         categoryId,
-        duration,
         year,
         subGenres, 
         trailerUrl, 
         cast, 
         shortDesc
       });
-      router.push('/films');
+      router.push('/seriesP');
     } catch (error) {
         console.log(error);
     }
-  }, [title, description, videoUrl, thumbnailUrl, genreId, duration, categoryId, year, subGenres, trailerUrl, cast, shortDesc]);
+  }, [title, description, thumbnailUrl, genreId, categoryId, year, subGenres, trailerUrl, cast, shortDesc]);
 
   const customStyles = {
     option: (defaultStyles: any, state: any) => ({
@@ -159,13 +155,6 @@ const AddMovie = () => {
                 value={description}
                 onChange={(e: any) => setDescription(e.target.value)} 
               />
-              <Input 
-                id="videoUrl"
-                type="videoUrl"
-                label="Enter Movie Url/link"
-                value={videoUrl}
-                onChange={(e: any) => setVideoUrl(e.target.value)}  
-              />
               <Input
                 type="thumbnailUrl" 
                 id="Enter Thumbnail Url/link" 
@@ -182,13 +171,6 @@ const AddMovie = () => {
                 styles={customStyles}
                 onChange={handlegChange}
                 options={genres}
-              />
-              <Input
-                type="duration" 
-                id="duration" 
-                label="Movie duration" 
-                value={duration}
-                onChange={(e: any) => setDuration(e.target.value)} 
               />
               <Input
                 type="year" 
@@ -225,7 +207,7 @@ const AddMovie = () => {
                 value={shortDesc}
                 onChange={(e: any) => setShortDesc(e.target.value)} 
                 />
-            <button onClick={saveMovie} className="bg-green-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition">
+            <button onClick={saveShow} className="bg-green-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition">
               Save
             </button>
           </div>
@@ -237,4 +219,4 @@ const AddMovie = () => {
   )
 }
 
-export default AddMovie;
+export default AddShow;
