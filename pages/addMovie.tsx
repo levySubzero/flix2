@@ -7,6 +7,7 @@ import useCurrentUser from '@/hooks/useCurrentUser';
 import { useRouter } from 'next/router';
 import { NextPageContext } from 'next';
 import Select from 'react-select';
+import useCategories from '@/hooks/useCategories';
 
 
 export async function getServerSideProps(context: NextPageContext) {
@@ -43,26 +44,42 @@ const AddMovie = () => {
   const [categoryId, setCategoryId] = useState('');
   const [shortDesc, setShortDesc] = useState('');
   const { data: currentUser } = useCurrentUser();
+  const { data: cats = [] } = useCategories();
   const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
 
-  const genres = [
-    { label: 'Shark', value: 'Shark' },
-    { label: 'Dolphin', value: 'Dolphin' },
-    { label: 'Whale', value: 'Whale' },
-    { label: 'Octopus', value: 'Octopus' },
-    { label: 'Crab', value: 'Crab' },
-    { label: 'Lobster', value: 'Lobster' },
-  ];
+  interface Category {
+    label: string;
+    value: string;
+  }
 
-  const categories = [
-    { label: 'Shark', value: 'Shark' },
-    { label: 'Dolphin', value: 'Dolphin' },
-    { label: 'Whale', value: 'Whale' },
-    { label: 'Octopus', value: 'Octopus' },
-    { label: 'Crab', value: 'Crab' },
-    { label: 'Lobster', value: 'Lobster' },
-  ];
+  const genres: Category[] = [];
+  cats[0].forEach((genre: { name: string; id: string; }) => {
+    genres.push({label: genre.name, value: genre.id })
+  });
+
+  const categories: Category[] = [];
+  cats[0].forEach((category: { name: string; id: string; }) => {
+    categories.push({label: category.name, value: category.id })
+  });
+
+  // const genres = [
+  //   { label: 'Shark', value: 'Shark' },
+  //   { label: 'Dolphin', value: 'Dolphin' },
+  //   { label: 'Whale', value: 'Whale' },
+  //   { label: 'Octopus', value: 'Octopus' },
+  //   { label: 'Crab', value: 'Crab' },
+  //   { label: 'Lobster', value: 'Lobster' },
+  // ];
+
+  // const categories = [
+  //   { label: 'Shark', value: 'Shark' },
+  //   { label: 'Dolphin', value: 'Dolphin' },
+  //   { label: 'Whale', value: 'Whale' },
+  //   { label: 'Octopus', value: 'Octopus' },
+  //   { label: 'Crab', value: 'Crab' },
+  //   { label: 'Lobster', value: 'Lobster' },
+  // ];
 
   useEffect(() => {
     if (currentUser?.isAdmin) { 
