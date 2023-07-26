@@ -104,6 +104,7 @@ const AddShow = () => {
       ...provided,
       backgroundColor: "black",
       opacity: 1, // Set the opacity to 1 to make it fully opaque
+      zIndex: 100
     }),
 
     control: (defaultStyles: any) => ({
@@ -138,7 +139,7 @@ const AddShow = () => {
         <div className="flex justify-center mx-4">
           <div className="bg-black bg-opacity-70 px-16 py-16 self-center mt-2 rounded-md w-full">
             <h2 className="text-white text-4xl mb-8 font-semibold">
-              Add New Movie
+              Add New Series or Show
             </h2>
             <div className="space-y-2 flex items-center grid md:grid-cols-2 gap-2">
               <Input 

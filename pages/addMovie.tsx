@@ -108,6 +108,7 @@ const AddMovie = () => {
       ...provided,
       backgroundColor: "black",
       opacity: 1, // Set the opacity to 1 to make it fully opaque
+      zIndex: 100
     }),
 
     control: (defaultStyles: any) => ({

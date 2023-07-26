@@ -6,7 +6,7 @@ import serverAuth from '@/lib/serverAuth';
 import useCurrentUser from '@/hooks/useCurrentUser';
 import { useRouter } from 'next/router';
 import { NextPageContext } from 'next';
-import useShow from '@/hooks/useShow';
+import useShows from '@/hooks/useShowList';
 import Select from 'react-select';
 
 export async function getServerSideProps(context: NextPageContext) {
@@ -37,7 +37,7 @@ const AddSeries = () => {
   const [cast, setCast] = useState('');
   const [shortDesc, setShortDesc] = useState('');
   const { data: currentUser } = useCurrentUser();
-  const { data: shows = [] } = useShow();
+  const { data: shows = [] } = useShows();
   const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
 
@@ -51,9 +51,40 @@ const AddSeries = () => {
 
   }, [currentUser]); 
 
+  const customStyles = {
+    option: (defaultStyles: any, state: any) => ({
+      ...defaultStyles,
+      color: state.isSelected ? "#212529" : "#fff",
+      backgroundColor: state.isSelected ? "black" : "black", 
+      opacity: 1,
+    }),
+
+    menu: (provided: any) => ({
+      ...provided,
+      backgroundColor: "black",
+      opacity: 1, // Set the opacity to 1 to make it fully opaque
+      zIndex: 100
+    }),
+
+    control: (defaultStyles: any) => ({
+      ...defaultStyles,
+      backgroundColor: "rgba(160, 160, 160, 1)",
+      padding: "10px",
+      border: "none",
+      boxShadow: "none",
+    }),
+    singleValue: (defaultStyles: any) => ({ ...defaultStyles, color: "#fff" }),
+  };
+
   const showslist = shows.map((show: {id: string, title: string}) => (
     {label: show.title, value: show.id}  
-  ))
+  ));
+  console.log(showslist);
+
+  const handleShowChange = (selected: any) => {
+    setShowId(selected.value);
+    console.log(showId);
+  };
 
   const saveSeries = useCallback(async () => {
     try {
@@ -85,7 +116,7 @@ const AddSeries = () => {
         <div className="flex justify-center mx-4">
           <div className="bg-black bg-opacity-70 px-16 py-16 self-center mt-2 rounded-md w-full">
             <h2 className="text-white text-4xl mb-8 font-semibold">
-              Add New Series
+              Add New Series Season
             </h2>
             <div className="space-y-2 flex items-center md:grid grid-cols-2 gap-2">
               <Input 
@@ -110,14 +141,9 @@ const AddSeries = () => {
                 onChange={(e: any) => setThumbnailUrl(e.target.value)} 
               />
               <Select
+                styles={customStyles}
+                onChange={handleShowChange}
                 options={showslist}
-              />
-              <Input 
-                id="showId"
-                type="showId"
-                label="Select Show"
-                value={showId}
-                onChange={(e: any) => setShowId(e.target.value)}  
               />
               <Input
                 type="year" 
