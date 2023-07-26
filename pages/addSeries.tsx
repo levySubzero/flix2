@@ -79,7 +79,6 @@ const AddSeries = () => {
   const showslist = shows.map((show: {id: string, title: string}) => (
     {label: show.title, value: show.id}  
   ));
-  console.log(showslist);
 
   const handleShowChange = (selected: any) => {
     setShowId(selected.value);

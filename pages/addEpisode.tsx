@@ -8,8 +8,11 @@ import { useRouter } from 'next/router';
 import { NextPageContext } from 'next';
 import Dropdown from '@/components/Dropdown';
 import useSeriesList from '@/hooks/useSeriesList';
+import useShow from '@/hooks/useShow';
 import { SeriesInterface } from '@/types';
 import prismadb from '@/lib/prismadb';
+import Select from 'react-select';
+import useShows from '@/hooks/useShowList';
 
 
 export async function getServerSideProps(context: NextPageContext) {
@@ -52,8 +55,10 @@ const AddEpisode= () => {
   const [videoUrl, setVideoUrl] = useState('');
   const [duration, setDuration] = useState('');
   const [seriesId, setSeriesId] = useState('');
+  const [showId, setShowId] = useState('');
   const { data: currentUser } = useCurrentUser();
   const { data: series = [] } = useSeriesList();
+  const { data: shows = [] } = useShows();
   const [options, setOptions] = useState<SeriesInterface[]>([]);
   const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
@@ -67,11 +72,44 @@ const AddEpisode= () => {
     }
 
   }, [currentUser]);
-  
-  useEffect(() => {
-    setOptions(series);
-    console.log(series);
-  }, [series]);
+
+  const customStyles = {
+    option: (defaultStyles: any, state: any) => ({
+      ...defaultStyles,
+      color: state.isSelected ? "#212529" : "#fff",
+      backgroundColor: state.isSelected ? "black" : "black", 
+      opacity: 1,
+    }),
+
+    menu: (provided: any) => ({
+      ...provided,
+      backgroundColor: "black",
+      opacity: 1, // Set the opacity to 1 to make it fully opaque
+      zIndex: 100
+    }),
+
+    control: (defaultStyles: any) => ({
+      ...defaultStyles,
+      backgroundColor: "rgba(160, 160, 160, 1)",
+      padding: "10px",
+      border: "none",
+      boxShadow: "none",
+    }),
+    singleValue: (defaultStyles: any) => ({ ...defaultStyles, color: "#fff" }),
+  };
+
+  const showslist = shows.map((show: {id: string, title: string}) => (
+    {label: show.title, value: show.id}  
+  ));
+
+  const handleShowChange = (selected: any) => {
+    const showId: string = selected.value
+    setShowId(showId)
+    axios.get(`/api/series/${showId}`)
+      .then((response) => setOptions(response.data))
+      .catch((error) => console.error('Error fetching data:', error));
+    console.log(options);
+  };
 
   const saveEpisode = useCallback(async () => {
     try {
@@ -139,6 +177,11 @@ const AddEpisode= () => {
                 label="Episode duration" 
                 value={duration}
                 onChange={(e: any) => setDuration(e.target.value)} 
+              />
+              <Select
+                styles={customStyles}
+                onChange={handleShowChange}
+                options={showslist}
               />
               <Dropdown 
                 id="seriesId" 

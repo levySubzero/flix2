@@ -16,7 +16,7 @@ const Dropdown: React.FC<DropdownProps> = ({ id, onChange, value, label, series 
 
   useEffect(() => {
     setOptions(series);
-    console.log(series)
+    console.log(typeof series)
   }, [series]);
   
   return (
