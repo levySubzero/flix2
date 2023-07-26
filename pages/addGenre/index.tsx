@@ -1,15 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import { getSession, signIn } from 'next-auth/react';
-import Input from "../components/input";
-import serverAuth from '@/lib/serverAuth';
+import Input from "../../components/input";
 import useCurrentUser from '@/hooks/useCurrentUser';
 import { useRouter } from 'next/router';
 import { NextPageContext } from 'next';
-import Dropdown from '@/components/Dropdown';
-import useSeriesList from '@/hooks/useSeriesList';
 import { SeriesInterface } from '@/types';
-import prismadb from '@/lib/prismadb';
 
 
 export async function getServerSideProps(context: NextPageContext) {
