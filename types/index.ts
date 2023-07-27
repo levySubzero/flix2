@@ -5,11 +5,13 @@ export interface MovieInterface {
   thumbnailUrl: string;
   videoUrl: string;
   duration: string;
-  subGenres: string
-  trailerUrl: string
-  cast: string
-  shortDesc: string
+  subGenres: string;
+  trailerUrl: string;
+  cast: string;
+  shortDesc: string;
   year: string;
+  genreId: string;
+  categoryId: string;
 }
 
 export interface SeriesInterface {
