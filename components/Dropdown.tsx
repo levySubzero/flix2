@@ -61,7 +61,7 @@ const Dropdown: React.FC<DropdownProps> = ({ id, onChange, value, label, series 
           focus:ring-0
           peer"
       >
-        <option value="">Series</option>
+        <option value={value}>Series</option>
         {options?.map((seriesProp?) => (
           <option key={seriesProp?.id} value={seriesProp?.id}>
             {seriesProp?.title}

@@ -43,4 +43,5 @@ export interface EpisodeInterface {
   videoUrl: string;
   thumbnailUrl: string;
   duration: string;
+  seriesId: string;
 }

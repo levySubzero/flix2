@@ -2,10 +2,14 @@ import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import { getSession, signIn } from 'next-auth/react';
 import Input from "../../components/input";
+import serverAuth from '@/lib/serverAuth';
 import useCurrentUser from '@/hooks/useCurrentUser';
 import { useRouter } from 'next/router';
 import { NextPageContext } from 'next';
+import Dropdown from '@/components/Dropdown';
+import useSeriesList from '@/hooks/useSeriesList';
 import { SeriesInterface } from '@/types';
+import prismadb from '@/lib/prismadb';
 
 
 export async function getServerSideProps(context: NextPageContext) {
@@ -29,25 +33,25 @@ interface SeriesListProps {
   data: SeriesInterface[];
 }
 
-const AddGenre= () => {
+const AddCategory= () => {
   const [name, setName] = useState('');
   const { data: currentUser } = useCurrentUser();
   const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
   const { id } = router.query;
 
+  
   useEffect(() => {
     if (currentUser?.isAdmin) { 
         setIsAdmin(true)
     } else {
-      // router.push('/');
     }
 
   }, [currentUser]);
 
-  const saveGenre = useCallback(async () => {
+  const saveCategory = useCallback(async () => {
     try {
-      await axios.put('/api/newGenre', {
+      await axios.put('/api/newCategory', {
         id, name
       });
       router.push('/');
@@ -69,7 +73,7 @@ const AddGenre= () => {
         <div className="flex justify-center">
           <div className="bg-black bg-opacity-70 px-16 py-16 self-center mt-2 lg:w-2/5 lg:max-w-md rounded-md w-full">
             <h2 className="text-white text-4xl mb-8 font-semibold">
-              Update Genre
+              Update Category
             </h2>
             <div className="flex flex-col gap-4">
               <Input 
@@ -81,7 +85,7 @@ const AddGenre= () => {
               />
               
             </div>
-            <button onClick={saveGenre} className="bg-green-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition">
+            <button onClick={saveCategory} className="bg-green-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition">
               Update
             </button>
           </div>    
@@ -92,4 +96,4 @@ const AddGenre= () => {
   )
 }
 
-export default AddGenre;
+export default AddCategory;

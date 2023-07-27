@@ -10,13 +10,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (typeof episodeId !== 'string') {
       throw new Error('Invalid Id');
     }
-
     if (!episodeId) {
       throw new Error('Missing Id');
     }
-    if (req.method == 'GET') {
-     
 
+    if (req.method == 'GET') {
       const episode = await prismadb.episode.findUnique({
         where: {
           id: episodeId
@@ -28,7 +26,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
 
       return res.status(200).json(episode);
-    } else if (req.method === 'DELETE') {
+
+    }
+    if (req.method === 'DELETE') {
       // Delete the data by ID
       const deletedData = await prismadb.episode.delete({
         where: {
