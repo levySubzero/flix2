@@ -23,6 +23,7 @@ export interface SeriesInterface {
   year: string;
   cast: string;
   trailerUrl: string;
+  showId: string;
 }
 
 export interface ShowInterface {

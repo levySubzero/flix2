@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import { getSession, signIn } from 'next-auth/react';
-import Input from "../components/input";
+import Input from "../../components/input";
 import serverAuth from '@/lib/serverAuth';
 import useCurrentUser from '@/hooks/useCurrentUser';
 import { useRouter } from 'next/router';
@@ -32,10 +32,8 @@ const AddSeries = () => {
   const [thumbnailUrl, setThumbnailUrl] = useState('');
   const [showId, setShowId] = useState('');
   const [year, setYear] = useState('');
-  const [subGenres, setSubGenres] = useState('');
   const [trailerUrl, setTrailerUrl] = useState('');
   const [cast, setCast] = useState('');
-  const [shortDesc, setShortDesc] = useState('');
   const { data: currentUser } = useCurrentUser();
   const { data: shows = [] } = useShows();
   const [isAdmin, setIsAdmin] = useState(false);
