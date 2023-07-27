@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import { getSession, signIn } from 'next-auth/react';
-import Input from "../components/input";
+import Input from "../../components/input";
 import serverAuth from '@/lib/serverAuth';
 import useCurrentUser from '@/hooks/useCurrentUser';
 import { useRouter } from 'next/router';
@@ -9,6 +9,8 @@ import { NextPageContext } from 'next';
 import Select from 'react-select';
 import useCategories from '@/hooks/useCategories';
 import useGenres from '@/hooks/useGenres';
+import useShow from '@/hooks/useShow';
+import { ShowInterface } from '@/types';
 
 
 export async function getServerSideProps(context: NextPageContext) {
@@ -32,6 +34,9 @@ export async function getServerSideProps(context: NextPageContext) {
 }
 
 const AddShow = () => {
+  const router = useRouter();
+  const { id } = router.query;  
+  const { data: show = {} } = useShow(id as string);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [thumbnailUrl, setThumbnailUrl] = useState('');
@@ -46,7 +51,6 @@ const AddShow = () => {
   const { data: cats = [] } = useCategories();
   const { data: gnres = [] } = useGenres();
   const [isAdmin, setIsAdmin] = useState(false);
-  const router = useRouter();
 
   interface Category {
     label: string;
@@ -64,6 +68,20 @@ const AddShow = () => {
   });
 
   useEffect(() => {
+    const eps: ShowInterface = show;
+    setTitle(eps.title);
+    setDescription(eps.description);
+    setThumbnailUrl(eps.thumbnailUrl);
+    setGenre(eps.genreId);
+    setYear(eps.year);
+    setSubGenres(eps.subGenres);
+    setTrailerUrl(eps.trailerUrl);
+    setCast(eps.cast);
+    setCategoryId(eps.categoryId);
+    setShortDesc(eps.shortDesc);
+  }, [show]);
+
+  useEffect(() => {
     if (currentUser?.isAdmin) { 
         setIsAdmin(true)
     } else {
@@ -74,7 +92,8 @@ const AddShow = () => {
 
   const saveShow = useCallback(async () => {
     try {
-      await axios.post('/api/newShow', {
+      await axios.put('/api/newShow', {
+        id,
         title,
         description,
         thumbnailUrl,
@@ -139,7 +158,7 @@ const AddShow = () => {
         <div className="flex justify-center mx-4">
           <div className="bg-black bg-opacity-70 px-16 py-16 self-center mt-2 rounded-md w-full">
             <h2 className="text-white text-4xl mb-8 font-semibold">
-              Add New Series or Show
+              Update Series or Show
             </h2>
             <div className="space-y-2 flex items-center grid md:grid-cols-2 gap-2">
               <Input 
@@ -209,7 +228,7 @@ const AddShow = () => {
                 onChange={(e: any) => setShortDesc(e.target.value)} 
                 />
             <button onClick={saveShow} className="bg-green-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition">
-              Save
+              Update
             </button>
           </div>
           </div>    

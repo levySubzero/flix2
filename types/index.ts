@@ -33,6 +33,21 @@ export interface ShowInterface {
   thumbnailUrl: string;
   seasons: string[];
   year: string;
+  subGenres: string;
+  cast: string;
+  trailerUrl: string;
+  shortDesc: string;
+  genreId: string;
+  categoryId: string;
+}
+
+export interface ShowInterface {
+  id: string;
+  title: string;
+  description: string;
+  thumbnailUrl: string;
+  seasons: string[];
+  year: string;
   cast: string;
   trailerUrl: string;
   subGenres: string;
