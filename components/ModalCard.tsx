@@ -5,6 +5,7 @@ import { BiChevronDown  } from 'react-icons/bi';
 import { MovieInterface } from '@/types';
 import FavoriteButton from '@/components/FavoriteButton';
 import useInfoModalStore from '@/hooks/useInfoModalStore';
+import useGenreName from '@/hooks/useGenreName';
 
 interface MovieCardProps {
   data: MovieInterface;
@@ -13,6 +14,7 @@ interface MovieCardProps {
 const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
   const router = useRouter();
   const { openModal } = useInfoModalStore();
+  const { data: genrename = '' } = useGenreName(data.genreId);
   const redirectToWatch = useCallback(() => router.push(`/watch/${data.id}`), [router, data.id]);  
 
   return (
@@ -86,7 +88,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
             <p className="text-white text-[10px] lg:text-sm">{data.duration}</p>
           </div>
           <div className="flex flex-row items-center gap-2 mt-4 text-[8px] text-white lg:text-sm">
-            <p>{data.genre}</p>
+            <p></p>
           </div>
         </div>
       </div>
