@@ -6,6 +6,8 @@ import useInfoModalSeriesStore from '@/hooks/useInfoModalSeriesStore';
 import useShow from '@/hooks/useShow';
 import useEpisodeList from '@/hooks/useEpisodeList';
 import EpisodeList from './EpisodeList';
+import { EpisodeInterface, SeriesInterface } from '@/types';
+import useSeries from '@/hooks/useFindSeries';
 
 interface InfoModalProps {
   visible?: boolean;
@@ -14,10 +16,11 @@ interface InfoModalProps {
 
 const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
   const [isVisible, setIsVisible] = useState<boolean>(!!visible);
-  const { seriesId } = useInfoModalSeriesStore();
-  const { data = {} } = useShow(seriesId);
+  const { showId } = useInfoModalSeriesStore();
+  const { data = {} } = useShow(showId);
+  const { data: seasons = [] } = useSeries(showId);
 
-  // const { data: episodes = [] } = useEpisodeList(seriesId as string);
+  const { data: episodes = [] } = useEpisodeList(seasons[0].id as string);
   const episodes: any = []
   const handleClose = useCallback(() => {
     setIsVisible(false);
@@ -93,7 +96,7 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
             </div>
           </div>
           <div className="mx-3">
-            <EpisodeList title="Episodes" data={episodes} />
+            <EpisodeList title="Episodes" data={seasons[0].episodes} />
           </div>
         </div>
       </div>

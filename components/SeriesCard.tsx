@@ -1,10 +1,10 @@
 import { BsFillPlayFill  } from 'react-icons/bs';
 import { BiChevronDown  } from 'react-icons/bi';
-import { SeriesInterface } from '@/types';
+import { SeriesInterface, ShowInterface } from '@/types';
 import useInfoModalSeriesStore from '@/hooks/useInfoModalSeriesStore';
 
 interface SeriesCardProps {
-  data: SeriesInterface;
+  data: ShowInterface;
 }
 
 const SeriesCard: React.FC<SeriesCardProps> = ({ data }) => {

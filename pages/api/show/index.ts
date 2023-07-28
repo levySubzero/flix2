@@ -10,12 +10,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     await serverAuth(req, res);
 
-    const shows = await prismadb.show.findMany({
-      select: {
-        id: true,
-        title: true,
-      },
-    });
+    const shows = await prismadb.show.findMany();
 
     return res.status(200).json(shows);
   } catch (error) {

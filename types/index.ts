@@ -19,7 +19,7 @@ export interface SeriesInterface {
   title: string;
   description: string;
   thumbnailUrl: string;
-  episodes: string[];
+  episodes: EpisodeInterface[];
   year: string;
   cast: string;
   trailerUrl: string;
@@ -31,7 +31,7 @@ export interface ShowInterface {
   title: string;
   description: string;
   thumbnailUrl: string;
-  seasons: string[];
+  seasons: SeriesInterface[];
   year: string;
   subGenres: string;
   cast: string;
@@ -41,18 +41,6 @@ export interface ShowInterface {
   categoryId: string;
 }
 
-export interface ShowInterface {
-  id: string;
-  title: string;
-  description: string;
-  thumbnailUrl: string;
-  seasons: string[];
-  year: string;
-  cast: string;
-  trailerUrl: string;
-  subGenres: string;
-  shortDesc: string;
-}
 
 export interface EpisodeInterface {
   id: string;
