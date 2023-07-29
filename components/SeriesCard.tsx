@@ -12,7 +12,7 @@ const SeriesCard: React.FC<SeriesCardProps> = ({ data }) => {
   console.log(data.id)
 
   return (
-    <div className="group bg-zinc-900 col-span relative h-40 sm:w-44 md:w-52 mdd:w-48 lg:w-52 xl:w-56 mx-2 my-5">
+    <div className="group mx-1 bg-zinc-900 relative w-[250px] min-w-[250px] h-[180px] mr">
       <img onClick={() => openModal(data.id)} src={data.thumbnailUrl} alt="Series" draggable={false} className="
         cursor-pointer
         object-cover

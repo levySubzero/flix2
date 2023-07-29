@@ -7,6 +7,8 @@ import useMovie from '@/hooks/useMovie';
 import ModalList from '@/components/ModalList';
 import useMovieList from '@/hooks/useMovieList';
 import ModalCard from './ModalCard';
+import EditButton from './EditButton';
+import router from 'next/router';
 
 interface InfoModalProps {
   visible?: boolean;
@@ -34,6 +36,10 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
     return null;
   }
 
+  const edit = (id: string) => {
+    router.push(`/addMovie/${movieId}`)
+  }
+
   return (
     <div onClick={handleClose} className="z-50 transition duration-300 bg-black bg-opacity-80 flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0">
       <div className="relative w-screen mx-auto my-auto max-w-5xl rounded-md overflow-hidden">
@@ -51,6 +57,7 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
               <div className="flex flex-row gap-4 items-center">
                 <PlayButton movieId={data?.id} />
                 <FavoriteButton movieId={data?.id} />
+                <EditButton movieId={data?.id} clicked={edit} />
               </div>
             </div>
           </div>

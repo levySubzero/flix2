@@ -9,10 +9,10 @@ interface ShowListProps {
 
 const SeriesList: React.FC<ShowListProps> = ({ data, title }) => {
    return (
-    <div className="px-4 my-6 md:px-12 space-y-8">
+    <div className="flex justify-center flex-col py-16">
       <div>
         <p className="text-white text-md md:text-xl lg:text-2xl font-semibold mb-4">{title}</p>
-        <div className="grid grid-cols-2 sm:grid-cols-3 mdd:grid-cols-4 ld:grid-cols-5">
+        <div className="flex">
           {data.map((series) => (
             <SeriesCard key={series.id} data={series} />
           ))}
