@@ -53,7 +53,7 @@ const Dropdown: React.FC<DropdownProps> = ({ id, onChange, value, label, series 
           px-6
           pt-6
           pb-1
-          w-1/2
+          w-3/4
           text-md
           text-white
           bg-black
@@ -62,6 +62,7 @@ const Dropdown: React.FC<DropdownProps> = ({ id, onChange, value, label, series 
           focus:ring-0
           peer"
       >
+        <option key={0} value={0} >Select Season</option>
         {options?.map((seriesProp?) => (
           <option key={seriesProp?.id} value={seriesProp?.id}>
             {seriesProp?.title}

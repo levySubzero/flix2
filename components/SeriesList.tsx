@@ -1,13 +1,13 @@
 import React from 'react';
-import { SeriesInterface } from '@/types';
+import { SeriesInterface, ShowInterface } from '@/types';
 import SeriesCard from '@/components/SeriesCard';
 
-interface SeriesListProps {
-  data: SeriesInterface[];
+interface ShowListProps {
+  data: ShowInterface[];
   title: string;
 }
 
-const SeriesList: React.FC<SeriesListProps> = ({ data, title }) => {
+const SeriesList: React.FC<ShowListProps> = ({ data, title }) => {
    return (
     <div className="px-4 my-6 md:px-12 space-y-8">
       <div>

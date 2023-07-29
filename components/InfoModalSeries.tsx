@@ -23,6 +23,7 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
   const [episodes, setEpisodes] = useState<EpisodeInterface[]>([]);
   const [seasonId, setSeasonId] = useState('');
   const { data = {} } = useShow(showId);
+  const [currentSeason, setcurrentSeason] = useState<SeriesInterface>();
   const { data: seasons = [] } = useSeries(showId as string);
 
   // const { data: episodes = [] } = useEpisodeList(seasons[0].id as string);
@@ -42,12 +43,20 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
 
   useEffect(() => {
     setOptions(seasons);
-    console.log('raw', seasons);
+    for (let i = 0; i < 1; i++) {
+      const season = seasons[i];
+      setcurrentSeason(season);
+      console.log('id', season.id)
+      setEpisodes(season.episodes)
+      // axios.get(`/api/episodes/${season.id}`)
+      // .then((response) => setEpisodes(season.episodes))
+      // .catch((error) => console.error('Error fetching data:', error));
+    }
   }, [seasons]);
 
   const handleSeasonChange = (value: string) => {
     const seasonId: string = value
-    setSeasonId(seasonId)
+    setSeasonId(seasonId);
     axios.get(`/api/episodes/${seasonId}`)
       .then((response) => setEpisodes(response.data))
       .catch((error) => console.error('Error fetching data:', error));
@@ -64,17 +73,17 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
         <div className={`${isVisible ? 'scale-100' : 'scale-0'} transform duration-300 relative flex-auto bg-zinc-900 drop-shadow-md`}>
         
           <div className="relative h-96">
-          <video poster={data?.thumbnailUrl} autoPlay muted loop src={data?.trailerUrl} className="w-full brightness-[60%] object-cover h-full" />
+          <video poster={currentSeason?.thumbnailUrl} autoPlay muted loop src={currentSeason?.trailerUrl} className="w-full brightness-[60%] object-cover h-full" />
             <div onClick={handleClose} className="cursor-pointer absolute top-3 right-3 h-10 w-10 rounded-full bg-black bg-opacity-70 flex items-center justify-center">
               <AiOutlineClose className="text-white w-6" />
             </div>
             <div className="absolute bottom-[10%] left-10">
               <p className="text-white text-3xl md:text-4xl h-full lg:text-5xl font-bold mb-8">
-                {data?.title}
+                {currentSeason?.title}
               </p>
               <div className="flex flex-row gap-4 items-center">
-                <PlayButton movieId={data?.id} />
-                <FavoriteButton movieId={data?.id} />
+                <PlayButton movieId={currentSeason?.id as string} />
+                <FavoriteButton movieId={currentSeason?.id as string} />
               </div>
             </div>
           </div>
@@ -84,10 +93,10 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
                 <div className="flex flex-col items-start gap-2 mb-8">
                   <div className="flex flex-row text-left gap-2 mb-8">
                     <p className="text-green-400 font-semibold text-lg">
-                      {data?.year}
+                      {currentSeason?.year}
                     </p>
                     <p className="text-white">
-                      {data?.episodes}
+                      {/* {currentSeason?.episodes.length} */}
                     </p>
                   </div>
                   <p className="text-white mt-[-20px]">
@@ -95,7 +104,7 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
                   </p>
                   <div className="">
                     <p className="text-white">
-                      {data?.description}
+                      {currentSeason?.description}
                     </p>
                   </div>
                 </div>
@@ -103,7 +112,7 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
               <div className="col-span-1 mt-20 flex flex-col justify-center align-center">
                 <div className="flex flex-col ml-20 flex items-start justify-end gap-2 mb-8">
                   <p className="text-white">
-                    <span className="text-gray-400">Cast:  </span>{data?.cast}
+                    <span className="text-gray-400">Cast:  </span>{currentSeason?.cast}
                   </p>
                   <p className="text-white">
                     <span className="text-gray-400">Genres:  </span>{data?.subGenres}
