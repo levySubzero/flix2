@@ -16,9 +16,8 @@ const Dropdown: React.FC<DropdownProps> = ({ id, onChange, value, label, series 
 
   useEffect(() => {
     setOptions(series);
-    console.log(typeof series)
   }, [series]);
-  
+
   return (
     <div className="relative">
     <label 
@@ -47,21 +46,22 @@ const Dropdown: React.FC<DropdownProps> = ({ id, onChange, value, label, series 
         value={value}
         id={id}
         className="
+          border-2 
+          border-white
           block
           rounded-md
           px-6
           pt-6
           pb-1
-          w-full
+          w-1/2
           text-md
           text-white
-          bg-neutral-700
+          bg-black
           appearance-none
           focus:outline-none
           focus:ring-0
           peer"
       >
-        <option value={value}>Series</option>
         {options?.map((seriesProp?) => (
           <option key={seriesProp?.id} value={seriesProp?.id}>
             {seriesProp?.title}

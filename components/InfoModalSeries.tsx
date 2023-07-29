@@ -9,6 +9,7 @@ import useEpisodeList from '@/hooks/useEpisodeList';
 import EpisodeList from './EpisodeList';
 import { EpisodeInterface, SeriesInterface } from '@/types';
 import useSeries from '@/hooks/useSeries';
+import axios from 'axios';
 
 interface InfoModalProps {
   visible?: boolean;
@@ -19,15 +20,18 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
   const [isVisible, setIsVisible] = useState<boolean>(!!visible);
   const { showId } = useInfoModalSeriesStore();
   const [options, setOptions] = useState<SeriesInterface[]>([]);
+  const [episodes, setEpisodes] = useState<EpisodeInterface[]>([]);
   const [seasonId, setSeasonId] = useState('');
   const { data = {} } = useShow(showId);
   const { data: seasons = [] } = useSeries(showId as string);
 
   // const { data: episodes = [] } = useEpisodeList(seasons[0].id as string);
-  // const episodes: any = []
   const handleClose = useCallback(() => {
     setIsVisible(false);
     setTimeout(() => {
+      setEpisodes([]);
+      setOptions([]);
+      setSeasonId('')
       onClose();
     }, 300);
   }, [onClose]);
@@ -37,8 +41,17 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
   }, [visible]);
 
   useEffect(() => {
+    setOptions(seasons);
     console.log('raw', seasons);
-  }, [seasonId]);
+  }, [seasons]);
+
+  const handleSeasonChange = (value: string) => {
+    const seasonId: string = value
+    setSeasonId(seasonId)
+    axios.get(`/api/episodes/${seasonId}`)
+      .then((response) => setEpisodes(response.data))
+      .catch((error) => console.error('Error fetching data:', error));
+  }
 
   if (!visible) {
     return null;
@@ -46,7 +59,7 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
   
 
   return (
-    <div onClick={handleClose} className="z-50 transition duration-300 bg-black bg-opacity-80 flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0">
+    <div className="z-50 transition duration-300 bg-black bg-opacity-80 flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0">
       <div className="relative w-screen mx-auto my-auto max-w-5xl rounded-md overflow-hidden">
         <div className={`${isVisible ? 'scale-100' : 'scale-0'} transform duration-300 relative flex-auto bg-zinc-900 drop-shadow-md`}>
         
@@ -87,7 +100,7 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
                   </div>
                 </div>
               </div>
-              <div className="col-span-1 mt-20">
+              <div className="col-span-1 mt-20 flex flex-col justify-center align-center">
                 <div className="flex flex-col ml-20 flex items-start justify-end gap-2 mb-8">
                   <p className="text-white">
                     <span className="text-gray-400">Cast:  </span>{data?.cast}
@@ -99,20 +112,24 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
                     <span className="text-gray-400">The film is:  </span>{data?.shortDesc}
                   </p>
                 </div>    
+                <div className="ml-8">
+                  <div className="ml-8">
+                    <Dropdown 
+                      id="seasons" 
+                      label="Select Season" 
+                      value={seasonId}
+                      series={options}
+                      onChange={(e: any) => handleSeasonChange(e.target.value)} 
+                    />
+                  </div>
+                </div>
               </div>
-              <Dropdown 
-                id="seasons" 
-                label="Select Season" 
-                value={seasonId}
-                series={options}
-                onChange={(e: any) => setSeasonId(e.target.value)} 
-              />
              
             </div>
           </div>
-          <div className="mx-3">
-            {/* <EpisodeList title="Episodes" data={} /> */}
-          </div>
+          {episodes.length > 0 &&<div className="mx-3">
+            <EpisodeList title="Episodes" data={episodes} />
+          </div>}
         </div>
       </div>
     </div>

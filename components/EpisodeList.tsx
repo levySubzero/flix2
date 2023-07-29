@@ -8,7 +8,6 @@ interface EpisodeListProps {
 }
 const EpisodeList: React.FC<EpisodeListProps> = ({ data, title }) => {
   return (
-    <div className="mx-0">
       <div>
         <p className="text-white text-md md:text-xl lg:text-2xl font-semibold mb-4">{title}</p>
         <div className="">
@@ -17,7 +16,6 @@ const EpisodeList: React.FC<EpisodeListProps> = ({ data, title }) => {
           ))}
         </div>
       </div>
-    </div>
   );
 }
 
