@@ -6,7 +6,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const { seriesId } = req.query;
     await serverAuth(req, res);
-
+      console.log('raw', seriesId);
     if (typeof seriesId !== 'string') {
       throw new Error('Invalid Id');
     }
@@ -23,10 +23,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
       });
 
+      
       if (!series) {
           throw new Error('Invalid Id');
         }
-
       return res.status(200).json(series);
     } else if (req.method === 'DELETE') {
       // Delete the data by ID

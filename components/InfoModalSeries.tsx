@@ -4,10 +4,11 @@ import PlayButton from '@/components/PlayButton';
 import FavoriteButton from '@/components/FavoriteButton';
 import useInfoModalSeriesStore from '@/hooks/useInfoModalSeriesStore';
 import useShow from '@/hooks/useShow';
+import Dropdown from '@/components/Dropdown';
 import useEpisodeList from '@/hooks/useEpisodeList';
 import EpisodeList from './EpisodeList';
 import { EpisodeInterface, SeriesInterface } from '@/types';
-import useSeries from '@/hooks/useFindSeries';
+import useSeries from '@/hooks/useSeries';
 
 interface InfoModalProps {
   visible?: boolean;
@@ -17,11 +18,13 @@ interface InfoModalProps {
 const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
   const [isVisible, setIsVisible] = useState<boolean>(!!visible);
   const { showId } = useInfoModalSeriesStore();
+  const [options, setOptions] = useState<SeriesInterface[]>([]);
+  const [seasonId, setSeasonId] = useState('');
   const { data = {} } = useShow(showId);
-  const { data: seasons = [] } = useSeries(showId);
+  const { data: seasons = [] } = useSeries(showId as string);
 
-  const { data: episodes = [] } = useEpisodeList(seasons[0].id as string);
-  const episodes: any = []
+  // const { data: episodes = [] } = useEpisodeList(seasons[0].id as string);
+  // const episodes: any = []
   const handleClose = useCallback(() => {
     setIsVisible(false);
     setTimeout(() => {
@@ -33,9 +36,14 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
     setIsVisible(!!visible);
   }, [visible]);
 
+  useEffect(() => {
+    console.log('raw', seasons);
+  }, [seasonId]);
+
   if (!visible) {
     return null;
   }
+  
 
   return (
     <div onClick={handleClose} className="z-50 transition duration-300 bg-black bg-opacity-80 flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0">
@@ -92,11 +100,18 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
                   </p>
                 </div>    
               </div>
+              <Dropdown 
+                id="seasons" 
+                label="Select Season" 
+                value={seasonId}
+                series={options}
+                onChange={(e: any) => setSeasonId(e.target.value)} 
+              />
              
             </div>
           </div>
           <div className="mx-3">
-            <EpisodeList title="Episodes" data={seasons[0].episodes} />
+            {/* <EpisodeList title="Episodes" data={} /> */}
           </div>
         </div>
       </div>
