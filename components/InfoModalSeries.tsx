@@ -46,8 +46,6 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
     for (let i = 0; i < 1; i++) {
       const season = seasons[i];
       setcurrentSeason(season);
-      console.log('id', season.id)
-      setEpisodes(season.episodes)
       // axios.get(`/api/episodes/${season.id}`)
       // .then((response) => setEpisodes(season.episodes))
       // .catch((error) => console.error('Error fetching data:', error));
