@@ -6,15 +6,16 @@ import { useRouter } from 'next/router';
 
 interface PlayButtonProps {
   movieId: string;
-  clicked: any
+  clicked: any;
+  title: string;
 }
 
-const EditButton: React.FC<PlayButtonProps> = ({ movieId, clicked }) => {
+const EditButton: React.FC<PlayButtonProps> = ({ movieId, clicked, title }) => {
   const router = useRouter();
 
   return (
     <button 
-      onClick={clicked(movieId)}
+      onClick={clicked}
       className="
         bg-white 
         rounded-md 
@@ -32,7 +33,7 @@ const EditButton: React.FC<PlayButtonProps> = ({ movieId, clicked }) => {
       >
         {/* <PlayIcon className="w-4 md:w-7 text-black mr-1" /> */}
         <BsPencilFill className="w-4 md:w-7 text-black mr-1" />
-        Edit
+        {title}
     </button>
   );
 }

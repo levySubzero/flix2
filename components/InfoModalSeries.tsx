@@ -10,6 +10,8 @@ import EpisodeList from './EpisodeList';
 import { EpisodeInterface, SeriesInterface } from '@/types';
 import useSeries from '@/hooks/useSeries';
 import axios from 'axios';
+import router from 'next/router';
+import EditButton from './EditButton';
 
 interface InfoModalProps {
   visible?: boolean;
@@ -63,7 +65,12 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
   if (!visible) {
     return null;
   }
-  
+  const editshow = (id: string) => {
+    router.push(`/addShow/${showId}`)
+  }
+  const editseason = (id: string) => {
+    router.push(`/addSeries/${seasonId}`)
+  }
 
   return (
     <div className="z-50 transition duration-300 bg-black bg-opacity-80 flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0">
@@ -82,6 +89,8 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
               <div className="flex flex-row gap-4 items-center">
                 <PlayButton movieId={currentSeason?.id as string} />
                 <FavoriteButton movieId={currentSeason?.id as string} />
+                <EditButton movieId={data?.id as string} clicked={editshow} title={'Edit Show'}/>
+                <EditButton movieId={currentSeason?.id as string} clicked={editseason} title={'Edit Season'}/>
               </div>
             </div>
           </div>
