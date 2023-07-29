@@ -32,7 +32,6 @@ export async function getServerSideProps(context: NextPageContext) {
 const AddSeries = () => {
   const router = useRouter();
   const { id } = router.query;
-  const { data: series = {} } = useFindSeries(id as string);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [thumbnailUrl, setThumbnailUrl] = useState('');
@@ -54,16 +53,25 @@ const AddSeries = () => {
   }, [currentUser]); 
 
   useEffect(() => {
-    const eps: SeriesInterface = series;
-    console.log(eps);
-    setTitle(eps.title);
-    setDescription(eps.description);
-    setThumbnailUrl(eps.thumbnailUrl);
-    setYear(eps.year);
-    setTrailerUrl(eps.trailerUrl);
-    setShowId(eps.showId);
-    setCast(eps.cast);
-  }, [series]);  
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`/api/findseries/${id}`);
+        const eps: SeriesInterface = response.data;
+        console.log(eps);
+        setTitle(eps.title);
+        setDescription(eps.description);
+        setThumbnailUrl(eps.thumbnailUrl);
+        setYear(eps.year);
+        setTrailerUrl(eps.trailerUrl);
+        setShowId(eps.showId);
+        setCast(eps.cast);
+      } catch (error) {
+        console.log(error)
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const customStyles = {
     option: (defaultStyles: any, state: any) => ({

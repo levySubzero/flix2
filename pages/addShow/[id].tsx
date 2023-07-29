@@ -36,7 +36,6 @@ export async function getServerSideProps(context: NextPageContext) {
 const AddShow = () => {
   const router = useRouter();
   const { id } = router.query;  
-  const { data: show = {} } = useShow(id as string);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [thumbnailUrl, setThumbnailUrl] = useState('');
@@ -66,20 +65,28 @@ const AddShow = () => {
   gnres.forEach((category: { name: string; id: string; }) => {
     categories.push({label: category.name, value: category.id })
   });
-
   useEffect(() => {
-    const eps: ShowInterface = show;
-    setTitle(eps.title);
-    setDescription(eps.description);
-    setThumbnailUrl(eps.thumbnailUrl);
-    setGenre(eps.genreId);
-    setYear(eps.year);
-    setSubGenres(eps.subGenres);
-    setTrailerUrl(eps.trailerUrl);
-    setCast(eps.cast);
-    setCategoryId(eps.categoryId);
-    setShortDesc(eps.shortDesc);
-  }, [show]);
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`/api/show/${id}`);
+        const eps: ShowInterface = response.data;
+        setTitle(eps.title);
+        setDescription(eps.description);
+        setThumbnailUrl(eps.thumbnailUrl);
+        setGenre(eps.genreId);
+        setYear(eps.year);
+        setSubGenres(eps.subGenres);
+        setTrailerUrl(eps.trailerUrl);
+        setCast(eps.cast);
+        setCategoryId(eps.categoryId);
+        setShortDesc(eps.shortDesc);
+      } catch (error) {
+        console.log(error)
+      }
+    };
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     if (currentUser?.isAdmin) { 

@@ -36,7 +36,6 @@ export async function getServerSideProps(context: NextPageContext) {
 const AddMovie = () => {
   const router = useRouter();
   const { id } = router.query;
-  const { data: movie = {} } = useMovie(id as string);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [videoUrl, setVideoUrl] = useState('');
@@ -60,20 +59,29 @@ const AddMovie = () => {
   }
 
   useEffect(() => {
-    const eps: MovieInterface = movie;
-    setTitle(eps.title);
-    setDescription(eps.description);
-    setThumbnailUrl(eps.thumbnailUrl);
-    setVideoUrl(eps.videoUrl);
-    setGenre(eps.genreId);
-    setDuration(eps.duration);
-    setYear(eps.year);
-    setSubGenres(eps.subGenres);
-    setTrailerUrl(eps.trailerUrl);
-    setCast(eps.cast);
-    setCategoryId(eps.categoryId);
-    setShortDesc(eps.shortDesc);
-  }, [movie]);
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`/api/movies/${id}`);
+        const eps: MovieInterface = response.data;
+        setTitle(eps.title);
+        setDescription(eps.description);
+        setThumbnailUrl(eps.thumbnailUrl);
+        setVideoUrl(eps.videoUrl);
+        setGenre(eps.genreId);
+        setDuration(eps.duration);
+        setYear(eps.year);
+        setSubGenres(eps.subGenres);
+        setTrailerUrl(eps.trailerUrl);
+        setCast(eps.cast);
+        setCategoryId(eps.categoryId);
+        setShortDesc(eps.shortDesc);
+      } catch (error) {
+        console.log(error)
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const genres: Category[] = [];
   cats.forEach((genre: { name: string; id: string; }) => {

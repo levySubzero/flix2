@@ -22,7 +22,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           id: showId
         }
       });
-      console.log('khhr', series)
       if (!series) {
           throw new Error('Invalid Id');
         }
