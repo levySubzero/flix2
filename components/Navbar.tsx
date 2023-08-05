@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import NavbarItem from "./Navbaritem"
+import SearchBar from "./SearchBar"
 import MobileMenu from '@/components/MobileMenu';
 import AccountMenu from "./AccountMenu";
-// import { BellIcon, MagnifyingGlassIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import { BsBell, BsSearch, BsChevronDown } from 'react-icons/bs';
 import { useRouter } from "next/router";
 
@@ -59,12 +59,9 @@ const Navbar: React.FC<NavbarProps> = ({ home }) => {
             <MobileMenu visible={showMobileMenu} />
           </div>
           <div className="flex flex-row ml-auto gap-7 items-center">
-            {/* <div className="text-gray-200 hover:text-gray-300 cursor-pointer transition">
-              <BsSearch className="w-6" />
+            <div className="flex align-center cursor-pointer transition">
+              <SearchBar />
             </div>
-            <div className="text-gray-200 hover:text-gray-300 cursor-pointer transition">
-              <BsBell className="w-6" />
-            </div> */}
             <div onClick={toggleAccountMenu} className="flex flex-row items-center gap-2 cursor-pointer relative">
               <div className="w-6 h-6 lg:w-10 lg:h-10 rounded-md overflow-hidden">
                 <img src="/images/default-blue.png" alt="" />
