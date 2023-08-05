@@ -125,7 +125,7 @@ model Episode {
 model Category {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   name String
-  home Int
+  home Int @default(0)
   shows Show[]
   movies Movie[]
 }
