@@ -51,3 +51,13 @@ export interface EpisodeInterface {
   duration: string;
   seriesId: string;
 }
+
+export interface CategoryInterface {
+  id: string;
+  name: string;
+  home: boolean;
+  showIds: string[];
+  movieIds: string[];
+  shows: ShowInterface[];
+  movies: MovieInterface[];
+}

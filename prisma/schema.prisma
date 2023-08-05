@@ -126,6 +126,8 @@ model Category {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   name String
   home Boolean @default(false)
+  showIds String[] @db.ObjectId
+  movieIds String[] @db.ObjectId
   shows Show[]
   movies Movie[]
 }
@@ -133,6 +135,8 @@ model Category {
 model Genre {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   name String
+  showIds String[] @db.ObjectId
+  movieIds String[] @db.ObjectId
   shows Show[]
   movies Movie[]
 
