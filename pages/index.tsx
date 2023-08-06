@@ -93,8 +93,8 @@ const Home: React.FC<PropInterface> = ({ cats }) => {
         <div className='mx-3'>
           <MovieList  title="My List" movies={favorites} shows={[]}/>
         </div>
-          {cats.map((cat: ItemInterface) => (
-              <MovieList title={`${cat.title}`} movies={cat.movies} shows={cat.shows}/>
+          {cats.map((cat: ItemInterface, i) => (
+                <MovieList key={i} title={`${cat.title}`} movies={cat.movies} shows={cat.shows}/>
           ))}
 
           {/* <MovieList title="Trending Now" data={movies} />
