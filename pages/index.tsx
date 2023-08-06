@@ -19,7 +19,7 @@ import axios from 'axios';
 import prismadb from '@/lib/prismadb';
 import useCatsHome from '@/hooks/useCatsHome';
 
-export const getServerSideProps: GetServerSideProps<{categories: ItemInterface[]}> = async (context) =>  {
+export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
 
   if (!session) {
@@ -31,35 +31,35 @@ export const getServerSideProps: GetServerSideProps<{categories: ItemInterface[]
     }
   }
 
-  const categorys: CategoryInterface[] = await prismadb.category.findMany({
-    where: {
-        home: true
-    }
-  }); 
+  // const categorys: CategoryInterface[] = await prismadb.category.findMany({
+  //   where: {
+  //       home: true
+  //   }
+  // }); 
 
-  const categories: ItemInterface[] = [];
+  // const categories: ItemInterface[] = [];
 
-  categorys.map(async (category) => {
-    const moviesQuery = await prismadb.movie.findMany({
-      where: {
-          categoryId: category.id
-      },
-      take: 5,
-    });
+  // categorys.map(async (category) => {
+  //   const moviesQuery = await prismadb.movie.findMany({
+  //     where: {
+  //         categoryId: category.id
+  //     },
+  //     take: 5,
+  //   });
   
-    const showsQuery = await prismadb.show.findMany({
-      where: {
-          categoryId: category.id
-      },
-      take: 5,
-    });
+  //   const showsQuery = await prismadb.show.findMany({
+  //     where: {
+  //         categoryId: category.id
+  //     },
+  //     take: 5,
+  //   });
 
-    const [movies, shows] = await Promise.all([moviesQuery, showsQuery]);
-    categories.push({'title' : `${category.name}`, movies, shows})
-  });
-  console.log(categories);
+  //   const [movies, shows] = await Promise.all([moviesQuery, showsQuery]);
+  //   categories.push({'title' : `${category.name}`, movies, shows})
+  // });
+  // console.log(categories);
   return {
-    props: { categories }
+    props: {}
   }
 }
 
