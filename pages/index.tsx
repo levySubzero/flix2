@@ -16,6 +16,7 @@ import useCategories from '@/hooks/useCategories';
 import { Category } from '@prisma/client';
 import { CategoryInterface, ItemInterface, MovieInterface, PropInterface, SeriesInterface, ShowInterface } from '@/types';
 import axios from 'axios';
+import prismadb from '@/lib/prismadb';
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
