@@ -53,7 +53,7 @@ export default function Home() {
   }
 
   const getSeries = (catId: string) => {
-    axios.get(`/api/show/category${catId}`)
+    axios.get(`/api/show/category/${catId}`)
       .then((response) => console.log('s', response.data))
       .catch((error) => console.error('Error fetching data:', error))
     return '';
