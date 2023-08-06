@@ -108,3 +108,4 @@ const Home: React.FC<PropInterface> = ({ cats }) => {
     </>
   )
 }
+export default Home;
