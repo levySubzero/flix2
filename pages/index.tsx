@@ -17,6 +17,7 @@ import { Category } from '@prisma/client';
 import { CategoryInterface, ItemInterface, MovieInterface, PropInterface, SeriesInterface, ShowInterface } from '@/types';
 import axios from 'axios';
 import prismadb from '@/lib/prismadb';
+import useCatsHome from '@/hooks/useCatsHome';
 
 export const getServerSideProps: GetServerSideProps<{categories: ItemInterface[]}> = async (context) =>  {
   const session = await getSession(context);
@@ -62,28 +63,33 @@ export const getServerSideProps: GetServerSideProps<{categories: ItemInterface[]
   }
 }
 
-const Home = ( categories: ItemInterface[] ) => {
+const Home = () => {
   const { data: favorites = [] } = useFavorites();
   const { data: shows = [] } = useShowList();
+  const { data: categorys = [] } = useCatsHome();
   const [series, setSeries] = useState<ShowInterface[]>([]);
   const [movie, setMovies] = useState<MovieInterface[]>([]);
   const { isOpen: modalOpen, closeModal: modalClose } = useInfoModalSeriesStore();
   const { isOpen, closeModal } = useInfoModalStore();
 
-  const getMovies = (catId: string) => {
-    axios.get(`/api/movies/category/${catId}`)
-      .then((response) => {return response.data})
-      .catch((error) => console.error('Error fetching data:', error))
-    
-  }
+  const getMovies = async (catId: string) => {
+    try {
+        const response = await axios.get(`/api/movies/category/${catId}`);
+        setMovies(response.data);
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+  };
 
-  const getSeries = (catId: string) => {
-    axios.get(`/api/show/category/${catId}`)
-      .then((response) => console.log('s', response.data))
-      .catch((error) => console.error('Error fetching data:', error))
-    return '';
-  }
-  console.log(categories);
+  const getSeries = async (catId: string) => {
+    try {
+        const response = await axios.get(`/api/show/category/${catId}`);
+        setSeries(response.data);
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+  };
+
   return (
     <>
       <InfoModalSeries visible={modalOpen} onClose={modalClose} />
@@ -94,9 +100,14 @@ const Home = ( categories: ItemInterface[] ) => {
         <div className='mx-3'>
           <MovieList  title="My List" movies={favorites} shows={[]}/>
         </div>
-          {/* {categories.map((cat: ItemInterface, i) => (
-                <MovieList key={i} title={`${cat.title}`} movies={cat.movies} shows={cat.shows}/>
-          ))} */}
+          {categorys.map((cat: CategoryInterface, i: any) => {
+            getMovies(cat.id);
+            getSeries(cat.id);
+            return (
+              <MovieList key={i} title={`${cat.name}`} movies={movie} shows={series}/>
+
+            )
+            })}
 
           {/* <MovieList title="Trending Now" data={movies} />
         
