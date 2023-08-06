@@ -17,18 +17,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (req.method == 'GET') {
      
 
-      const movies = await prismadb.movie.findMany({
+      const moviesQuery = await prismadb.movie.findMany({
         where: {
             categoryId: categoryId
         },
-        take: 10,
+        take: 5,
       });
 
-      if (!movies) {
-          throw new Error('Invalid Id');
-        }
+      const showsQuery = await prismadb.show.findMany({
+        where: {
+            categoryId: categoryId
+        },
+        take: 5,
+      });
 
-      return res.status(200).json(movies);
+      const [movies, shows] = await Promise.all([moviesQuery, showsQuery]);
+
+      return res.status(200).json([movies, shows]);
     } else {
       return res.status(405).end();
     }

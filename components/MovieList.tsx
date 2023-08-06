@@ -1,20 +1,22 @@
 import React from 'react';
-import { MovieInterface } from '@/types';
+import { ItemInterface, MovieInterface } from '@/types';
 import MovieCard from '@/components/MovieCard';
+import SeriesList from './SeriesList';
+import SeriesCard from './SeriesCard';
 
-interface MovieListProps {
-  data: MovieInterface[];
-  title: string;
-}
-const MovieList: React.FC<MovieListProps> = ({ data, title }) => {
+const MovieList: React.FC<ItemInterface> = ({ movies, shows, title }) => {
+  const items = Array.from({ length: 5 }, (_, index) => index)
   return (
     <div className="flex justify-center flex-col py-16">
       <div>
         <p className="text-white text-md md:text-xl lg:text-2xl font-semibold ">{title}</p>
       </div>
       <div className="flex mt-2">
-        {data.map((movie) => (
-          <MovieCard key={movie.id} data={movie} />
+        { items.map((item, i) => (
+          <>
+            <MovieCard key={movies[i].id} data={movies[i]} />
+            <SeriesCard key={shows[i].id} data={shows[i]} />
+          </>
         ))}
       </div>
     </div>

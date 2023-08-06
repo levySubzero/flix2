@@ -35,7 +35,7 @@ export default function Films() {
       <Navbar home={true} />
       <Billboard />
       <div className="pb-4 z-30 xl:absolute top-[80%]">
-        <MovieList title="Films" data={movies} />
+        <MovieList title="Films" movies={movies} shows={[]}/>
       </div>
     </>
   )

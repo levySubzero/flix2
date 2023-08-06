@@ -31,7 +31,6 @@ export interface ShowInterface {
   title: string;
   description: string;
   thumbnailUrl: string;
-  seasons: SeriesInterface[];
   year: string;
   subGenres: string;
   cast: string;
@@ -56,8 +55,15 @@ export interface CategoryInterface {
   id: string;
   name: string;
   home: boolean;
-  showIds: string[];
   movieIds: string[];
+}
+
+export interface ItemInterface  {
+  title: string;
   shows: ShowInterface[];
   movies: MovieInterface[];
+}
+
+export interface PropInterface {
+  cats: ItemInterface[];
 }

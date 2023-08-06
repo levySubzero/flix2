@@ -33,7 +33,7 @@ export default function MyList() {
       <InfoModal visible={isOpen} onClose={closeModal} />
       <Navbar home={true} />
       <div className="pb-40 absolute top-[10%]">
-        <MovieList title="My List" data={favorites} />
+        <MovieList title="My List" movies={favorites} shows={[]}/>
       </div>
     </>
   )

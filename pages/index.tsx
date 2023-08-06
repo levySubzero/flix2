@@ -14,7 +14,7 @@ import useInfoModalSeriesStore from '@/hooks/useInfoModalSeriesStore';
 import InfoModalSeries from '@/components/InfoModalSeries';
 import useCategories from '@/hooks/useCategories';
 import { Category } from '@prisma/client';
-import { CategoryInterface, MovieInterface, SeriesInterface, ShowInterface } from '@/types';
+import { CategoryInterface, ItemInterface, MovieInterface, PropInterface, SeriesInterface, ShowInterface } from '@/types';
 import axios from 'axios';
 
 export async function getServerSideProps(context: NextPageContext) {
@@ -29,16 +29,40 @@ export async function getServerSideProps(context: NextPageContext) {
     }
   }
 
+  const categorys: CategoryInterface[] = await prismadb.category.findMany({
+    where: {
+        home: true
+    }
+  }); 
 
+  const categories: ItemInterface[] = [];
+
+  categorys.map(async (category) => {
+    const moviesQuery = await prismadb.movie.findMany({
+      where: {
+          categoryId: category.id
+      },
+      take: 5,
+    });
+  
+    const showsQuery = await prismadb.show.findMany({
+      where: {
+          categoryId: category.id
+      },
+      take: 5,
+    });
+
+    const [movies, shows] = await Promise.all([moviesQuery, showsQuery]);
+    categories.push({'title' : `${category.name}`, movies, shows})
+  });
 
   return {
-    props: {}
+    props: { categories }
   }
 }
 
-export default function Home() {
+const Home: React.FC<PropInterface> = ({ cats }) => {
   const { data: favorites = [] } = useFavorites();
-  const { data: categories = [] } = useCategories();
   const { data: shows = [] } = useShowList();
   const [series, setSeries] = useState<ShowInterface[]>([]);
   const [movie, setMovies] = useState<MovieInterface[]>([]);
@@ -47,9 +71,9 @@ export default function Home() {
 
   const getMovies = (catId: string) => {
     axios.get(`/api/movies/category/${catId}`)
-      .then((response) => console.log('m', response.data))
+      .then((response) => {return response.data})
       .catch((error) => console.error('Error fetching data:', error))
-    return '';
+    
   }
 
   const getSeries = (catId: string) => {
@@ -67,17 +91,10 @@ export default function Home() {
       <Billboard />
       <div className="pb-4 z-30 xl:absolute xl:top-[60%]">
         <div className='mx-3'>
-          <MovieList  title="My List" data={favorites} />
+          <MovieList  title="My List" movies={favorites} shows={[]}/>
         </div>
-          {categories.map((cat: CategoryInterface) => (
-            cat.home ? (
-              <div key={cat.id}>
-              { getMovies(cat.id) }
-              <MovieList title={`${cat.name}`} data={movie} />
-              { getSeries(cat.id) }
-              <SeriesList title={`${cat.name} Shows`} data={series} />
-              </div>
-            ) : null
+          {cats.map((cat: ItemInterface) => (
+              <MovieList title={`${cat.title}`} movies={cat.movies} shows={cat.shows}/>
           ))}
 
           {/* <MovieList title="Trending Now" data={movies} />
