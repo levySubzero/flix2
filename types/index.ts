@@ -65,5 +65,5 @@ export interface ItemInterface  {
 }
 
 export interface PropInterface {
-  cats: ItemInterface[];
+  categories: ItemInterface[];
 }

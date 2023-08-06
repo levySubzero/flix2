@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NextPageContext } from 'next';
+import { GetServerSideProps, NextPageContext } from 'next';
 import { getSession } from 'next-auth/react';
 import Navbar from '@/components/Navbar';
 import Billboard from '@/components/Billboard';
@@ -18,7 +18,7 @@ import { CategoryInterface, ItemInterface, MovieInterface, PropInterface, Series
 import axios from 'axios';
 import prismadb from '@/lib/prismadb';
 
-export async function getServerSideProps(context: NextPageContext) {
+export const getServerSideProps: GetServerSideProps<{categories: ItemInterface[]}> = async (context) =>  {
   const session = await getSession(context);
 
   if (!session) {
@@ -62,7 +62,7 @@ export async function getServerSideProps(context: NextPageContext) {
   }
 }
 
-const Home: React.FC<PropInterface> = ({ cats }) => {
+const Home = ( categories: ItemInterface[] ) => {
   const { data: favorites = [] } = useFavorites();
   const { data: shows = [] } = useShowList();
   const [series, setSeries] = useState<ShowInterface[]>([]);
@@ -94,7 +94,7 @@ const Home: React.FC<PropInterface> = ({ cats }) => {
         <div className='mx-3'>
           <MovieList  title="My List" movies={favorites} shows={[]}/>
         </div>
-          {cats.map((cat: ItemInterface, i) => (
+          {categories.map((cat: ItemInterface, i) => (
                 <MovieList key={i} title={`${cat.title}`} movies={cat.movies} shows={cat.shows}/>
           ))}
 
