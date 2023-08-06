@@ -37,8 +37,8 @@ export default function Episodes() {
       <Navbar home={false} />
       <Billboard />
       <div className="pb-40">
-        <MovieList title="Trending Now" data={movies} />
-        <MovieList title="My List" data={favorites} />
+        <MovieList title="Trending Now" movies={movies} shows={[]}/>
+        <MovieList title="My List" movies={favorites} shows={[]}/>
       </div>
     </>
   )
