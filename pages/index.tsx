@@ -56,7 +56,7 @@ export const getServerSideProps: GetServerSideProps<{categories: ItemInterface[]
     const [movies, shows] = await Promise.all([moviesQuery, showsQuery]);
     categories.push({'title' : `${category.name}`, movies, shows})
   });
-
+  console.log(categories);
   return {
     props: { categories }
   }
@@ -83,7 +83,7 @@ const Home = ( categories: ItemInterface[] ) => {
       .catch((error) => console.error('Error fetching data:', error))
     return '';
   }
-
+  console.log(categories);
   return (
     <>
       <InfoModalSeries visible={modalOpen} onClose={modalClose} />
@@ -94,9 +94,9 @@ const Home = ( categories: ItemInterface[] ) => {
         <div className='mx-3'>
           <MovieList  title="My List" movies={favorites} shows={[]}/>
         </div>
-          {categories.map((cat: ItemInterface, i) => (
+          {/* {categories.map((cat: ItemInterface, i) => (
                 <MovieList key={i} title={`${cat.title}`} movies={cat.movies} shows={cat.shows}/>
-          ))}
+          ))} */}
 
           {/* <MovieList title="Trending Now" data={movies} />
         
