@@ -4,15 +4,15 @@ import serverAuth from "@/lib/serverAuth";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { categoryId } = req.query;
+    const { catId } = req.query;
     await serverAuth(req, res);
     
-    if (typeof categoryId !== 'string') {
-      console.log(typeof categoryId);
+    if (typeof catId !== 'string') {
+      console.log(typeof catId);
       throw new Error('Invalid Id');
     }
 
-    if (!categoryId) {
+    if (!catId) {
       throw new Error('Missing Id');
     }
     if (req.method == 'GET') {
@@ -20,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       const movies = await prismadb.movie.findMany({
         where: {
-            categoryId: categoryId
+            categoryId: catId
         },
         take: 5,
       });
