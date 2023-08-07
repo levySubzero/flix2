@@ -76,10 +76,8 @@ const Home = () => {
       <InfoModal visible={isOpen} onClose={closeModal} />
       <Navbar home={true} />
       <Billboard />
-      <div className="pb-4 z-30 xl:absolute xl:top-[60%]">
-        <div className='mx-3'>
+      <div className="flex flex-col gap-4 mx-4 my-4">
           <MovieList  title="My List" movies={favorites} shows={[]}/>
-        </div>
           {categorys.map((cat: CategoryInterface, i: any) => {
             console.log(cat);
             return (

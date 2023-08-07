@@ -49,7 +49,7 @@ const MovieList: React.FC<MVInteface> = ({ data }) => {
   console.log('series', series);
 
   return (
-    <div className="flex justify-center flex-col py-16">
+    <div className="flex justify-center flex-col">
       <div>
         <p className="text-white text-md md:text-xl lg:text-2xl font-semibold ">{data.name}</p>
       </div>

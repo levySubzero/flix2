@@ -7,7 +7,7 @@ import SeriesCard from './SeriesCard';
 const MovieList: React.FC<ItemInterface> = ({ movies, shows, title }) => {
   const items = Array.from({ length: 5 }, (_, index) => index)
   return (
-    <div className="flex justify-center flex-col py-16">
+    <div className="flex justify-center flex-col ">
       <div>
         <p className="text-white text-md md:text-xl lg:text-2xl font-semibold ">{title}</p>
       </div>
