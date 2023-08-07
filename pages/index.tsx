@@ -101,8 +101,8 @@ const Home = () => {
           <MovieList  title="My List" movies={favorites} shows={[]}/>
         </div>
           {categorys.map((cat: CategoryInterface, i: any) => {
-            getMovies(cat.id);
-            getSeries(cat.id);
+            getMovies(cat.id as string);
+            getSeries(cat.id as string);
             return (
               <MovieList key={i} title={`${cat.name}`} movies={movie} shows={series}/>
 
