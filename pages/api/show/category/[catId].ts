@@ -8,6 +8,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     await serverAuth(req, res);
     
     if (typeof categoryId !== 'string') {
+      console.log(typeof categoryId);
       throw new Error('Invalid Id');
     }
 

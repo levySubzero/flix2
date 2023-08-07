@@ -8,6 +8,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     await serverAuth(req, res);
     
     if (typeof categoryId !== 'string') {
+      console.log(typeof categoryId);
       throw new Error('Invalid Id');
     }
 
@@ -17,23 +18,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (req.method == 'GET') {
      
 
-      const moviesQuery = await prismadb.movie.findMany({
+      const movies = await prismadb.movie.findMany({
         where: {
             categoryId: categoryId
         },
         take: 5,
       });
 
-      const showsQuery = await prismadb.show.findMany({
-        where: {
-            categoryId: categoryId
-        },
-        take: 5,
-      });
+      if (!movies) {
+        throw new Error('Not');
+      }
 
-      const [movies, shows] = await Promise.all([moviesQuery, showsQuery]);
-
-      return res.status(200).json([movies, shows]);
+      return res.status(200).json(movies);
     } else {
       return res.status(405).end();
     }
