@@ -18,6 +18,7 @@ import { CategoryInterface, ItemInterface, MovieInterface, PropInterface, Series
 import axios from 'axios';
 import prismadb from '@/lib/prismadb';
 import useCatsHome from '@/hooks/useCatsHome';
+import MovieListHome from '@/components/MovieListHome';
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
@@ -65,30 +66,9 @@ export async function getServerSideProps(context: NextPageContext) {
 
 const Home = () => {
   const { data: favorites = [] } = useFavorites();
-  const { data: shows = [] } = useShowList();
   const { data: categorys = [] } = useCatsHome();
-  const [series, setSeries] = useState<ShowInterface[]>([]);
-  const [movie, setMovies] = useState<MovieInterface[]>([]);
   const { isOpen: modalOpen, closeModal: modalClose } = useInfoModalSeriesStore();
   const { isOpen, closeModal } = useInfoModalStore();
-
-  const getMovies = async (catId: string) => {
-    try {
-        const response = await axios.get(`/api/movies/category/${catId}`);
-        setMovies(response.data);
-    } catch (error) {
-        console.error('Error fetching data:', error);
-    }
-  };
-
-  const getSeries = async (catId: string) => {
-    try {
-        const response = await axios.get(`/api/show/category/${catId}`);
-        setSeries(response.data);
-    } catch (error) {
-        console.error('Error fetching data:', error);
-    }
-  };
 
   return (
     <>
@@ -101,11 +81,8 @@ const Home = () => {
           <MovieList  title="My List" movies={favorites} shows={[]}/>
         </div>
           {categorys.map((cat: CategoryInterface, i: any) => {
-            getMovies(cat.id as string);
-            getSeries(cat.id as string);
-            console.log(cat)
             return (
-              <MovieList key={i} title={`${cat.name}`} movies={movie} shows={series}/>
+              <MovieListHome key={i} data={cat}/>
 
             )
             })}
