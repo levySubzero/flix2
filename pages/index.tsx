@@ -103,6 +103,7 @@ const Home = () => {
           {categorys.map((cat: CategoryInterface, i: any) => {
             getMovies(cat.id as string);
             getSeries(cat.id as string);
+            console.log(cat)
             return (
               <MovieList key={i} title={`${cat.name}`} movies={movie} shows={series}/>
 
