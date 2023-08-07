@@ -28,14 +28,15 @@ export async function getServerSideProps(context: NextPageContext) {
 
 interface CatProps {
   data: CategoryInterface;
+  home: boolean;
 }
 
-const CategoryTab: React.FC<CatProps> = ({ data: cat }) => {
-  const [home, setHome] = useState(cat.home);
+const CategoryTab: React.FC<CatProps> = ({ data: cat, home }) => {
+  const [isHome, setHome] = useState(home);
 
   useEffect(() => {
     
-  }, [home]); 
+  }, [isHome]); 
 
   async function updater (catId: string)  {
     try {
@@ -84,7 +85,7 @@ const CategorySelect = () => {
             <h1 className="text-white">Select Categories to Load in home</h1>
             <div className="bg-black w-1/2 py-4 flex-col border-2 justify-center border-gray-800 flex">
               {categorys.map((cat: CategoryInterface) => (
-                <CategoryTab data={cat}  />
+                <CategoryTab key={cat.id} data={cat} home={cat.home} />
               ))}
             </div>
           </div>}
