@@ -62,45 +62,9 @@ const Profiles = () => {
       }
   
     }, [currentUser]); 
-    
-    const usersNum = () => {
-      return stats?.userCount
-    };
-
-    const moviessNum = () => {
-      return stats?.moviesCount
-    };
 
     const selectProfile = useCallback(() => {
       router.push('/');
-    }, [router]);
-
-    const addMovie = useCallback(() => {
-      router.push('/addMovie');
-    }, [router]);
-
-    const addShow = useCallback(() => {
-      router.push('/addShow');
-    }, [router]);
-
-    const addCategory = useCallback(() => {
-      router.push('/addCategory');
-    }, [router]);
-
-    const addGenre = useCallback(() => {
-      router.push('/addGenre');
-    }, [router]);
-
-    const addSeries = useCallback(() => {
-      router.push('/addSeries');
-    }, [router]);
-
-    const addEpisode = useCallback(() => {
-      router.push('/addEpisode');
-    }, [router]);
-
-    const delMovie = useCallback(() => {
-      router.push('/delMovie');
     }, [router]);
 
     return (
@@ -118,40 +82,7 @@ const Profiles = () => {
             </div>
           </div>
         </div>
-         {isAdmin && <div className="flex items-center  justify-center h-full mt-3">
-            <div className="bg-black bg-opacity-70 px-16 py-16 self-center mt-2 lg:w-2/5 lg:max-w-md rounded-md w-full">
-              <div className="flex flex-col">
-                <h2 className="text-white text-4xl mb-8 font-semibold">
-                  Users: {usersNum()}
-                </h2>
-                <h2 className="text-white text-4xl mb-8 font-semibold">
-                  Movies: {moviessNum()}
-                </h2>
-              </div>
-                <button onClick={addMovie} className="bg-green-600 py-3 text-white rounded-md w-full mt-10 hover:bg-green-700 transition">
-                  + New Movie
-                </button>
-                <button onClick={addShow} className="bg-green-600 py-3 text-white rounded-md w-full mt-10 hover:bg-green-700 transition">
-                  + New Show
-                </button>
-                <button onClick={addSeries} className="bg-green-600 py-3 text-white rounded-md w-full mt-10 hover:bg-green-700 transition">
-                  + New Show Season
-                </button>
-                <button onClick={addEpisode} className="bg-green-600 py-3 text-white rounded-md w-full mt-10 hover:bg-green-700 transition">
-                  + New Episode
-                </button>
-                <button onClick={addGenre} className="bg-green-600 py-3 text-white rounded-md w-full mt-10 hover:bg-green-700 transition">
-                  + New Genre
-                </button>
-                <button onClick={addCategory} className="bg-green-600 py-3 text-white rounded-md w-full mt-10 hover:bg-green-700 transition">
-                  + New Category
-                </button>
-                <button onClick={delMovie} className="bg-red-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition">
-                  Delete Movie
-                </button>
-            </div>    
-          </div>}
-        </div>
+      </div>
     );
 }
 

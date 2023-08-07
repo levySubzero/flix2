@@ -32,8 +32,8 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ visible }) => {
         <p className="text-white text-sm group-hover/item:underline">{currentUser?.name}</p>
       </div>
       <hr className="bg-gray-600 border-0 h-px my-4" />
-      {isAdmin && <><div onClick={() => router.push(`/manager/`)} className="bg-gray-600 border-0 h-px my-4">
-        <p className="text-white text-center text-sm group-hover/item:underline">Manage Webflix</p>
+      {isAdmin && <><div onClick={() => router.push(`/manager/`)} className="px-3 text-center text-white text-sm hover:underline">
+        Manage Webflix
       </div><hr className="bg-gray-600 border-0 h-px my-4" /></>}
       <div onClick={() => signOut()} className="px-3 text-center text-white text-sm hover:underline">
         Sign out of Webflix
