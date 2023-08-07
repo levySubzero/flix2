@@ -81,18 +81,12 @@ const Home = () => {
           <MovieList  title="My List" movies={favorites} shows={[]}/>
         </div>
           {categorys.map((cat: CategoryInterface, i: any) => {
+            console.log(cat);
             return (
               <MovieListHome key={i} data={cat}/>
 
             )
             })}
-
-          {/* <MovieList title="Trending Now" data={movies} />
-        
-          <SeriesList title="Series" data={shows} />
-        
-          <MovieList title="My List" data={favorites} /> */}
-        
       </div>
       
     </>

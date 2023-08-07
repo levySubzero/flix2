@@ -8,7 +8,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     await serverAuth(req, res);
     
     if (typeof catId !== 'string') {
-      console.log(typeof catId);
       throw new Error('Invalid Id');
     }
 
@@ -17,10 +16,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
     if (req.method == 'GET') {
      
+      const list = await prismadb.category.findUnique({
+        where: {
+          id: catId
+        }
+      });
 
       const movies = await prismadb.movie.findMany({
         where: {
-            categoryId: catId
+          id: {
+            in: list?.movieIds
+          }
         },
         take: 5,
       });

@@ -18,11 +18,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (req.method == 'GET') {
      
 
+      const list = await prismadb.category.findUnique({
+        where: {
+          id: catId
+        }
+      });
+
       const shows = await prismadb.show.findMany({
         where: {
-            categoryId: catId
+          id: {
+            in: list?.movieIds
+          }
         },
-        take: 10,
+        take: 5,
       });
 
       if (!shows) {
