@@ -7,7 +7,7 @@ import useAdModal from '@/hooks/useAdModal';
 
 const Watch = () => {
   const router = useRouter();
-  const { episodeId } = useParams();
+  const { episodeId } = undefined || useParams();
   const { isOpen, closeModal } = useAdModal();
   const { data } = useEpisode(episodeId as string);
   const { openModal } = useAdModal();

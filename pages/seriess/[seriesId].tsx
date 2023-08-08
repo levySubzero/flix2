@@ -28,7 +28,7 @@ export async function getServerSideProps(context: NextPageContext) {
 
 export default function Series() {
   const router = useRouter();
-  const { seriesId } = useParams();
+  const { seriesId } = undefined || useParams();
   const { data: episodes = [] } = useEpisodeList(seriesId as string);
   const { isOpen, closeModal } = useInfoModalEpisodeStore();
   return (

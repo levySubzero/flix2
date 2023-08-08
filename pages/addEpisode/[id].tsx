@@ -50,7 +50,7 @@ interface SeriesListProps {
 
 const AddEpisode= () => {
   const router = useRouter();
-  const { id } =  useParams();
+  const { id } =  undefined || useParams();
   const { data: episode = {} } = useEpisode(id as string);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');

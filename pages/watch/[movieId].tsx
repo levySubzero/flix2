@@ -8,7 +8,7 @@ import AdModal from '@/components/AdModal';
 
 const Watch = () => {
   const router = useRouter();
-  const { movieId } = useParams();
+  const { movieId } = undefined || useParams();
   const { data } = useMovie(movieId as string);
   const { isOpen, closeModal } = useAdModal();
   const { openModal } = useAdModal();

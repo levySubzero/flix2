@@ -34,7 +34,7 @@ const AddGenre= () => {
   const { data: currentUser } = useCurrentUser();
   const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
-  const { id } = useParams();
+  const { id } = undefined || useParams();
   useEffect(() => {
     if (currentUser?.isAdmin) { 
         setIsAdmin(true)

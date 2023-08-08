@@ -38,7 +38,7 @@ const AddCategory= () => {
   const { data: currentUser } = useCurrentUser();
   const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
-  const { id } = useParams();
+  const { id } = undefined || useParams();
 
   
   useEffect(() => {
