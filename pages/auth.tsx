@@ -2,14 +2,14 @@ import { useCallback, useState } from 'react';
 import axios from 'axios';
 import { getSession, signIn } from 'next-auth/react';
 import Input from "../components/input";
-import router from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 
 const Auth = () => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-
+  const router = useRouter();
   const [variant, setVariant] = useState('login');
 
   const toggleVariant = useCallback(() => {
