@@ -5,6 +5,7 @@ import Input from "../../components/input";
 import serverAuth from '@/lib/serverAuth';
 import useCurrentUser from '@/hooks/useCurrentUser';
 import { useParams, useRouter } from 'next/navigation';
+import { useRouter as RouterUse } from 'next/router';
 import { NextPageContext } from 'next';
 import Dropdown from '@/components/Dropdown';
 import useSeriesList from '@/hooks/useSeriesList';
@@ -38,7 +39,8 @@ const AddCategory= () => {
   const { data: currentUser } = useCurrentUser();
   const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
-  const { id } = undefined || useParams();
+  const route = RouterUse();
+  const { id } = route.query;
 
   
   useEffect(() => {

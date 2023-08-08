@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
-import { getSession, signIn } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 import Input from "../../components/input";
 import useCurrentUser from '@/hooks/useCurrentUser';
 import { useParams, useRouter } from 'next/navigation';
 import { NextPageContext } from 'next';
 import { SeriesInterface } from '@/types';
+import { useRouter as RouterUse } from 'next/router';
 
 
 export async function getServerSideProps(context: NextPageContext) {
@@ -34,7 +35,8 @@ const AddGenre= () => {
   const { data: currentUser } = useCurrentUser();
   const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
-  const { id } = undefined || useParams();
+  const route = RouterUse();
+  const { id } = route.query;
   useEffect(() => {
     if (currentUser?.isAdmin) { 
         setIsAdmin(true)

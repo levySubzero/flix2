@@ -11,6 +11,7 @@ import useCategories from '@/hooks/useCategories';
 import useGenres from '@/hooks/useGenres';
 import useShow from '@/hooks/useShow';
 import { ShowInterface } from '@/types';
+import { useRouter as RouterUse } from 'next/router';
 
 
 export async function getServerSideProps(context: NextPageContext) {
@@ -35,7 +36,8 @@ export async function getServerSideProps(context: NextPageContext) {
 
 const AddShow = () => {
   const router = useRouter();
-  const { id } = undefined || useParams();
+  const route = RouterUse();
+  const { id } = route.query;
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [thumbnailUrl, setThumbnailUrl] = useState('');

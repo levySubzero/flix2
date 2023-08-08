@@ -8,6 +8,7 @@ import EpisodeList from '@/components/EpisodeList';
 import InfoModalEpisode from '@/components/InfoModalEpisode';
 import useInfoModalEpisodeStore from '@/hooks/useInfoModalEpisodeStore';
 import SeriesEpBillboard from '@/components/SeriesEpBillboard';
+import { useRouter as RouterUse } from 'next/router';
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
@@ -28,7 +29,8 @@ export async function getServerSideProps(context: NextPageContext) {
 
 export default function Series() {
   const router = useRouter();
-  const { seriesId } = undefined || useParams();
+  const route = RouterUse();
+  const { seriesId } = route.query;
   const { data: episodes = [] } = useEpisodeList(seriesId as string);
   const { isOpen, closeModal } = useInfoModalEpisodeStore();
   return (

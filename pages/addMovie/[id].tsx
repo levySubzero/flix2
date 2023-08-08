@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import { getSession, signIn } from 'next-auth/react';
 import Input from "../../components/input";
-import serverAuth from '@/lib/serverAuth';
 import useCurrentUser from '@/hooks/useCurrentUser';
 import { useParams, useRouter } from 'next/navigation';
 import { NextPageContext } from 'next';
@@ -11,6 +10,7 @@ import useCategories from '@/hooks/useCategories';
 import useGenres from '@/hooks/useGenres';
 import useMovie from '@/hooks/useMovie';
 import { MovieInterface } from '@/types';
+import { useRouter as RouterUse } from 'next/router';
 
 
 export async function getServerSideProps(context: NextPageContext) {
@@ -35,7 +35,8 @@ export async function getServerSideProps(context: NextPageContext) {
 
 const AddMovie = () => {
   const router = useRouter();
-  const { id } = undefined || useParams();
+  const route = RouterUse();
+  const { id } = route.query;
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [videoUrl, setVideoUrl] = useState('');

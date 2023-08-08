@@ -2,17 +2,14 @@ import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import { getSession, signIn } from 'next-auth/react';
 import Input from "../../components/input";
-import serverAuth from '@/lib/serverAuth';
 import useCurrentUser from '@/hooks/useCurrentUser';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { NextPageContext } from 'next';
-import Dropdown from '@/components/Dropdown';
 import useEpisode from '@/hooks/useEpisode';
-import useShow from '@/hooks/useShow';
 import { SeriesInterface, EpisodeInterface } from '@/types';
 import prismadb from '@/lib/prismadb';
-import Select from 'react-select';
 import useShows from '@/hooks/useShowList';
+import { useRouter as RouterUse } from 'next/router';
 
 
 export async function getServerSideProps(context: NextPageContext) {
@@ -50,7 +47,8 @@ interface SeriesListProps {
 
 const AddEpisode= () => {
   const router = useRouter();
-  const { id } =  undefined || useParams();
+  const route = RouterUse();
+  const { id } = route.query;
   const { data: episode = {} } = useEpisode(id as string);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');

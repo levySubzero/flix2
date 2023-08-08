@@ -4,10 +4,12 @@ import { useParams, useRouter } from 'next/navigation';
 import useEpisode from '@/hooks/useEpisode';
 import AdModal from '@/components/AdModal';
 import useAdModal from '@/hooks/useAdModal';
+import { useRouter as RouterUse } from 'next/router';
 
 const Watch = () => {
   const router = useRouter();
-  const { episodeId } = undefined || useParams();
+  const route = RouterUse();
+  const { episodeId } = route.query;
   const { isOpen, closeModal } = useAdModal();
   const { data } = useEpisode(episodeId as string);
   const { openModal } = useAdModal();

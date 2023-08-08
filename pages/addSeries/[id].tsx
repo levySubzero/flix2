@@ -8,7 +8,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { NextPageContext } from 'next';
 import useShows from '@/hooks/useShowList';
 import Select from 'react-select';
-import useSeries from '@/hooks/useSeries';
+import { useRouter as RouterUse } from 'next/router';
 import { SeriesInterface } from '@/types';
 import useFindSeries from '@/hooks/useFindSeries';
 
@@ -31,7 +31,8 @@ export async function getServerSideProps(context: NextPageContext) {
 
 const AddSeries = () => {
   const router = useRouter();
-  const { id } = undefined || useParams();
+  const route = RouterUse();
+  const { id } = route.query;
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [thumbnailUrl, setThumbnailUrl] = useState('');
