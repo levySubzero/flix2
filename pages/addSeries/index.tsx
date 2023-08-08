@@ -4,7 +4,7 @@ import { getSession, signIn } from 'next-auth/react';
 import Input from "../../components/input";
 import serverAuth from '@/lib/serverAuth';
 import useCurrentUser from '@/hooks/useCurrentUser';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { NextPageContext } from 'next';
 import useShows from '@/hooks/useShowList';
 import Select from 'react-select';

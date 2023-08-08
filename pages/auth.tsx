@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import axios from 'axios';
 import { getSession, signIn } from 'next-auth/react';
 import Input from "../components/input";
-import router from 'next/router';
+import router from 'next/navigation';
 
 
 const Auth = () => {

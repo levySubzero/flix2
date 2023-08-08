@@ -8,7 +8,7 @@ import useDeleteModal from '@/hooks/useDeleteModal';
 import DeleteModal from '@/components/DeleteModal';
 import axios from 'axios';
 import useCurrentUser from '@/hooks/useCurrentUser';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 export async function getServerSideProps(context: NextPageContext) {
     const session = await getSession(context);

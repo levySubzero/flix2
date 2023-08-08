@@ -2,7 +2,7 @@ import React from 'react';
 // import { PlayIcon } from '@heroicons/react/24/solid';
 import { BsFillPlayFill, BsPlayFill  } from 'react-icons/bs';
 
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 interface PlayButtonProps {
   movieId: string;

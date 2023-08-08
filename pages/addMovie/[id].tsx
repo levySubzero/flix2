@@ -4,7 +4,7 @@ import { getSession, signIn } from 'next-auth/react';
 import Input from "../../components/input";
 import serverAuth from '@/lib/serverAuth';
 import useCurrentUser from '@/hooks/useCurrentUser';
-import { useRouter } from 'next/router';
+import { useParams, useRouter } from 'next/navigation';
 import { NextPageContext } from 'next';
 import Select from 'react-select';
 import useCategories from '@/hooks/useCategories';
@@ -35,7 +35,7 @@ export async function getServerSideProps(context: NextPageContext) {
 
 const AddMovie = () => {
   const router = useRouter();
-  const { id } = router.query;
+  const { id } =  useParams();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [videoUrl, setVideoUrl] = useState('');

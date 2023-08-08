@@ -2,7 +2,7 @@ import React from 'react';
 import ReactSearchBox from "react-search-box";
 import useInfoModalStore from '@/hooks/useInfoModalStore';
 import useInfoModalSeriesStore from '@/hooks/useInfoModalSeriesStore';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import useShowList from '@/hooks/useShowList';
 import useMovieList from '@/hooks/useMovieList';
 import { ShowInterface } from '@/types';

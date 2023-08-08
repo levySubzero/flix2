@@ -10,7 +10,7 @@ import EpisodeList from './EpisodeList';
 import { EpisodeInterface, SeriesInterface } from '@/types';
 import useSeries from '@/hooks/useSeries';
 import axios from 'axios';
-import router from 'next/router';
+import { useRouter } from 'next/navigation';
 import EditButton from './EditButton';
 
 interface InfoModalProps {
@@ -27,6 +27,7 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
   const { data = {} } = useShow(showId);
   const [currentSeason, setcurrentSeason] = useState<SeriesInterface>();
   const { data: seasons = [] } = useSeries(showId as string);
+  const router = useRouter();
 
   // const { data: episodes = [] } = useEpisodeList(seasons[0].id as string);
   const handleClose = useCallback(() => {

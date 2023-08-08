@@ -3,7 +3,7 @@ import axios from 'axios';
 import { getSession, signIn } from 'next-auth/react';
 import Input from "../../components/input";
 import useCurrentUser from '@/hooks/useCurrentUser';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { NextPageContext } from 'next';
 import { SeriesInterface } from '@/types';
 

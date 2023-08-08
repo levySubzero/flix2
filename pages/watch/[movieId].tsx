@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 // import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
-import { useRouter } from 'next/router';
+import { useParams, useRouter } from 'next/navigation';
 import useMovie from '@/hooks/useMovie';
 import useAdModal from '@/hooks/useAdModal';
 import AdModal from '@/components/AdModal';
 
 const Watch = () => {
   const router = useRouter();
-  const { movieId } = router.query;
+  const { movieId } = useParams();
   const { data } = useMovie(movieId as string);
   const { isOpen, closeModal } = useAdModal();
   const { openModal } = useAdModal();

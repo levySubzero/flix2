@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
-import { useRouter } from 'next/router';
+import { useParams, useRouter } from 'next/navigation';
 import useEpisode from '@/hooks/useEpisode';
 import AdModal from '@/components/AdModal';
 import useAdModal from '@/hooks/useAdModal';
 
 const Watch = () => {
   const router = useRouter();
-  const { episodeId } = router.query;
+  const { episodeId } = useParams();
   const { isOpen, closeModal } = useAdModal();
   const { data } = useEpisode(episodeId as string);
   const { openModal } = useAdModal();

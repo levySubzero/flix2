@@ -4,7 +4,7 @@ import { getSession, signIn } from 'next-auth/react';
 import Input from "../../components/input";
 import serverAuth from '@/lib/serverAuth';
 import useCurrentUser from '@/hooks/useCurrentUser';
-import { useRouter } from 'next/router';
+import { useParams, useRouter } from 'next/navigation';
 import { NextPageContext } from 'next';
 import Dropdown from '@/components/Dropdown';
 import useSeriesList from '@/hooks/useSeriesList';
@@ -38,7 +38,7 @@ const AddCategory= () => {
   const { data: currentUser } = useCurrentUser();
   const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
-  const { id } = router.query;
+  const { id } = useParams();
 
   
   useEffect(() => {

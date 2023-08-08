@@ -3,7 +3,7 @@ import { NextPageContext } from 'next';
 import { getSession } from 'next-auth/react';
 import Navbar from '@/components/Navbar';
 import useEpisodeList from '@/hooks/useEpisodeList';
-import { useRouter } from 'next/router';
+import { useParams, useRouter } from 'next/navigation';
 import EpisodeList from '@/components/EpisodeList';
 import InfoModalEpisode from '@/components/InfoModalEpisode';
 import useInfoModalEpisodeStore from '@/hooks/useInfoModalEpisodeStore';
@@ -28,7 +28,7 @@ export async function getServerSideProps(context: NextPageContext) {
 
 export default function Series() {
   const router = useRouter();
-  const { seriesId } = router.query;
+  const { seriesId } = useParams();
   const { data: episodes = [] } = useEpisodeList(seriesId as string);
   const { isOpen, closeModal } = useInfoModalEpisodeStore();
   return (

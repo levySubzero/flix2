@@ -3,7 +3,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 import useMovie from '@/hooks/useMovie';
 import useDeleteModal from '@/hooks/useDeleteModal';
 import axios from 'axios';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 interface DeleteModalProps {
   visible?: boolean;

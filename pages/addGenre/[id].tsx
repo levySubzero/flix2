@@ -3,7 +3,7 @@ import axios from 'axios';
 import { getSession, signIn } from 'next-auth/react';
 import Input from "../../components/input";
 import useCurrentUser from '@/hooks/useCurrentUser';
-import { useRouter } from 'next/router';
+import { useParams, useRouter } from 'next/navigation';
 import { NextPageContext } from 'next';
 import { SeriesInterface } from '@/types';
 
@@ -34,8 +34,7 @@ const AddGenre= () => {
   const { data: currentUser } = useCurrentUser();
   const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
-  const { id } = router.query;
-
+  const { id } = useParams();
   useEffect(() => {
     if (currentUser?.isAdmin) { 
         setIsAdmin(true)

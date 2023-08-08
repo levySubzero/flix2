@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { BsFillPlayFill  } from 'react-icons/bs';
 import { BiChevronDown  } from 'react-icons/bi';
 import { MovieInterface } from '@/types';
