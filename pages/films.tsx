@@ -34,7 +34,7 @@ export default function Films() {
       <InfoModal visible={isOpen} onClose={closeModal} />
       <Navbar home={true} />
       <Billboard />
-      <div className="pb-4 z-30 xl:absolute top-[80%]">
+      <div className="flex flex-col gap-4 mx-4 my-4">
         <MovieList title="Films" movies={movies} shows={[]}/>
       </div>
     </>

@@ -12,7 +12,7 @@ const SeriesList: React.FC<ShowListProps> = ({ data, title }) => {
     <div className="flex justify-center flex-col py-16">
       <div>
         <p className="text-white text-md md:text-xl lg:text-2xl font-semibold mb-4">{title}</p>
-        <div className="flex">
+        <div className="flex overflow-hidden">
           {data.map((series) => (
             <SeriesCard key={series.id} data={series} />
           ))}
