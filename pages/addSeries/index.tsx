@@ -115,7 +115,7 @@ const AddSeries = () => {
             <h2 className="text-white text-4xl mb-8 font-semibold">
               Add New Series Season
             </h2>
-            <div className="space-y-2 flex items-center md:grid grid-cols-2 gap-2">
+            <div className="space-y-2 flex flex-col items-center md:grid grid-cols-2 gap-2">
               <Input 
                 id="title"
                 type="title"
@@ -163,9 +163,11 @@ const AddSeries = () => {
                 value={cast}
                 onChange={(e: any) => setCast(e.target.value)} 
               />
-            <button onClick={saveSeries} className="bg-green-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition">
-              Save
-            </button>
+            </div>
+            <div className="flex justify-center">
+              <button onClick={saveSeries} className="bg-green-600 py-3 text-white rounded-md  w-1/2 md:w-1/4 mt-10 hover:bg-red-700 transition">
+                Save
+              </button>
             </div>
           </div>    
         </div>

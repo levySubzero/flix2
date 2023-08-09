@@ -10,7 +10,7 @@ import Select from 'react-select';
 import useCategories from '@/hooks/useCategories';
 import useGenres from '@/hooks/useGenres';
 import useShow from '@/hooks/useShow';
-import { ShowInterface } from '@/types';
+import { CategoryInterface, ShowInterface } from '@/types';
 import { useRouter as RouterUse } from 'next/router';
 
 
@@ -48,6 +48,8 @@ const AddShow = () => {
   const [cast, setCast] = useState('');
   const [categoryId, setCategoryId] = useState('');
   const [shortDesc, setShortDesc] = useState('');
+  const [categoryName, setCategoryName] = useState('');
+  const [genreName, setGenreName] = useState('');
   const { data: currentUser } = useCurrentUser();
   const { data: cats = [] } = useCategories();
   const { data: gnres = [] } = useGenres();
@@ -82,6 +84,10 @@ const AddShow = () => {
         setCast(eps.cast);
         setCategoryId(eps.categoryId);
         setShortDesc(eps.shortDesc);
+        const catName = cats.find((category: CategoryInterface) => category.id === eps.categoryId);
+        const genreName = gnres.find((genre: CategoryInterface) => genre.id === eps.genreId);
+        setGenreName(genreName.name);
+        setCategoryName(catName.name);
       } catch (error) {
         console.log(error)
       }
@@ -167,9 +173,11 @@ const AddShow = () => {
         <div className="flex justify-center mx-4">
           <div className="bg-black bg-opacity-70 px-16 py-16 self-center mt-2 rounded-md w-full">
             <h2 className="text-white text-4xl mb-8 font-semibold">
-              Update Series or Show
+              Update {title}
             </h2>
-            <div className="space-y-2 flex items-center grid md:grid-cols-2 gap-2">
+              <p className="text-white text-lg font-normal"> Current Category: <span className="text-green-500">{categoryName}</span></p>
+              <p className="text-white text-lg mb-8 font-normal"> Current Genre: <span className="text-green-500">{genreName}</span></p>
+            <div className="space-y-2 flex flex-col items-center grid md:grid-cols-2 gap-2">
               <Input 
                 id="title"
                 type="title"
@@ -236,8 +244,10 @@ const AddShow = () => {
                 value={shortDesc}
                 onChange={(e: any) => setShortDesc(e.target.value)} 
                 />
-            <button onClick={saveShow} className="bg-green-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition">
-              Update
+          </div>
+          <div className="flex justify-center">
+            <button onClick={saveShow} className="bg-green-600 py-3 text-white rounded-md  w-1/2 md:w-1/4 mt-10 hover:bg-red-700 transition">
+              Save
             </button>
           </div>
           </div>    

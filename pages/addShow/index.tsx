@@ -141,7 +141,7 @@ const AddShow = () => {
             <h2 className="text-white text-4xl mb-8 font-semibold">
               Add New Series or Show
             </h2>
-            <div className="space-y-2 flex items-center grid md:grid-cols-2 gap-2">
+            <div className="space-y-2 flex flex-col items-center grid md:grid-cols-2 gap-2">
               <Input 
                 id="title"
                 type="title"
@@ -208,12 +208,14 @@ const AddShow = () => {
                 value={shortDesc}
                 onChange={(e: any) => setShortDesc(e.target.value)} 
                 />
-            <button onClick={saveShow} className="bg-green-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition">
+          </div>
+          <div className="flex justify-center">
+            <button onClick={saveShow} className="bg-green-600 py-3 text-white rounded-md  w-1/2 md:w-1/4 mt-10 hover:bg-red-700 transition">
               Save
             </button>
-          </div>
           </div>    
         </div>
+      </div>
       </div>
      }
     </div>

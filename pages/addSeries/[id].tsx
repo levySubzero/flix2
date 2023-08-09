@@ -9,7 +9,7 @@ import { NextPageContext } from 'next';
 import useShows from '@/hooks/useShowList';
 import Select from 'react-select';
 import { useRouter as RouterUse } from 'next/router';
-import { SeriesInterface } from '@/types';
+import { SeriesInterface, ShowInterface } from '@/types';
 import useFindSeries from '@/hooks/useFindSeries';
 
 export async function getServerSideProps(context: NextPageContext) {
@@ -37,6 +37,7 @@ const AddSeries = () => {
   const [description, setDescription] = useState('');
   const [thumbnailUrl, setThumbnailUrl] = useState('');
   const [showId, setShowId] = useState('');
+  const [showName, setShowName] = useState('');
   const [year, setYear] = useState('');
   const [trailerUrl, setTrailerUrl] = useState('');
   const [cast, setCast] = useState('');
@@ -56,15 +57,16 @@ const AddSeries = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`/api/findseries/${id}`);
+        const response = await axios.get(`/api/findSeries/${id}`);
         const eps: SeriesInterface = response.data;
         setTitle(eps.title);
         setDescription(eps.description);
         setThumbnailUrl(eps.thumbnailUrl);
         setYear(eps.year);
         setTrailerUrl(eps.trailerUrl);
-        setShowId(eps.showId);
         setCast(eps.cast);
+        const showName = shows.find((show: ShowInterface) => show.id === eps.showId);
+        setShowName(showName.title);
       } catch (error) {
         console.log(error)
       }
@@ -137,9 +139,10 @@ const AddSeries = () => {
         <div className="flex justify-center mx-4">
           <div className="bg-black bg-opacity-70 px-16 py-16 self-center mt-2 rounded-md w-full">
             <h2 className="text-white text-4xl mb-8 font-semibold">
-              Update Series Season
+              Update {title}
             </h2>
-            <div className="space-y-2 flex items-center md:grid grid-cols-2 gap-2">
+            <p className="text-white text-lg mb-8 font-normal"> Current Show/Series: <span className="text-green-500">{showName}</span></p>
+            <div className="space-y-2 flex flex-col items-center md:grid grid-cols-2 gap-2">
               <Input 
                 id="title"
                 type="title"
@@ -187,9 +190,11 @@ const AddSeries = () => {
                 value={cast}
                 onChange={(e: any) => setCast(e.target.value)} 
               />
-            <button onClick={saveSeries} className="bg-green-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition">
-              Update
-            </button>
+            </div>
+            <div className="flex justify-center">
+              <button onClick={saveSeries} className="bg-green-600 py-3 text-white rounded-md w-1/2 md:w-1/4 mt-10 hover:bg-red-700 transition">
+                Save
+              </button>
             </div>
           </div>    
         </div>
