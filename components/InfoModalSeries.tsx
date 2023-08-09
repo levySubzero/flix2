@@ -44,16 +44,6 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
     setIsVisible(!!visible);
   }, [visible]);
 
-  useEffect(() => {
-    setOptions(seasons);
-    for (let i = 0; i < 1; i++) {
-      const season = seasons[i];
-      setcurrentSeason(season);
-      // axios.get(`/api/episodes/${season.id}`)
-      // .then((response) => setEpisodes(season.episodes))
-      // .catch((error) => console.error('Error fetching data:', error));
-    }
-  }, [seasons]);
 
   const handleSeasonChange = (value: string) => {
     const seasonId: string = value

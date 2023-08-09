@@ -53,7 +53,7 @@ const MovieList: React.FC<MVInteface> = ({ data }) => {
       <div>
         <p className="text-white text-md md:text-xl lg:text-2xl font-semibold ">{data.name}</p>
       </div>
-      <div className="flex mt-2">
+      <div className="flex mt-2 overflow-hide">
         {series.length > 0 && items.map((item, i) => (
           <React.Fragment key={i}>
             {movies[i] && <MovieCard key={`movie-${movies[i].id}`} data={movies[i]} />}

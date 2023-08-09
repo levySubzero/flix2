@@ -5,6 +5,7 @@ import MobileMenu from '@/components/MobileMenu';
 import AccountMenu from "./AccountMenu";
 import { BsBell, BsSearch, BsChevronDown } from 'react-icons/bs';
 import { useRouter } from "next/router";
+import Link from 'next/link';
 
 const TOP_OFFSET = 66; 
 
@@ -20,7 +21,7 @@ const Navbar: React.FC<NavbarProps> = ({ home }) => {
   
     useEffect(() => {
       const handleScroll = () => {
-        console.log(window.scrollY)
+        // console.log(window.scrollY)
         if (window.scrollY >= TOP_OFFSET) {
           setShowBackground(true)
         } else {
@@ -34,11 +35,13 @@ const Navbar: React.FC<NavbarProps> = ({ home }) => {
         window.removeEventListener('scroll', handleScroll);
       }
     }, []);
+
+    const seriesP = useCallback(() => router.push(`/seriesP`), [router]);
   
     const toggleAccountMenu = useCallback(() => {
       setShowAccountMenu((current) => !current);
     }, []);
-  
+    
     const toggleMobileMenu = useCallback(() => {
       setShowMobileMenu((current) => !current);
     }, []);
@@ -48,10 +51,10 @@ const Navbar: React.FC<NavbarProps> = ({ home }) => {
         <div className={`px-4 md:px-16 py-6 flex flex-row items-center transition duration-500 ${showBackground ? 'bg-zinc-900 bg-opacity-90' : ''}`}>
           <img onClick={() => router.push(`/`)} src="/images/logo.png" className="h-full w-20 lg:h-full" alt="Logo" />
           <div className="flex-row ml-8 gap-7 hidden lg:flex">
-            <span onClick={() => router.push(`/`)}><NavbarItem label="Home" /></span>
-            <span onClick={() => router.push(`/seriesP`)}><NavbarItem label="Series" /></span>
-            <span onClick={() => router.push(`/films`)}><NavbarItem label="Films" /></span>
-            <span onClick={() => router.push(`/myList`)}><NavbarItem label="My List" /></span>
+            <Link href={"/"}><NavbarItem label="Home" /></Link>
+            <Link href={"/seriesP"}><NavbarItem label="Series" /></Link>
+            <Link href={"/films"}><NavbarItem label="Films" /></Link>
+            <Link href={"/myList"}><NavbarItem label="My List" /></Link>
           </div>
           <div onClick={toggleMobileMenu} className="lg:hidden flex flex-row items-center gap-2 ml-8 cursor-pointer relative">
             <p className="text-white text-sm">Browse</p>

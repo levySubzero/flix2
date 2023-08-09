@@ -1,6 +1,6 @@
 import { signOut } from 'next-auth/react';
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import useCurrentUser from '@/hooks/useCurrentUser';
 
 interface AccountMenuProps {
