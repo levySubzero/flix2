@@ -179,8 +179,10 @@ const AddMovie = () => {
         <div className="flex justify-center mx-4">
           <div className="bg-black bg-opacity-70 px-16 py-16 self-center mt-2 rounded-md w-full">
             <h2 className="text-white text-4xl mb-8 font-semibold">
-              Update Movie
+              Update {title}
             </h2>
+            <p className="text-white text-lg font-normal"> Current Category: {categoryName}</p>
+            <p className="text-white text-lg mb-8 font-normal"> Current Genre: {genreName}</p>
             <div className="space-y-2 flex items-center grid md:grid-cols-2 gap-2">
               <Input 
                 id="title"
@@ -214,13 +216,13 @@ const AddMovie = () => {
                 styles={customStyles}
                 onChange={handlecChange}
                 options={categories}
-                inputValue={categoryName}
+                // inputValue={categoryName}
               />
               <Select
                 styles={customStyles}
                 onChange={handlegChange}
                 options={genres}
-                inputValue={genreName}
+                // inputValue={genreName}
               />
               <Input
                 type="duration" 
@@ -264,7 +266,9 @@ const AddMovie = () => {
                 value={shortDesc}
                 onChange={(e: any) => setShortDesc(e.target.value)} 
                 />
-            <button onClick={saveMovie} className="bg-green-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition">
+          </div>
+          <div className="flex justify-center">
+            <button onClick={saveMovie} className="bg-green-600 py-3 text-white rounded-md w-1/4 mt-10 hover:bg-red-700 transition">
               Update
             </button>
           </div>

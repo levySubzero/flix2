@@ -117,7 +117,7 @@ const Profiles = () => {
                 <button onClick={delMovie} className="bg-red-600 px-3 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition">
                   Delete Movie
                 </button>
-                <button onClick={selectCategories} className="bg-green-600 px-3 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition">
+                <button onClick={selectCategories} className="bg-green-600 px-3 py-3 text-white rounded-md w-full mt-10 hover:bg-green-700 transition">
                   Home Categories
                 </button>
             </div>    

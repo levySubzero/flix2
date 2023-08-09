@@ -226,7 +226,9 @@ const AddMovie = () => {
                 value={shortDesc}
                 onChange={(e: any) => setShortDesc(e.target.value)} 
                 />
-            <button onClick={saveMovie} className="bg-green-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition">
+          </div>
+          <div className="flex justify-center">
+            <button onClick={saveMovie} className="bg-green-600 py-3 text-white rounded-md w-1/4 mt-10 hover:bg-red-700 transition">
               Save
             </button>
           </div>
