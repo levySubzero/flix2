@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 // import { PlayIcon } from '@heroicons/react/24/solid';
 import { BsPencilFill  } from 'react-icons/bs';
 
 import { useRouter } from 'next/navigation';
+import useCurrentUser from '@/hooks/useCurrentUser';
 
 interface PlayButtonProps {
   movieId: string;
@@ -11,12 +12,24 @@ interface PlayButtonProps {
 }
 
 const EditButton: React.FC<PlayButtonProps> = ({ movieId, clicked, title }) => {
+  const [isVisible, setIsVisible] = useState<boolean>(false);
   const router = useRouter();
+  const { data: currentUser } = useCurrentUser();
+
+  useEffect(() => {
+    if (currentUser?.isAdmin) { 
+      setIsVisible(true)
+    } else {
+      // router.push('/');
+    }
+
+  }, [currentUser]);
 
   return (
     <button 
       onClick={clicked}
-      className="
+      className={`
+        ${isVisible ? 'block' : 'hidden'} 
         bg-white 
         rounded-md 
         py-1 md:py-2 
@@ -29,7 +42,7 @@ const EditButton: React.FC<PlayButtonProps> = ({ movieId, clicked, title }) => {
         items-center
         hover:bg-neutral-300
         transition
-        "
+        `}
       >
         {/* <PlayIcon className="w-4 md:w-7 text-black mr-1" /> */}
         <BsPencilFill className="w-4 md:w-7 text-black mr-1" />
