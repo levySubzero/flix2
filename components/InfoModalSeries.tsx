@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import PlayButton from '@/components/PlayButton';
 import FavoriteButton from '@/components/FavoriteButton';
@@ -26,7 +26,6 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
   const [seasonId, setSeasonId] = useState('');
   const { data = {} } = useShow(showId);
   const [currentSeason, setcurrentSeason] = useState<SeriesInterface>();
-  const { data: seasons = [] } = useSeries(showId as string);
   const router = useRouter();
 
   // const { data: episodes = [] } = useEpisodeList(seasons[0].id as string);
@@ -44,6 +43,20 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
     setIsVisible(!!visible);
   }, [visible]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`/api/series/${showId}`);
+        const seasons: SeriesInterface[] = response.data;
+        setOptions(seasons);
+        setcurrentSeason(seasons[0]);
+        handleSeasonChange(seasons[0].id);
+      } catch (error) {
+        console.log('xxx', error)
+      }
+    };
+    fetchData();
+  }, [showId]);
 
   const handleSeasonChange = (value: string) => {
     const seasonId: string = value
