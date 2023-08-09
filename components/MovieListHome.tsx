@@ -15,8 +15,6 @@ interface MVInteface {
 const MovieList: React.FC<MVInteface> = ({ data }) => {
   const { data: movies = [] } = useMovies(data.id);
   const { data: series = [] } = useShows(data.id);
-  // const [series, setSeries] = useState<ShowInterface[]>([]);
-  // const [movies, setMovies] = useState<MovieInterface[]>([]);
   const items = Array.from({ length: 5 }, (_, index) => index)
 
   // useEffect(() => {
@@ -46,11 +44,11 @@ const MovieList: React.FC<MVInteface> = ({ data }) => {
   // };
 
   return (
-    <div className="flex justify-center flex-col">
+    <div className="flex justify-center flex-col overflow-x-scroll overflow-y-visible no-scrollbar max-content">
       <div>
         <p className="text-white text-md md:text-xl lg:text-2xl font-semibold ">{data.name}</p>
       </div>
-      <div className="flex mt-2 overflow-hide">
+      <div className="flex mt-2">
         {series.length > 0 && items.map((item, i) => (
           <React.Fragment key={i}>
             {movies[i] && <MovieCard key={`movie-${movies[i].id}`} data={movies[i]} />}

@@ -89,9 +89,6 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
           <div className="flex flex-row mt-4 gap-2 items-center"> 
             <p className="text-white text-[10px] lg:text-sm">{data.duration}</p>
           </div>
-          <div className="flex flex-row items-center gap-2 mt-4 text-[8px] text-white lg:text-sm">
-            <p>{}</p>
-          </div>
         </div>
       </div>
     </div>
