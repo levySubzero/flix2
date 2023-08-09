@@ -44,9 +44,6 @@ const MovieList: React.FC<MVInteface> = ({ data }) => {
   //       console.error('Error fetching data:', error);
   //   }
   // };
-  console.log(data.id);
-  console.log('movies', movies);
-  console.log('series', series);
 
   return (
     <div className="flex justify-center flex-col">

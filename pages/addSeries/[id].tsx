@@ -58,7 +58,6 @@ const AddSeries = () => {
       try {
         const response = await axios.get(`/api/findseries/${id}`);
         const eps: SeriesInterface = response.data;
-        console.log(eps);
         setTitle(eps.title);
         setDescription(eps.description);
         setThumbnailUrl(eps.thumbnailUrl);
@@ -105,7 +104,6 @@ const AddSeries = () => {
 
   const handleShowChange = (selected: any) => {
     setShowId(selected.value);
-    console.log(showId);
   };
 
   const saveSeries = useCallback(async () => {

@@ -9,7 +9,7 @@ import Select from 'react-select';
 import useCategories from '@/hooks/useCategories';
 import useGenres from '@/hooks/useGenres';
 import useMovie from '@/hooks/useMovie';
-import { MovieInterface } from '@/types';
+import { CategoryInterface, MovieInterface } from '@/types';
 import { useRouter as RouterUse } from 'next/router';
 
 
@@ -41,13 +41,15 @@ const AddMovie = () => {
   const [description, setDescription] = useState('');
   const [videoUrl, setVideoUrl] = useState('');
   const [thumbnailUrl, setThumbnailUrl] = useState('');
-  const [genreId, setGenre] = useState('');
   const [duration, setDuration] = useState('');
   const [year, setYear] = useState('');
   const [subGenres, setSubGenres] = useState('');
   const [trailerUrl, setTrailerUrl] = useState('');
   const [cast, setCast] = useState('');
+  const [genreId, setGenre] = useState('');
   const [categoryId, setCategoryId] = useState('');
+  const [genreName, setGenreName] = useState('');
+  const [categoryName, setCategoryName] = useState('');
   const [shortDesc, setShortDesc] = useState('');
   const { data: currentUser } = useCurrentUser();
   const { data: cats = [] } = useCategories();
@@ -76,6 +78,10 @@ const AddMovie = () => {
         setCast(eps.cast);
         setCategoryId(eps.categoryId);
         setShortDesc(eps.shortDesc);
+        const catName = cats.find((category: CategoryInterface) => category.id === eps.categoryId);
+        const genreName = gnres.find((genre: CategoryInterface) => genre.id === eps.genreId);
+        setGenreName(genreName.name);
+        setCategoryName(catName.name);
       } catch (error) {
         console.log(error)
       }
@@ -208,11 +214,13 @@ const AddMovie = () => {
                 styles={customStyles}
                 onChange={handlecChange}
                 options={categories}
+                inputValue={categoryName}
               />
               <Select
                 styles={customStyles}
                 onChange={handlegChange}
                 options={genres}
+                inputValue={genreName}
               />
               <Input
                 type="duration" 
