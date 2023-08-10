@@ -36,9 +36,9 @@ const MovieList: React.FC<MVInteface> = ({ data }) => {
       <div>
         <p className="text-white text-md md:text-xl lg:text-2xl font-semibold ">{data.name}</p>
       </div>
-      <div className="relative flex mt-2 overflow-scroll no-scrollbar hover:h-[280px]" ref={scrollRef}>
-        <div className='absolute h-full z-20 left-0 bg-black bg-opacity-30'>
-          <BsChevronLeft className='h-full w-[50px] text-white'/>
+      <div className="relative flex mt-2 overflow-scroll no-scrollbar transition duration-200 hover:h-[280px]" ref={scrollRef}>
+        <div className='h-full sticky my-auto z-20 left-0 bg-black bg-opacity-30 '>
+          <BsChevronLeft onClick={() => scroll('left')} className='h-full w-[50px] text-white'/>
         </div>
         {series.length > 0 && items.map((item, i) => (
           <React.Fragment key={i}>
@@ -52,17 +52,12 @@ const MovieList: React.FC<MVInteface> = ({ data }) => {
             <MovieCard key={movie.id} data={movie} />
           </>
         ))}
-        <div className='absolute h-full right-0 bg-black bg-opacity-50'>
-          <BsChevronRight />
+        <div className='h-full sticky my-auto z-20 right-0 bg-black bg-opacity-30 '>
+          <BsChevronRight  onClick={() => scroll('right')} className='h-full w-[50px] text-white'/>
         </div>
       </div>
-      <div className="w-full h-20 flex align-center">
-          <BsArrowLeftShort className="text-red-500" onClick={() => scroll('left')} />
-          <BsArrowRightShort className="text-red-500" onClick={() => scroll('right')} />
-        </div>
     </div>
   );
 }
 
 export default MovieList;
-// MdArrowForwardIos  MdArrowBackIosNew
