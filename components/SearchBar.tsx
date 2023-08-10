@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactSearchBox from "react-search-box";
 import useInfoModalStore from '@/hooks/useInfoModalStore';
 import useInfoModalSeriesStore from '@/hooks/useInfoModalSeriesStore';
@@ -12,7 +12,11 @@ interface ItemInterface {
     value: string;
 }
 
-const SearchBar = () => {
+interface BarProps {
+    showB: boolean; 
+}
+
+const SearchBar: React.FC<BarProps>  = ({ showB }) => {
     const { data: shows = [] } = useShowList();
     const { data: movies = [] } = useMovieList();
     const { openModal } = useInfoModalSeriesStore();
@@ -37,6 +41,7 @@ const SearchBar = () => {
         } else {
             openModal(record.item.key);
         }
+        showB = !showB
         
     } 
 

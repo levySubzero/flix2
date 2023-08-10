@@ -66,11 +66,11 @@ const Navbar: React.FC<NavbarProps> = ({ home }) => {
             <MobileMenu visible={showMobileMenu} />
           </div>
           <div className="flex flex-row ml-auto gap-7 items-center">
-            <div className="flex align-center cursor-pointer transition block md:hidden">
+            <div className={`${showSBar ? 'hidden' : 'block'} flex align-center cursor-pointer transition block md:hidden`}>
               <BsSearch onClick={() => showBar()} className="text-white"/>
             </div>
             <div className={`${showSBar ? 'block' : 'hidden'} flex align-center cursor-pointer transition  md:block`}>
-              <SearchBar />
+              <SearchBar showB={showSBar} />
             </div>
             <div onClick={toggleAccountMenu} className="flex flex-row items-center gap-2 cursor-pointer relative">
               <div className="w-6 h-6 lg:w-10 lg:h-10 rounded-md overflow-hidden">
