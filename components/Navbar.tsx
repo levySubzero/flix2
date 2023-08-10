@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
 import NavbarItem from "./Navbaritem"
 import SearchBar from "./SearchBar"
 import MobileMenu from '@/components/MobileMenu';
@@ -18,6 +18,8 @@ const Navbar: React.FC<NavbarProps> = ({ home }) => {
     const [showMobileMenu, setShowMobileMenu] = useState(false);
     const [showBackground, setShowBackground] = useState(false);
     const router = useRouter();
+    const searchRef = useRef<HTMLDivElement>(null);
+    const [showSBar, setshowSBar] = useState(false);
   
     useEffect(() => {
       const handleScroll = () => {
@@ -36,7 +38,9 @@ const Navbar: React.FC<NavbarProps> = ({ home }) => {
       }
     }, []);
 
-    const seriesP = useCallback(() => router.push(`/seriesP`), [router]);
+    const showBar = useCallback(() => {
+      setshowSBar(true);
+    }, [router]);
   
     const toggleAccountMenu = useCallback(() => {
       setShowAccountMenu((current) => !current);
@@ -56,13 +60,16 @@ const Navbar: React.FC<NavbarProps> = ({ home }) => {
             <Link href={"/films"}><NavbarItem label="Films" /></Link>
             <Link href={"/myList"}><NavbarItem label="My List" /></Link>
           </div>
-          <div onClick={toggleMobileMenu} className="lg:hidden flex flex-row items-center gap-2 ml-8 cursor-pointer relative">
+          <div onClick={toggleMobileMenu} className="lg:hidden flex flex-row items-center gap-2 ml-4 md:ml-8 cursor-pointer relative">
             <p className="text-white text-sm">Browse</p>
             <BsChevronDown className={`w-4 text-white fill-white transition ${showMobileMenu ? 'rotate-180' : 'rotate-0'}`} />
             <MobileMenu visible={showMobileMenu} />
           </div>
           <div className="flex flex-row ml-auto gap-7 items-center">
-            <div className="flex align-center cursor-pointer transition">
+            <div className="flex align-center cursor-pointer transition block md:hidden">
+              <BsSearch onClick={() => showBar()} className="text-white"/>
+            </div>
+            <div className={`${showSBar ? 'block' : 'hidden'} flex align-center cursor-pointer transition  md:block`}>
               <SearchBar />
             </div>
             <div onClick={toggleAccountMenu} className="flex flex-row items-center gap-2 cursor-pointer relative">
