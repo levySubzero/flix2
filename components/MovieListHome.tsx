@@ -1,13 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { CategoryInterface, ItemInterface, MovieInterface, ShowInterface } from '@/types';
+import React, { useRef } from 'react';
+import { CategoryInterface, MovieInterface, ShowInterface } from '@/types';
 import MovieCard from '@/components/MovieCard';
-import SeriesList from './SeriesList';
 import SeriesCard from './SeriesCard';
-import axios from 'axios';
-import useSeries from '@/hooks/useFindSeries';
 import useMovies from '@/hooks/useMovies';
 import useShows from '@/hooks/useShows';
-import { BsArrowLeftShort, BsArrowRightShort, BsChevronLeft, BsChevronRight } from 'react-icons/bs';
+import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 
 interface MVInteface {
   data: CategoryInterface
@@ -20,7 +17,6 @@ const MovieList: React.FC<MVInteface> = ({ data }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   
   const scroll = (direction: string) => {
-    console.log("TESTING")
     const { current } = scrollRef;
     if (current) {
       if (direction === 'left') {
@@ -36,9 +32,9 @@ const MovieList: React.FC<MVInteface> = ({ data }) => {
       <div>
         <p className="text-white text-md md:text-xl lg:text-2xl font-semibold ">{data.name}</p>
       </div>
-      <div className="relative flex mt-2 overflow-scroll no-scrollbar transition duration-200 hover:h-[280px]" ref={scrollRef}>
+      <div className="relative flex mt-2 overflow-scroll no-scrollbar transition duration-200 md:hover:h-[280px]" ref={scrollRef}>
         <div className='h-full sticky my-auto z-20 left-0 bg-black bg-opacity-30 '>
-          <BsChevronLeft onClick={() => scroll('left')} className='h-full w-[50px] text-white'/>
+          <BsChevronLeft onClick={() => scroll('left')} className='h-full w-[50px] text-white hidden md:block'/>
         </div>
         {series.length > 0 && items.map((item, i) => (
           <React.Fragment key={i}>
@@ -52,8 +48,14 @@ const MovieList: React.FC<MVInteface> = ({ data }) => {
             <MovieCard key={movie.id} data={movie} />
           </>
         ))}
+
+        {movies.length === 0 && series.map((movie: ShowInterface) => (
+          <>
+            <SeriesCard key={movie.id} data={movie} />
+          </>
+        ))}
         <div className='h-full sticky my-auto z-20 right-0 bg-black bg-opacity-30 '>
-          <BsChevronRight  onClick={() => scroll('right')} className='h-full w-[50px] text-white'/>
+          <BsChevronRight  onClick={() => scroll('right')} className='h-full w-[50px] text-white hidden md:block'/>
         </div>
       </div>
     </div>

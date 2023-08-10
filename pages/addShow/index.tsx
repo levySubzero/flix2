@@ -119,12 +119,10 @@ const AddShow = () => {
 
   const handlecChange = (selected: any) => {
     setCategoryId(selected.value);
-    console.log(categoryId);
   };
 
   const handlegChange = (selected: any) => {
     setGenre(selected.value);
-    console.log(genreId);
   };
 
   return (

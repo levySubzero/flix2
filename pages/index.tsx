@@ -54,7 +54,6 @@ const Home = () => {
             console.log(cat);
             return (
               <MovieListHome key={i} data={cat}/>
-
             )
             })}
       </div>
