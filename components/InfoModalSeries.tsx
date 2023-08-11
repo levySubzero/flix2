@@ -99,7 +99,7 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
             </div>
           </div>
           <div className="px-12 py-8">
-            <div className="grid grid-cols-2 gap-5">
+            <div className="flex flex-col md:grid md:grid-cols-2 gap-5">
               <div className="col-span-1 ">
                 <div className="flex flex-col items-start gap-2 mb-8">
                   <div className="flex flex-row text-left gap-2 mb-8">
@@ -120,8 +120,8 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
                   </div>
                 </div>
               </div>
-              <div className="col-span-1 mt-20 flex flex-col justify-center align-center">
-                <div className="flex flex-col ml-20 flex items-start justify-end gap-2 mb-8">
+              <div className="col-span-1 md:mt-20 flex flex-col justify-center align-center">
+                <div className="flex flex-col md:ml-20 flex items-start justify-end gap-2 mb-8">
                   <p className="text-white">
                     <span className="text-gray-400">Cast:  </span>{currentSeason?.cast}
                   </p>
@@ -132,8 +132,8 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
                     <span className="text-gray-400">The film is:  </span>{data?.shortDesc}
                   </p>
                 </div>    
-                <div className="ml-8">
-                  <div className="ml-8">
+                <div className="mx-auto w-full md:ml-8">
+                  <div className="ml-8 w-full">
                     <Dropdown 
                       id="seasons" 
                       label="Select Season" 

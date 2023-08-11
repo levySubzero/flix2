@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+ import React, { useCallback, useEffect, useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import PlayButton from '@/components/PlayButton';
 import FavoriteButton from '@/components/FavoriteButton';
@@ -63,7 +63,7 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
             </div>
           </div>
           <div className="px-12 py-8">
-            <div className="grid grid-cols-2">
+            <div className="flex flex-col md:grid md:grid-cols-2 gap-5">
               <div className="col-span-1 ">
                 <div className="flex flex-col items-start gap-2 mb-8">
                   <div className="flex flex-row text-left gap-2 mb-8">
@@ -84,8 +84,8 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
                   </div>
                 </div>
               </div>
-              <div className="col-span-1 mt-20">
-                <div className="flex flex-col ml-20 flex items-start justify-end gap-2 mb-8">
+              <div className="ml-0 md:col-span-1 md:mt-20">
+                <div className="flex flex-col md:ml-20 flex items-start justify-end gap-2 mb-8">
                   <p className="text-white">
                     <span className="text-gray-400">Cast:  </span>{data?.cast}
                   </p>

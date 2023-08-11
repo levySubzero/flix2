@@ -17,7 +17,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
 
   return (
     <div className="group bg-zinc-900 mx-1 relative w-[140px] min-w-[140px] md:min-w-[250px] h-[180px] md:h-[180px] my-auto mr-1">
-      <img onClick={redirectToWatch} src={data.thumbnailUrl} alt="Movie" draggable={false} className="
+      <img onClick={() => openModal(data.id)} src={data.thumbnailUrl} alt="Movie" draggable={false} className="
         flex 
         justify-center
         align-center
