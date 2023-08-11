@@ -48,13 +48,13 @@ const CategoryTab: React.FC<CatProps> = ({ data: cat, home }) => {
   }
 
   return (
-    <div className="px-3 pt-4 flex flex-row items-center justify-between w-full">
+    <div className="px-3 py-2 flex flex-row items-center justify-between w-full">
       <p className="text-white text-xl">{cat.name}</p>
-      { cat.home ? <div onClick={() => updater(cat.id)} className="flex items-center justify-between cursor-pointer gap-2">
+      { isHome ? <div onClick={() => updater(cat.id)} className="flex items-center justify-between border border-red-500 p-4 cursor-pointer gap-2">
         <BsXLg className="text-red-500 text-xl" />
         <p className="text-red-500 text-xl hover:underline">Remove</p>
       </div> : 
-      <div onClick={() => updater(cat.id)} className="flex items-center justify-between cursor-pointer gap-2">
+      <div onClick={() => updater(cat.id)} className="flex items-center justify-between cursor-pointer border border-green-500 p-4 gap-2">
         <BsCheckLg className="text-green-500 text-xl" />
         <p className="text-green-500 text-xl hover:underline">Add</p>
       </div>
@@ -79,10 +79,10 @@ const CategorySelect = () => {
 
     
     return (
-      <div className="flex h-full w-full bg-[url('/images/hero.jpg')] bg-no-repeat bg-center bg-fixed bg-cover">
+      <div className="flex h-full mt-5 w-full bg-[url('/images/hero.jpg')] bg-no-repeat bg-center bg-fixed bg-cover">
         <div>{!isAdmin && <p className='mt-80 text-green'>LOST?</p>}</div>
           {isAdmin && <div className="flex flex-col py-5 w-full items-center bg-black bg-opacity-70">
-            <h1 className="text-white">Select Categories to Load in home</h1>
+            <p className="text-white text-md md:text-xl lg:text-2xl font-semibold ">Select Categories to Load in home</p>
             <div className="bg-black w-1/2 py-4 flex-col border-2 justify-center border-gray-800 flex">
               {categorys.map((cat: CategoryInterface) => (
                 <CategoryTab key={cat.id} data={cat} home={cat.home} />
