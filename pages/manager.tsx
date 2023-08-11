@@ -85,8 +85,8 @@ const Profiles = () => {
     return (
       <div className="flex h-full w-full bg-[url('/images/hero.jpg')] bg-no-repeat bg-center bg-fixed bg-cover items-center justify-center ">
         <div>{!isAdmin && <p className='mt-80 text-green'>LOST?</p>}</div>
-         {isAdmin && <div className="flex flex-col py-5 w-full items-center bg-black bg-opacity-70 justify-center">
-          <div className="flex flex-col md:grid">
+         {isAdmin && <div className="flex flex-col py-5 h-full w-full items-center bg-black bg-opacity-70 justify-start">
+          <div className="flex flex-col mt-4 md:grid">
               <h2 className="text-white text-4xl mb-8 font-semibold">
                 Users: {usersNum()}
               </h2>

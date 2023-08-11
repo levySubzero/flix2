@@ -67,8 +67,8 @@ const AddCategory= () => {
     
     {isAdmin && 
       <div className="bg-black w-full h-full lg:bg-opacity-50">
-         <nav className="px-12 py-5 h-28">
-          <img onClick={() => router.push(`/`)} src="/images/logo.png" className="h-full w-28" alt="Logo" />
+         <nav className="px-12 py-2 md:py-5 h-[168px]">
+          <img onClick={() => router.push(`/`)} src="/images/logo.png" className="h-full w-[168px] cursor-pointer" alt="Logo" />
         </nav>
         <div className="flex justify-center">
           <div className="bg-black bg-opacity-70 px-16 py-16 self-center mt-2 lg:w-2/5 lg:max-w-md rounded-md w-full">
