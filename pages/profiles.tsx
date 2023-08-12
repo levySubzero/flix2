@@ -94,7 +94,7 @@ const Profiles = () => {
               </div>
               
               <hr className="bg-gray-600 border-0 h-px/ my-4" />
-              
+              <div className="mt-4 text-green-400 text-2xl text-center group-hover:text-white">Activate 2FA</div>
             </div>
           </div>
         </div>

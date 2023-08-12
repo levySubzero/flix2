@@ -12,6 +12,8 @@ import { NextApiRequest, NextApiResponse, NextPageContext } from "next";
 import { getSession, useSession } from "next-auth/react";
 import prismadb from '@/lib/prismadb';
 import serverAuth from "@/lib/serverAuth";
+import useCurrentUser from "@/hooks/useCurrentUser";
+import { authApi } from "./api/auth/authApi";
 
 const styles = {
   inputField: `form-control block w-full px-4 py-4 text-sm text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none`,
@@ -70,34 +72,36 @@ export type Validate2faInput = TypeOf<typeof validate2faSchema>;
 const Validate2faPage = () => {
   const router = useRouter();
   const [token, setToken] = useState('');
+  const { data: currentUser } = useCurrentUser();
+  const id = currentUser.id;
 
-  // const validate2fa = async (token: string) => {
-  //   try {
-  //     const {
-  //       data: { otp_valid },
-  //     } = await authApi.post<{ otp_valid: boolean }>("/auth/otp/validate", {
-  //       token,
-  //       user_id: store.authUser?.id,
-  //     });
-  //     if (otp_valid) {
-  //       router.push('/');
-  //     } else {
-  //       router.push('/auth');
-  //     }
-  //   } catch (error: any) {
-  //     const resMessage =
-  //       (error.response &&
-  //         error.response.data &&
-  //         error.response.data.message) ||
-  //       error.response.data.detail ||
-  //       error.message ||
-  //       error.toString();
-  //   }
-  // };
+  const validate2fa = async (token: string) => {
+    try {
+      const {
+        data: { otp_valid },
+      } = await authApi.post<{ otp_valid: boolean }>("/auth/otp/validate", {
+        token,
+        user_id: id,
+      });
+      if (otp_valid) {
+        router.push('/');
+      } else {
+        router.push('/auth');
+      }
+    } catch (error: any) {
+      const resMessage =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.response.data.detail ||
+        error.message ||
+        error.toString();
+    }
+  };
 
-  // const onSubmitHandler = () => {
-  //   validate2fa(token);
-  // };
+  const onSubmitHandler = () => {
+    validate2fa(token);
+  };
 
   // useEffect(() => {
   //   setFocus("token");
