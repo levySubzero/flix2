@@ -6,6 +6,7 @@ import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 import prismadb from '@/lib/prismadb';
+import { authApi } from "./api/auth/authApi";
 
 
 const images = [
@@ -74,10 +75,57 @@ const UserCard: React.FC<UserCardProps> = ({ name }) => {
 const Profiles = () => {
     const router = useRouter();
     const { data: currentUser } = useCurrentUser();
-    const [isAdmin, setIsAdmin] = useState(false);
+    const [otpEnabled, setotpEnabled] = useState(false);
     const { data: stats } = useData();
+    const [secret, setSecret] = useState({
+      otpauth_url: "",
+      base32: "",
+    });
+    const [openModal, setOpenModal] = useState(false);
 
+    const user2fa = () => {
+      if (currentUser.isAdmin && currentUser.otp_enabled) {
+        setotpEnabled(true);
+      }
+      if (currentUser.isAdmin && !currentUser.otp_enabled) {
+        setotpEnabled(false);
+      }
+    }
+
+    const generateQrCode = async ({
+      user_id,
+      email,
+    }: {
+      user_id: string;
+      email: string;
+    }) => {
+      try {
+        const response = await authApi.post<{
+          otpauth_url: string;
+          base32: string;
+        }>("/auth/otp/generate", { user_id, email });
   
+        if (response.status === 200) {
+          setOpenModal(true);
+          console.log({
+            base32: response.data.base32,
+            otpauth_url: response.data.otpauth_url,
+          });
+          setSecret({
+            base32: response.data.base32,
+            otpauth_url: response.data.otpauth_url,
+          });
+        }
+      } catch (error: any) {
+        const resMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.response.data.detail ||
+          error.message ||
+          error.toString();
+      }
+    };
 
     const selectProfile = useCallback(() => {
       router.push('/');
@@ -94,7 +142,12 @@ const Profiles = () => {
               </div>
               
               <hr className="bg-gray-600 border-0 h-px/ my-4" />
-              <div className="mt-4 text-green-400 text-2xl text-center group-hover:text-white">Activate 2FA</div>
+              {currentUser?.isAdmin && 
+                otpEnabled ? <div onClick={() =>
+                  generateQrCode({ user_id: user?.id!, email: user?.email! })
+                } className="mt-4 underline text-green-500 text-2xl text-center group-hover:text-green-400">Activate 2FA</div>
+                  : <div onClick={() => disableTwoFactorAuth(user?.id!)} className="mt-4 underline text-red-500 text-2xl text-center group-hover:text-red-400">Deactivate 2FA</div>
+                }
             </div>
           </div>
         </div>
