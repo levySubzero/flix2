@@ -8,9 +8,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 // import useStore from "../store";
 // import { authApi } from "../api/authApi";
 import { useRouter } from 'next/navigation';
-import { NextPageContext } from "next";
+import { NextApiRequest, NextApiResponse, NextPageContext } from "next";
 import { getSession, useSession } from "next-auth/react";
 import prismadb from '@/lib/prismadb';
+import serverAuth from "@/lib/serverAuth";
 
 const styles = {
   inputField: `form-control block w-full px-4 py-4 text-sm text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none`,
@@ -20,9 +21,8 @@ const validate2faSchema = object({
   token: string().min(1, "Authentication code is required"),
 });
 
-export async function getServerSideProps(context: NextPageContext) {
+export async function getServerSideProps(context: NextPageContext, req: NextApiRequest, res: NextApiResponse) {
   const session = await getSession(context);
-  
   if (!session) {
     return {
       redirect: {
@@ -31,41 +31,43 @@ export async function getServerSideProps(context: NextPageContext) {
       }
     }
   }
+  let admin: boolean = false;
   const user = session.user;
-  if (user) {
-    const cat = await prismadb.user.findFirstOrThrow({
-      where: {
-          name: user.name as string,
-          email: user.email as string
-      },
-      select: {
-        isAdmin: true
-      }
-    });
-    const { isAdmin } = cat;
-    if (!isAdmin) {
-      return {
-        redirect: {
-          destination: '/profile',
-          permanent: false,
-        }
-      }
-    }
-    console.log(isAdmin)
-  }
+  // if (user) {
+  //   const cat = await prismadb.user.findFirstOrThrow({
+  //     where: {
+  //         name: user.name as string,
+  //         email: user.email as string
+  //     },
+  //     select: {
+  //       isAdmin: true
+  //     }
+  //   });
+  //   const { isAdmin } = cat;
+  //   admin = isAdmin
+  //   if (!isAdmin) {
+  //     return {
+  //       redirect: {
+  //         destination: '/profile',
+  //         permanent: true,
+  //       }
+  //     }
+  //   }
+  // }
+  console.log(user)
   
 
 
 return {
-  props: {}
+  props: {
+    admin
+  }
 }
 }
 
 export type Validate2faInput = TypeOf<typeof validate2faSchema>;
 
 const Validate2faPage = () => {
-  // const navigate = useNavigate();
-  // const store = useStore();
   const router = useRouter();
   const [token, setToken] = useState('');
 

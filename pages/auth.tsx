@@ -18,12 +18,12 @@ const Auth = () => {
 
   const login = useCallback(async () => {
     try {
-      await signIn('credentials', {
+      const sign = await signIn('credentials', {
         email,
         password,
-        callbackUrl: '/validate2fa'
+        callbackUrl: '/profiles'
       });
-
+      
     } catch (error) {
       console.log(error);
     }

@@ -5,6 +5,7 @@ import { NextPageContext } from "next";
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
+import prismadb from '@/lib/prismadb';
 
 
 const images = [
@@ -26,6 +27,27 @@ export async function getServerSideProps(context: NextPageContext) {
       redirect: {
         destination: '/auth',
         permanent: false,
+      }
+    }
+  }
+  const user = session.user;
+  if (user) {
+    const cat = await prismadb.user.findFirstOrThrow({
+      where: {
+          name: user.name as string,
+          email: user.email as string
+      },
+      select: {
+        isAdmin: true
+      }
+    });
+    const { isAdmin } = cat;
+    if (isAdmin) {
+      return {
+        redirect: {
+          destination: '/validate2fa',
+          permanent: false,
+        }
       }
     }
   }
@@ -55,13 +77,7 @@ const Profiles = () => {
     const [isAdmin, setIsAdmin] = useState(false);
     const { data: stats } = useData();
 
-    useEffect(() => {
-      if (currentUser?.isAdmin) { 
-          setIsAdmin(true)
-          
-      }
   
-    }, [currentUser]); 
 
     const selectProfile = useCallback(() => {
       router.push('/');
