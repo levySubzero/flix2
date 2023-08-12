@@ -86,10 +86,10 @@ const Profiles = () => {
     const [openModal, setOpenModal] = useState(false);
 
     const user2fa = () => {
-      if (currentUser.isAdmin && currentUser.otp_enabled) {
+      if (currentUser?.isAdmin && currentUser?.otp_enabled) {
         setotpEnabled(true);
       }
-      if (currentUser.isAdmin && !currentUser.otp_enabled) {
+      if (currentUser?.isAdmin && !currentUser?.otp_enabled) {
         setotpEnabled(false);
       }
     }
@@ -151,10 +151,12 @@ const Profiles = () => {
       router.push('/');
     }, [router]);
 
+    user2fa();
+
     return (
       <div>
         <div className="flex items-center h-full mt-36 justify-center">
-          <div className="flex flex-col">
+          <div className="flex flex-col justify-center">
             <h1 className="text-3xl md:text-6xl text-white text-center">Who&#39;s watching?</h1>
             <div className="flex items-center justify-center gap-8 mt-10">
               <div onClick={() => selectProfile()}>
@@ -162,12 +164,15 @@ const Profiles = () => {
               </div>
               
               <hr className="bg-gray-600 border-0 h-px/ my-4" />
-              {currentUser?.isAdmin && 
-                otpEnabled ? <div onClick={() =>
-                  generateQrCode({ user_id: currentUser?.id!, email: currentUser?.email! })
-                } className="mt-4 underline text-green-500 text-2xl text-center group-hover:text-green-400">Activate 2FA</div>
-                  : <div onClick={() => disableTwoFactorAuth(currentUser?.id!)} className="mt-4 underline text-red-500 text-2xl text-center group-hover:text-red-400">Deactivate 2FA</div>
-                }
+            </div>
+            <div className="flex items-center ml-[-20px] justify-center">
+              {!currentUser?.isAdmin && 
+
+                otpEnabled ? <p onClick={() => disableTwoFactorAuth(currentUser?.id!)} className="mt-16 underline cursor-pointer text-red-500 text-lg text-center group-hover:text-red-400">Deactivate 2FA</p>
+                  : <p onClick={() => 
+                    generateQrCode({ user_id: currentUser?.id!, email: currentUser?.email! })
+                  } className="mt-16 underline cursor-pointer text-green-500 text-lg text-center group-hover:text-green-400">Activate 2FA</p>
+              }
             </div>
           </div>
         </div>

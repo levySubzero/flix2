@@ -19,7 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       const series = await prismadb.series.findMany({
         where: {
-          showId: seriesId
+          showId: seriesId as string
         }
       });
 
