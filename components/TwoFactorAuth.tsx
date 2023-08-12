@@ -1,12 +1,9 @@
 import { FC, useEffect, useState } from "react";
 import QRCode from "qrcode";
-import { useForm, SubmitHandler } from "react-hook-form";
 import { object, string, TypeOf } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { authApi } from "../api/authApi";
-import { toast } from "react-toastify";
-import useStore from "../store";
-import { IUser } from "../api/types";
+import { authApi } from "@/pages/api/auth/authApi";
+import { IUser } from "@/types";
 
 const styles = {
   heading3: `text-xl font-semibold text-gray-900 p-4 border-b`,
@@ -39,7 +36,7 @@ const TwoFactorAuth: FC<TwoFactorAuthProps> = ({
   closeModal,
 }) => {
   const [qrcodeUrl, setqrCodeUrl] = useState("");
-  const store = useStore();
+  const [token, setToken] = useState('');
 
   const {
     handleSubmit,
@@ -52,7 +49,6 @@ const TwoFactorAuth: FC<TwoFactorAuthProps> = ({
 
   const verifyOtp = async (token: string) => {
     try {
-      store.setRequestLoading(true);
       const {
         data: { user },
       } = await authApi.post<{ otp_verified: string; user: IUser }>(
@@ -62,14 +58,9 @@ const TwoFactorAuth: FC<TwoFactorAuthProps> = ({
           user_id,
         }
       );
-      store.setRequestLoading(false);
-      store.setAuthUser(user);
       closeModal();
-      toast.success("Two-Factor Auth Enabled Successfully", {
-        position: "top-right",
-      });
+      
     } catch (error: any) {
-      store.setRequestLoading(false);
       const resMessage =
         (error.response &&
           error.response.data &&
@@ -77,14 +68,12 @@ const TwoFactorAuth: FC<TwoFactorAuthProps> = ({
         error.response.data.detail ||
         error.message ||
         error.toString();
-      toast.error(resMessage, {
-        position: "top-right",
-      });
+      
     }
   };
 
-  const onSubmitHandler: SubmitHandler<TwoFactorAuthInput> = (values) => {
-    verifyOtp(values.token);
+  const onSubmitHandler = () => {
+    verifyOtp(token);
   };
 
   useEffect(() => {
@@ -141,9 +130,11 @@ const TwoFactorAuth: FC<TwoFactorAuthProps> = ({
             </div>
             <form onSubmit={handleSubmit(onSubmitHandler)}>
               <input
-                {...register("token")}
+                id="token"
+                value={token}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-2/4 p-2.5"
                 placeholder="Authentication Code"
+                onChange={(e: any) => setToken(e.target.value)} 
               />
               <p className="mt-2 text-xs text-red-600">
                 {errors.token ? errors.token.message : null}
