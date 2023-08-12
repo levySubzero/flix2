@@ -38,14 +38,6 @@ const TwoFactorAuth: FC<TwoFactorAuthProps> = ({
   const [qrcodeUrl, setqrCodeUrl] = useState("");
   const [token, setToken] = useState('');
 
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-    setFocus,
-  } = useForm<TwoFactorAuthInput>({
-    resolver: zodResolver(twoFactorAuthSchema),
-  });
 
   const verifyOtp = async (token: string) => {
     try {
@@ -80,9 +72,6 @@ const TwoFactorAuth: FC<TwoFactorAuthProps> = ({
     QRCode.toDataURL(otpauth_url).then(setqrCodeUrl);
   }, []);
 
-  useEffect(() => {
-    setFocus("token");
-  }, [setFocus]);
   return (
     <div
       aria-hidden={true}
@@ -128,7 +117,7 @@ const TwoFactorAuth: FC<TwoFactorAuthProps> = ({
                 For changing the setting, please verify the authentication code:
               </p>
             </div>
-            <form onSubmit={handleSubmit(onSubmitHandler)}>
+            <form onSubmit={onSubmitHandler}>
               <input
                 id="token"
                 value={token}
@@ -136,9 +125,6 @@ const TwoFactorAuth: FC<TwoFactorAuthProps> = ({
                 placeholder="Authentication Code"
                 onChange={(e: any) => setToken(e.target.value)} 
               />
-              <p className="mt-2 text-xs text-red-600">
-                {errors.token ? errors.token.message : null}
-              </p>
 
               <div className={styles.buttonGroup}>
                 <button

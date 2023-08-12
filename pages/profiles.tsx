@@ -7,6 +7,8 @@ import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 import prismadb from '@/lib/prismadb';
 import { authApi } from "./api/auth/authApi";
+import { IUser } from "@/types";
+import TwoFactorAuth from "@/components/TwoFactorAuth";
 
 
 const images = [
@@ -127,6 +129,24 @@ const Profiles = () => {
       }
     };
 
+    const disableTwoFactorAuth = async (user_id: string) => {
+      try {
+        const {
+          data: { user },
+        } = await authApi.post<{
+          otp_disabled: boolean;
+          user: IUser;
+        }>("/auth/otp/disable", { user_id });
+      } catch (error: any) {
+        const resMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+      }
+    };
+
     const selectProfile = useCallback(() => {
       router.push('/');
     }, [router]);
@@ -144,13 +164,21 @@ const Profiles = () => {
               <hr className="bg-gray-600 border-0 h-px/ my-4" />
               {currentUser?.isAdmin && 
                 otpEnabled ? <div onClick={() =>
-                  generateQrCode({ user_id: user?.id!, email: user?.email! })
+                  generateQrCode({ user_id: currentUser?.id!, email: currentUser?.email! })
                 } className="mt-4 underline text-green-500 text-2xl text-center group-hover:text-green-400">Activate 2FA</div>
-                  : <div onClick={() => disableTwoFactorAuth(user?.id!)} className="mt-4 underline text-red-500 text-2xl text-center group-hover:text-red-400">Deactivate 2FA</div>
+                  : <div onClick={() => disableTwoFactorAuth(currentUser?.id!)} className="mt-4 underline text-red-500 text-2xl text-center group-hover:text-red-400">Deactivate 2FA</div>
                 }
             </div>
           </div>
         </div>
+        {openModal && (
+        <TwoFactorAuth
+          base32={secret.base32}
+          otpauth_url={secret.otpauth_url}
+          user_id={currentUser.authUser?.id!}
+          closeModal={() => setOpenModal(false)}
+        />
+      )}
       </div>
     );
 }
