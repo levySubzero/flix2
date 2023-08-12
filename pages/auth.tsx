@@ -21,7 +21,7 @@ const Auth = () => {
       await signIn('credentials', {
         email,
         password,
-        callbackUrl: '/profiles'
+        callbackUrl: '/validate2fa'
       });
 
     } catch (error) {
