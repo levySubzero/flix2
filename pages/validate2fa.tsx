@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 // import { authApi } from "../api/authApi";
 import { useRouter } from 'next/navigation';
 import { NextPageContext } from "next";
-import { getSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import prismadb from '@/lib/prismadb';
 
 const styles = {
@@ -32,7 +32,28 @@ export async function getServerSideProps(context: NextPageContext) {
     }
   }
   const user = session.user;
-  console.log(user)
+  if (user) {
+    const cat = await prismadb.user.findFirstOrThrow({
+      where: {
+          name: user.name as string,
+          email: user.email as string
+      },
+      select: {
+        isAdmin: true
+      }
+    });
+    const { isAdmin } = cat;
+    if (!isAdmin) {
+      return {
+        redirect: {
+          destination: '/profile',
+          permanent: false,
+        }
+      }
+    }
+    console.log(isAdmin)
+  }
+  
 
 
 return {
