@@ -47,14 +47,15 @@ export async function getServerSideProps(context: NextPageContext) {
       }
     });
     const { isAdmin,  otp_enabled, otp_verified } = cat;
-    if (isAdmin && !otp_verified && otp_enabled) {
-      return {
-        redirect: {
-          destination: '/validate2fa',
-          permanent: false,
-        }
-      }
-    }
+    console.log({ isAdmin,  otp_enabled, otp_verified })
+    // if (isAdmin && otp_enabled) {
+    //   return {
+    //     redirect: {
+    //       destination: '/profiles',
+    //       permanent: false,
+    //     }
+    //   }
+    // }
   }
 
 
@@ -192,7 +193,7 @@ const Profiles = () => {
         <TwoFactorAuth
           base32={secret.base32}
           otpauth_url={secret.otpauth_url}
-          user_id={currentUser.authUser?.id!}
+          user_id={currentUser?.id!}
           closeModal={() => setOpenModal(false)}
         />
       )}

@@ -89,13 +89,7 @@ const Validate2faPage = () => {
         router.push('/auth');
       }
     } catch (error: any) {
-      const resMessage =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.response.data.detail ||
-        error.message ||
-        error.toString();
+      console.log(error);
     }
   };
 
@@ -132,7 +126,7 @@ const Validate2faPage = () => {
           Verify the Authentication Code
         </h2>
         <form
-          // onSubmit={() => onSubmitHandler()}
+          onSubmit={() => onSubmitHandler()}
           className="max-w-md w-full mx-auto overflow-hidden shadow-lg bg-ct-dark-200 rounded-2xl p-8 space-y-5"
         >
           <h2 className="text-center text-3xl font-semibold text-[#142149]">

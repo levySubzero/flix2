@@ -19,6 +19,21 @@ import axios from 'axios';
 import prismadb from '@/lib/prismadb';
 import useCatsHome from '@/hooks/useCatsHome';
 import MovieListHome from '@/components/MovieListHome';
+import { useEffect } from 'react';
+import useCurrentUser from '@/hooks/useCurrentUser';
+import { authApi } from './api/auth/authApi';
+
+const performCleanup = async (id: string) => {
+  try {
+    await authApi.put("/auth/otp/logout", {
+      user_id: id,
+    });
+    
+  } catch (error: any) {
+    console.log(error);
+  }
+};
+
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
@@ -41,6 +56,20 @@ const Home = () => {
   const { data: categorys = [] } = useCatsHome();
   const { isOpen: modalOpen, closeModal: modalClose } = useInfoModalSeriesStore();
   const { isOpen, closeModal } = useInfoModalStore();
+  const { data: currentUser } = useCurrentUser();
+
+  useEffect(() => {
+    const beforeExitListener = () => {
+      const id: string = currentUser?.id;
+      performCleanup(id);
+    };
+
+    process.on('beforeExit', beforeExitListener);
+
+    return () => {
+      process.removeListener('beforeExit', beforeExitListener);
+    };
+  }, []);
 
   return (
     <>
