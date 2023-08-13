@@ -20,6 +20,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           shortDesc
         }
       })
+      await prismadb.category.update({
+        where: {
+          id: categoryId,
+        },
+        data: {
+          showIds: {
+            push: show.id
+          }
+        }
+      });
       return res.status(200).json(show);  
     }
     if (req.method === 'PUT') {

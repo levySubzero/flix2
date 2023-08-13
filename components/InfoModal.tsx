@@ -9,6 +9,7 @@ import useMovieList from '@/hooks/useMovieList';
 import ModalCard from './ModalCard';
 import EditButton from './EditButton';
 import { useRouter } from 'next/navigation';
+import useMovies from '@/hooks/useMovies';
 
 interface InfoModalProps {
   visible?: boolean;
@@ -17,9 +18,9 @@ interface InfoModalProps {
 
 const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
   const [isVisible, setIsVisible] = useState<boolean>(!!visible);
-  const { data: movies = [] } = useMovieList();
   const { movieId } = useInfoModalStore();
   const { data = {} } = useMovie(movieId);
+  const { data: movies = [] } = useMovies(data.categoryId);
   const router = useRouter();
 
   const handleClose = useCallback(() => {
