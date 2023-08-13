@@ -119,17 +119,17 @@ const Validate2faPage = () => {
 
   return (
     <section className="bg-ct-blue-600 min-h-screen grid place-items-center">
-      <div className="w-full">
-        <h1 className="text-4xl lg:text-6xl text-center font-[600] text-ct-yellow-600 mb-4">
+      <div className="w-3/4 mx-auto">
+        <h1 className="text-4xl lg:text-6xl text-center font-[600] text-white mb-4">
           Welcome Back
         </h1>
-        <h2 className="text-lg text-center mb-4 text-ct-dark-200">
+        <h2 className="text-lg text-center mb-4 text-white">
           Verify the Authentication Code
         </h2>
-          <h2 className="text-center text-3xl font-semibold text-[#142149]">
+          <h2 className="text-center text-3xl font-semibold text-green-500">
             Two-Factor Authentication
           </h2>
-          <p className="text-center text-sm">
+          <p className="text-center text-sm text-white mb-4">
             Open the two-step verification app on your mobile device to get your
             verification code.
           </p>
