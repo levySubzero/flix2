@@ -46,15 +46,58 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
       <div className="relative w-screen mx-auto my-auto max-w-5xl rounded-md overflow-hidden">
         <div className={`${isVisible ? 'scale-100' : 'scale-0'} transform duration-300 relative flex-auto bg-zinc-900 drop-shadow-md`}>
 
-          <div className="relative h-96">
-            <video poster={data?.thumbnailUrl} autoPlay muted loop src={data?.trailerUrl} className="w-full brightness-[60%] object-cover h-full" />
-            <div onClick={handleClose} className="cursor-pointer absolute top-3 right-3 h-10 w-10 rounded-full bg-black bg-opacity-70 flex items-center justify-center">
-              <AiOutlineClose className="text-white w-6" />
-            </div>
-            <div className="absolute bottom-[10%] left-10">
+          <div className="relative md:h-96">
+            <video poster={data?.thumbnailUrl} autoPlay muted loop src={data?.trailerUrl} className="w-full hidden md:block brightness-[60%] object-cover h-full" />
+            <div className='flex flex-col align-center md:hidden h-[496px] justify-center'>
+            <img onClick={() => router.push(`/watch/${movieId}`)} src={data.thumbnailUrl} alt="Series" draggable={false} className="
+              cursor-pointer
+              object-cover
+              transition
+              duration
+              shadow-xl
+              group-hover:opacity-90
+              sm:group-hover:opacity-0
+              delay-300
+              w-1/2
+              h-full
+              mt-2
+              object-fill
+              mx-auto
+            " />
+            <div className="flex flex-col ml-4 mt-4 md:hidden">
               <p className="text-white text-3xl md:text-4xl h-full lg:text-5xl font-bold mb-8">
                 {data?.title}
               </p>
+              <div className="flex flex-row gap-4 items-center">
+                <p className="text-white">
+                  {data?.year}
+                </p>
+                <p className="text-white">
+                  {data?.duration}
+                </p>
+              </div>
+              <div className="mt-4">
+                <p className="text-white">
+                  {data?.description}
+                </p>
+              </div>
+              <div className="flex flex-row my-4 justify-between px-8">
+                
+                <PlayButton movieId={data?.id} />
+                <FavoriteButton movieId={data?.id} />
+                <EditButton movieId={data?.id} clicked={edit} title={'Edit Movie'}/>
+              </div>
+            </div>
+            </div>
+            
+            <div onClick={handleClose} className="cursor-pointer absolute top-3 right-3 h-10 w-10 rounded-full bg-black bg-opacity-70 flex items-center justify-center">
+              <AiOutlineClose className="text-white w-6" />
+            </div>
+            <div className="absolute hidden md:block bottom-[10%] left-10">
+              <p className="text-white text-3xl md:text-4xl h-full lg:text-5xl font-bold mb-8">
+                {data?.title}
+              </p>
+              
               <div className="flex flex-row gap-4 items-center">
                 <PlayButton movieId={data?.id} />
                 <FavoriteButton movieId={data?.id} />
@@ -62,7 +105,7 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
               </div>
             </div>
           </div>
-          <div className="px-12 py-8">
+          <div className="px-12 py-8 hidden md:block">
             <div className="flex flex-col md:grid md:grid-cols-2 gap-5">
               <div className="col-span-1 ">
                 <div className="flex flex-col items-start gap-2 mb-8">
@@ -99,7 +142,7 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
               </div>
             </div>
           </div>
-          <div className="pb-4 z-30">
+          <div className="pb-4 z-30  hidden md:block">
             <ModalList title="More Like this" data={movies} />
           </div>
         </div>

@@ -49,9 +49,8 @@ const Home = () => {
       <Navbar home={true} />
       <Billboard />
       <div className="flex flex-col gap-4 mx-4 my-4">
-          <MovieList  title="My List" movies={favorites} shows={[]}/>
+          {favorites.length > 0 && (<MovieList  title="My List" movies={favorites} shows={[]}/>)}
           {categorys.map((cat: CategoryInterface, i: any) => {
-            console.log(cat);
             return (
               <MovieListHome key={i} data={cat}/>
             )

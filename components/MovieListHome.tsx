@@ -28,11 +28,12 @@ const MovieList: React.FC<MVInteface> = ({ data }) => {
   };
 
   return (
-    <div className="flex justify-center flex-col">
+    <div className="flex justify-center flex-col w-100vw">
       <div>
         <p className="text-white text-md md:text-xl lg:text-2xl font-semibold ">{data.name}</p>
       </div>
-      <div className="relative flex mt-2 overflow-scroll no-scrollbar transition duration-200 md:hover:h-[280px]" ref={scrollRef}>
+      <div className="relative flex mt-2 min-w-full overflow-scroll no-scrollbar transition duration-200 md:hover:h-[280px]" ref={scrollRef}>
+        
         <div className='h-full sticky my-auto z-20 left-0 bg-black bg-opacity-30 '>
           <BsChevronLeft onClick={() => scroll('left')} className='h-full w-[50px] text-white hidden md:block'/>
         </div>

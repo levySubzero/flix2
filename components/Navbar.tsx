@@ -40,7 +40,7 @@ const Navbar: React.FC<NavbarProps> = ({ home }) => {
 
     const showBar = useCallback(() => {
       setshowSBar(true);
-    }, [router]);
+    }, []);
   
     const toggleAccountMenu = useCallback(() => {
       setShowAccountMenu((current) => !current);
