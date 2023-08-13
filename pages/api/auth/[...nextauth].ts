@@ -3,10 +3,11 @@ import NextAuth, { AuthOptions } from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import Credentials from 'next-auth/providers/credentials';
-
+import { withIronSessionApiRoute } from "iron-session/next";
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import prismadb from '@/lib/prismadb';
 import { compare } from 'bcrypt';
+
 
 export const authOptions: AuthOptions = {
   providers: [

@@ -67,7 +67,7 @@ return {
 }
 }
 
-export type Validate2faInput = TypeOf<typeof validate2faSchema>;
+// export type Validate2faInput = TypeOf<typeof validate2faSchema>;
 
 const Validate2faPage = () => {
   const router = useRouter();
@@ -83,8 +83,9 @@ const Validate2faPage = () => {
         token,
         user_id: id,
       });
+      console.log('errorr');
       if (otp_valid) {
-        router.push('/');
+        router.push('/profiles');
       } else {
         router.push('/auth');
       }
@@ -125,10 +126,6 @@ const Validate2faPage = () => {
         <h2 className="text-lg text-center mb-4 text-ct-dark-200">
           Verify the Authentication Code
         </h2>
-        <form
-          onSubmit={() => onSubmitHandler()}
-          className="max-w-md w-full mx-auto overflow-hidden shadow-lg bg-ct-dark-200 rounded-2xl p-8 space-y-5"
-        >
           <h2 className="text-center text-3xl font-semibold text-[#142149]">
             Two-Factor Authentication
           </h2>
@@ -144,10 +141,9 @@ const Validate2faPage = () => {
             onChange={(e: any) => setToken(e.target.value)}  
           />
 
-          <button type="submit" className="bg-green-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition">
+          <button onClick={() => onSubmitHandler()} className="bg-green-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition">
             Authenticate
           </button>
-        </form>
       </div>
     </section>
   );

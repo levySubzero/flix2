@@ -18,10 +18,11 @@ const Auth = () => {
 
   const login = useCallback(async () => {
     try {
+      const log = 'true';
       const sign = await signIn('credentials', {
         email,
         password,
-        callbackUrl: '/profiles'
+        callbackUrl: `/profiles/${log}`
       });
       
     } catch (error) {

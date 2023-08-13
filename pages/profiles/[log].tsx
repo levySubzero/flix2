@@ -6,7 +6,7 @@ import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 import prismadb from '@/lib/prismadb';
-import { authApi } from "./api/auth/authApi";
+import { authApi } from "../api/auth/authApi";
 import { IUser } from "@/types";
 import TwoFactorAuth from "@/components/TwoFactorAuth";
 
@@ -24,7 +24,8 @@ interface UserCardProps {
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
-  
+  const { log } = context.query;
+  console.log('login', log)
   if (!session) {
     return {
       redirect: {
@@ -33,30 +34,34 @@ export async function getServerSideProps(context: NextPageContext) {
       }
     }
   }
-  const user = session.user;
-  if (user) {
-    const cat = await prismadb.user.findFirstOrThrow({
-      where: {
-          name: user.name as string,
-          email: user.email as string
-      },
-      select: {
-        isAdmin: true,
-        otp_enabled: true,
-        otp_verified: true
+  
+  if(log === 'true') {
+    console.log(log)
+    const user = session.user;
+    if (user) {
+      const cat = await prismadb.user.findFirstOrThrow({
+        where: {
+            name: user.name as string,
+            email: user.email as string
+        },
+        select: {
+          isAdmin: true,
+          otp_enabled: true,
+          otp_verified: true
+        }
+      });
+      const { isAdmin,  otp_enabled, otp_verified } = cat;
+      if (isAdmin && otp_enabled) {
+        return {
+          redirect: {
+            destination: '/validate2fa',
+            permanent: false,
+          }
+        }
       }
-    });
-    const { isAdmin,  otp_enabled, otp_verified } = cat;
-    console.log({ isAdmin,  otp_enabled, otp_verified })
-    // if (isAdmin && otp_enabled) {
-    //   return {
-    //     redirect: {
-    //       destination: '/profiles',
-    //       permanent: false,
-    //     }
-    //   }
-    // }
+    }
   }
+
 
 
 return {
