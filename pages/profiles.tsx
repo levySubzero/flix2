@@ -41,11 +41,13 @@ export async function getServerSideProps(context: NextPageContext) {
           email: user.email as string
       },
       select: {
-        isAdmin: true
+        isAdmin: true,
+        otp_enabled: true,
+        otp_verified: true
       }
     });
-    const { isAdmin } = cat;
-    if (isAdmin) {
+    const { isAdmin,  otp_enabled, otp_verified } = cat;
+    if (isAdmin && !otp_verified && otp_enabled) {
       return {
         redirect: {
           destination: '/validate2fa',
@@ -84,6 +86,17 @@ const Profiles = () => {
       base32: "",
     });
     const [openModal, setOpenModal] = useState(false);
+    const [isAdmin, setIsAdmin] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (currentUser?.isAdmin) { 
+        setIsAdmin(true)
+        user2fa();
+    } else {
+      // router.push('/');
+    }
+
+  }, [currentUser]); 
 
     const user2fa = () => {
       if (currentUser?.isAdmin && currentUser?.otp_enabled) {
@@ -119,15 +132,9 @@ const Profiles = () => {
           });
         }
       } catch (error: any) {
-        const resMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.response.data.detail ||
-          error.message ||
-          error.toString();
-      }
+        console.log(error);
     };
+  };
 
     const disableTwoFactorAuth = async (user_id: string) => {
       try {
@@ -138,20 +145,13 @@ const Profiles = () => {
           user: IUser;
         }>("/auth/otp/disable", { user_id });
       } catch (error: any) {
-        const resMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
+        console.log(error);
       }
     };
 
     const selectProfile = useCallback(() => {
       router.push('/');
     }, [router]);
-
-    user2fa();
 
     return (
       <div>
@@ -166,13 +166,25 @@ const Profiles = () => {
               <hr className="bg-gray-600 border-0 h-px/ my-4" />
             </div>
             <div className="flex items-center ml-[-20px] justify-center">
-              {!currentUser?.isAdmin && 
-
-                otpEnabled ? <p onClick={() => disableTwoFactorAuth(currentUser?.id!)} className="mt-16 underline cursor-pointer text-red-500 text-lg text-center group-hover:text-red-400">Deactivate 2FA</p>
-                  : <p onClick={() => 
-                    generateQrCode({ user_id: currentUser?.id!, email: currentUser?.email! })
-                  } className="mt-16 underline cursor-pointer text-green-500 text-lg text-center group-hover:text-green-400">Activate 2FA</p>
-              }
+            {isAdmin && (
+            otpEnabled ? (
+              <p
+                onClick={() => disableTwoFactorAuth(currentUser?.id!)}
+                className="mt-16 underline cursor-pointer text-red-500 text-lg text-center group-hover:text-red-400"
+              >
+                Deactivate 2FA
+              </p>
+            ) : (
+              <p
+                onClick={() =>
+                  generateQrCode({ user_id: currentUser?.id!, email: currentUser?.email! })
+                }
+                className="mt-16 underline cursor-pointer text-green-500 text-lg text-center group-hover:text-green-400"
+              >
+                Activate 2FA
+              </p>
+            )
+          )}
             </div>
           </div>
         </div>

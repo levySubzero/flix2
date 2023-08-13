@@ -72,8 +72,8 @@ export type Validate2faInput = TypeOf<typeof validate2faSchema>;
 const Validate2faPage = () => {
   const router = useRouter();
   const [token, setToken] = useState('');
+  const [id, setId] = useState('');
   const { data: currentUser } = useCurrentUser();
-  const id = currentUser.id;
 
   const validate2fa = async (token: string) => {
     try {
@@ -102,6 +102,15 @@ const Validate2faPage = () => {
   const onSubmitHandler = () => {
     validate2fa(token);
   };
+
+  useEffect(() => {
+    if (currentUser?.isAdmin) { 
+        setId(currentUser.id)
+    } else {
+      // router.push('/');
+    }
+
+  }, [currentUser]);
 
   // useEffect(() => {
   //   setFocus("token");

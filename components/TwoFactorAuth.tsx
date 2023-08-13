@@ -53,14 +53,7 @@ const TwoFactorAuth: FC<TwoFactorAuthProps> = ({
       closeModal();
       
     } catch (error: any) {
-      const resMessage =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.response.data.detail ||
-        error.message ||
-        error.toString();
-      
+      console.log(error);
     }
   };
 
