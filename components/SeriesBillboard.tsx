@@ -8,7 +8,7 @@ import { VscUnmute, VscMute  } from "react-icons/vsc";
 const SeriesBillboard: React.FC = () => {
   const { data } = useSeriesBillboard();
   const { openModal } = useInfoModalSeriesStore();
-  const [mute, setMute] = useState(false);
+  const [mute, setMute] = useState(true);
 
   const handleOpenModal = useCallback(() => {
     openModal(data?.id);
@@ -26,10 +26,10 @@ const SeriesBillboard: React.FC = () => {
        src={data?.videoUrl}
        muted={mute ? true : false}></video>
       <div className="absolute top-[30%] md:top-[40%] ml-4 md:ml-16">
-        <p className="text-white text-1xl md:text-5xl h-full w-[50%] lg:text-6xl font-bold drop-shadow-xl">
+        <p className="text-white whitespace-nowrap text-1xl md:text-5xl h-full w-[50%] lg:text-6xl font-bold drop-shadow-xl">
           {data?.title}
         </p>
-        <p className="text-white text-[10px] md:text-lg mt-3 md:mt-8 w-[90%] md:w-[80%] lg:w-[50%] drop-shadow-xl">
+        <p className="text-white text-[10px] truncate w-16 md:whitespace-normal md:text-lg mt-3 md:mt-8 md:w-[80%] lg:w-[50%] drop-shadow-xl">
           {data?.description}
         </p>
         <div className="flex flex-row items-center mt-3 md:mt-4 gap-3">
