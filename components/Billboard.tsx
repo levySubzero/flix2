@@ -5,6 +5,26 @@ import PlayButton from '@/components/PlayButton';
 import useBillboard from '@/hooks/useBillboard';
 import useInfoModalStore from '@/hooks/useInfoModalStore';
 
+interface Muter {
+  mute: boolean;
+  toggler: any;
+}
+
+const Mute: React.FC<Muter> = ({mute, toggler}) => {
+
+  return (
+    <div className="flex flex-row w-[96vw] sm:w-[99vw] md:w-[95vw] xl:w-[96vw] p-0">
+      <div className="flex flex-row w-2/5 md:w-1/4 lg:w-1/5 h-[40px] md:h-[50px] ml-auto gap-4 items-center justify-start">
+        <div onClick={toggler} className="flex flex-row border-2 border-zinc-600 rounded-full bg-black bg-opacity-5 p-1 items-center justify-center">
+          {mute ? <VscMute className="w-[25px] h-[25px] md:w-[35px] md:h-[35px] text-white" /> : <VscUnmute className="w-[25px] h-[25px] md:w-40 md:h-50 text-white" />}
+        </div>
+        <div className="flex border-l border-l-2 h-full w-full border-zinc-500 bg-zinc-800 ml-0">
+          
+        </div>
+      </div>
+    </div>
+  )}
+
 const Billboard: React.FC = () => {
   const { data } = useBillboard();
   const { openModal } = useInfoModalStore();
@@ -57,12 +77,13 @@ const Billboard: React.FC = () => {
               More Info
           </button>
         </div>
+      <Mute mute={mute} toggler={toggleMute} />
       </div>
-      <div onClick={toggleMute} className="absolute top-[70%] left-[60%] md:top-[70%] sm:left-[70%] md:left-[85%] ml-4 md:ml-16">
+      {/* <div onClick={toggleMute} className="absolute top-[70%] left-[60%] md:top-[70%] sm:left-[70%] md:left-[85%] ml-4 md:ml-16">
         <div className="flex flex-row bg-black bg-opacity-5 items-center mt-3 md:mt-4 gap-3">
           {mute ? <VscMute className="w-40 h-50 text-white text-3xl md:w-7 mr-1" /> : <VscUnmute className="w-40 h-50 text-white text-3xl md:w-7 mr-1" />}
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }

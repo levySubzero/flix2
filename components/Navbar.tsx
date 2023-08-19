@@ -53,7 +53,7 @@ const Navbar: React.FC<NavbarProps> = ({ home }) => {
     return (
       <nav className={`w-full h-[100px] fixed top-0 ${home==true ? 'z-40' : ''}`}>
         <div className={`px-4 md:px-16 py-2 flex flex-row items-center transition duration-500 ${showBackground ? 'bg-zinc-900 bg-opacity-90' : ''}`}>
-          <img onClick={() => router.push(`/`)} src="/images/logo.png" className="h-full w-20 lg:h-full" alt="Logo" />
+          <img onClick={() => router.push(`/`)} src="/images/logo.png" className="h-full w-20 md:h-[150px] md:w-[150px]" alt="Logo" />
           <div className="flex-row ml-8 gap-7 hidden lg:flex">
             <Link href={"/"}><NavbarItem label="Home" /></Link>
             <Link href={"/seriesP"}><NavbarItem label="Series" /></Link>
