@@ -12,67 +12,59 @@ const SeriesCard: React.FC<SeriesCardProps> = ({ data }) => {
   console.log(data.id)
 
   return (
-    <div className="group 
-                    my-auto 
+    <div className="group relative
                     bg-zinc-900 
-                    relative 
-                    w-[140px] min-w-[140px] 
-                    md:min-w-[250px] h-[180px] 
-                    md:h-[180px] mr-1 
-                    flex justify-center items-center
-                    rounded-lg overflow-hidden md:rounded-none">
-      <img onClick={() => openModal(data.id)} src={data.thumbnailUrl} alt="Series" draggable={false} className="
+                    mx-1 relative 
+                    w-[10px] 
+                    min-w-[140px] 
+                    md:min-w-[250px] 
+                    h-[180px] md:h-[180px] 
+                    my-auto mr-1 
+                    flex justify-center 
+                    items-center rounded-lg overflow-hidden md:rounded-none">
+      <img onClick={() => openModal(data.id)} src={data.thumbnailUrl} alt="Movie" draggable={false} className="
+        flex 
+        absolute
+        justify-center
+        align-center
         cursor-pointer
         object-cover
         transition
         duration
         shadow-xl
-        group-hover:opacity-90
+        group-hover:opacity-0
         sm:group-hover:opacity-0
         delay-300
         w-full
         h-full
         object-contain
       " />
-      <div  onClick={() => openModal(data.id)} className="
-        opacity-0
-        absolute
-        top-0
-        transition
-        duration-200
-        z-10
-        invisible
-        sm:visible
-        delay-300
-        w-full
-        scale-0
-        group-hover:scale-110
-        group-hover:-translate-y-[6vw]
-        group-hover:translate-x-[2vw]
-        group-hover:opacity-100
-      ">
-        <img onClick={() => openModal(data.id)} src={data.thumbnailUrl} alt="Series" draggable={false} className="
+      <video poster={data?.thumbnailUrl} className="w-full h-[56.25vw] object-cover brightness-[60%] transition duration-500
           cursor-pointer
+          absolute
           object-cover
           transition
+          hidden
           duration
           shadow-xl
           rounded-t-md
           w-full
           h-full
           object-fill
-        " />
+          group-hover:block"
+          autoPlay muted loop src={data?.trailerUrl}></video>
         <div  onClick={() => openModal(data.id)} className="
           z-10
-          bg-zinc-800
+          bg-transparent
           p-2
           lg:p-4
           absolute
+          hidden
           w-full
           transition
           shadow-md
-          rounded-b-md
-          ">
+          group-hover:block
+          rounded-b-md">
           <div onClick={() => openModal(data.id)} className="flex flex-row items-center gap-3">
             <div onClick={() => openModal(data.id)} className="cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex justify-center items-center transition hover:bg-neutral-300">
               {/* <PlayIcon className="text-black w-4 lg:w-6" /> */}
@@ -94,7 +86,6 @@ const SeriesCard: React.FC<SeriesCardProps> = ({ data }) => {
           </div>
         </div>
       </div>
-    </div>
   )
 }
 

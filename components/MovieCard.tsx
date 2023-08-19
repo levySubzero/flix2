@@ -16,7 +16,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
   const redirectToWatch = useCallback(() => router.push(`/watch/${data.id}`), [router, data.id]);  
 
   return (
-    <div className="group 
+    <div className="group relative
                     bg-zinc-900 
                     mx-1 relative 
                     w-[10px] 
@@ -28,6 +28,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
                     items-center rounded-lg overflow-hidden md:rounded-none">
       <img onClick={() => openModal(data.id)} src={data.thumbnailUrl} alt="Movie" draggable={false} className="
         flex 
+        absolute
         justify-center
         align-center
         cursor-pointer
@@ -35,51 +36,39 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
         transition
         duration
         shadow-xl
-        group-hover:opacity-90
+        group-hover:hidden
         sm:group-hover:opacity-0
         delay-300
         w-full
         h-full
         object-contain
       " />
-      <div onClick={() => openModal(data.id)} className="
-        opacity-0
-        absolute
-        top-0
-        transition
-        duration-200
-        z-10
-        invisible
-        sm:visible
-        delay-300
-        w-full
-        scale-0
-        group-hover:scale-110
-        group-hover:-translate-y-[6vw]
-        group-hover:translate-x-[2vw]
-        group-hover:opacity-100
-      ">
         {/* <img onClick={redirectToWatch} src={data.thumbnailUrl} alt="Movie" draggable={false} className=" */}
         <video poster={data?.thumbnailUrl} className="w-full h-[56.25vw] object-cover brightness-[60%] transition duration-500
           cursor-pointer
+          absolute
           object-cover
           transition
+          hidden
           duration
           shadow-xl
           rounded-t-md
           w-full
           h-full
-          object-fill"
+          object-fill
+          group-hover:block"
           autoPlay muted loop src={data?.videoUrl}></video>
         <div  onClick={() => openModal(data.id)} className="
           z-10
-          bg-zinc-800
+          bg-transparent
           p-2
           lg:p-4
           absolute
+          hidden
           w-full
           transition
           shadow-md
+          group-hover:block
           rounded-b-md
           ">
           <div className="flex flex-row items-center gap-3">
@@ -100,7 +89,6 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
           </div>
         </div>
       </div>
-    </div>
   )
 }
 
