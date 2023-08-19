@@ -27,8 +27,6 @@ export async function getServerSideProps(context: NextPageContext) {
     }
     try{
       const series = await prismadb.series.findMany();
-      console.log(series)
-      console.log("series")
       return {
         props: {
           
@@ -120,6 +118,7 @@ const AddEpisode= () => {
         duration,
         seriesId
       });
+      alert('Episode added successfully!');
       router.push('/seriesP');
     } catch (error) {
         console.log(error);

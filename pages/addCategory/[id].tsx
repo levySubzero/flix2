@@ -53,6 +53,7 @@ const AddCategory= () => {
       await axios.put('/api/newCategory', {
         id, name
       });
+      alert('Category updated successfully!');
       router.push('/');
     } catch (error) {
         console.log(error);

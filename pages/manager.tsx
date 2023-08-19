@@ -1,3 +1,4 @@
+import BackButton from "@/components/BackButton";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useData from "@/hooks/useData";
 import axios from "axios";
@@ -93,6 +94,9 @@ const Profiles = () => {
               <h2 className="text-white text-4xl mb-8 font-semibold">
                 Movies: {moviessNum()}
               </h2>
+              {/* <div className="relative mb-4 mr-auto">
+                <BackButton />
+              </div> */}
             </div>
             <div className="grid md:grid-cols-2 gap-2">
               

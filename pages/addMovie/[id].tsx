@@ -127,6 +127,7 @@ const AddMovie = () => {
         cast, 
         shortDesc
       });
+      alert('Movie updated successfully!');
       router.push('/films');
     } catch (error) {
         console.log(error);

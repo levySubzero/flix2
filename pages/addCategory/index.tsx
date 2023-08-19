@@ -51,6 +51,7 @@ const AddCategory= () => {
       await axios.post('/api/newCategory', {
         name
       });
+      alert('Category added successfully!');
       router.push('/');
     } catch (error) {
         console.log(error);

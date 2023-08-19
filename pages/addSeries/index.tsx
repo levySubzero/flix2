@@ -95,6 +95,7 @@ const AddSeries = () => {
         cast,
         showId
       });
+      alert('Season added successfully!');
       router.push('/seriesP');
     } catch (error) {
         console.log(error);

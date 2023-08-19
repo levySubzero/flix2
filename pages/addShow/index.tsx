@@ -87,6 +87,7 @@ const AddShow = () => {
         cast, 
         shortDesc
       });
+      alert('Show added successfully!');
       router.push('/seriesP');
     } catch (error) {
         console.log(error);

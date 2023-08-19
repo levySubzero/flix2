@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import ReactSearchBox from "react-search-box";
 import useInfoModalStore from '@/hooks/useInfoModalStore';
 import useInfoModalSeriesStore from '@/hooks/useInfoModalSeriesStore';
-import { useRouter } from 'next/navigation';
 import useShowList from '@/hooks/useShowList';
 import useMovieList from '@/hooks/useMovieList';
-import { ShowInterface } from '@/types';
 
 interface ItemInterface {
     key: string; 
@@ -34,7 +32,6 @@ const SearchBar: React.FC<BarProps>  = ({ showB }) => {
         items.push({key: item.id, value: item.title});
         movie.push(item.id);
     });
-
     const searchSelect = (record: { item: { key: string; value: string; }; }) => {
         if ( movie.includes(record.item.key) ) {
             movieModal(record.item.key);

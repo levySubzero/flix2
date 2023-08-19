@@ -10,6 +10,8 @@ import ModalCard from './ModalCard';
 import EditButton from './EditButton';
 import { useRouter } from 'next/navigation';
 import useMovies from '@/hooks/useMovies';
+import DelButton from './DelButton';
+import axios from 'axios';
 
 interface InfoModalProps {
   visible?: boolean;
@@ -39,7 +41,13 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
   }
 
   const edit = (id: string) => {
-    router.push(`/addMovie/${movieId}`)
+    router.push(`/addMovie/${movieId}`);
+  }
+
+  const del = async (id: string) => {
+    onClose();
+    await axios.delete(`/api/movies/${id}`);
+    alert('Movie Deleted successfully!');
   }
 
   return (
@@ -87,6 +95,7 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
                 <PlayButton movieId={data?.id} />
                 <FavoriteButton movieId={data?.id} />
                 <EditButton movieId={data?.id} clicked={edit} title={'Edit Movie'}/>
+                <DelButton movieId={data?.id} clicked={del} title={'Edit Movie'}/>
               </div>
             </div>
             </div>
@@ -103,6 +112,7 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
                 <PlayButton movieId={data?.id} />
                 <FavoriteButton movieId={data?.id} />
                 <EditButton movieId={data?.id} clicked={edit} title={'Edit Movie'}/>
+                <DelButton movieId={data?.id} clicked={() => del(data?.id)} title={'Delete Movie'}/>
               </div>
             </div>
           </div>

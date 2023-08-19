@@ -29,8 +29,31 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
       return res.status(200).json(series);
     } else if (req.method === 'DELETE') {
-      // Delete the data by ID
-      const deletedData = await prismadb.movie.delete({
+      const series = await prismadb.series.findMany({
+        where: {
+          showId: seriesId
+        }
+      });
+      series.map(async (serie) => {
+        const eps = await prismadb.episode.findMany({
+          where: {
+            seriesId: seriesId
+          }
+        });
+        eps.map(async (ep) => {
+          const deleted = await prismadb.episode.delete({
+            where: {
+              id: ep.id
+            }
+          })
+        })
+        const deletedData = await prismadb.series.delete({
+          where: {
+            id: serie.id
+          }
+        });
+      })
+      const deletedData = await prismadb.show.delete({
         where: {
           id: seriesId
         }

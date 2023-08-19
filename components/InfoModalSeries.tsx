@@ -12,6 +12,7 @@ import useSeries from '@/hooks/useSeries';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import EditButton from './EditButton';
+import DelButton from './DelButton';
 
 interface InfoModalProps {
   visible?: boolean;
@@ -76,6 +77,12 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
     router.push(`/addSeries/${seasonId}`)
   }
 
+  const del = async (id: string) => {
+    onClose();
+    await axios.delete(`/api/series/${id}`);
+    alert('Show Deleted successfully!');
+  }
+
   return (
     <div className="z-50 transition duration-300 bg-black bg-opacity-80 flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0">
       <div className="relative w-screen mx-auto my-auto max-w-5xl rounded-md overflow-hidden">
@@ -95,6 +102,7 @@ const InfoModalSeries: React.FC<InfoModalProps> = ({ visible, onClose }) => {
                 <FavoriteButton movieId={currentSeason?.id as string} />
                 <EditButton movieId={data?.id as string} clicked={editshow} title={'Edit Show'}/>
                 <EditButton movieId={currentSeason?.id as string} clicked={editseason} title={'Edit Season'}/>
+                <DelButton movieId={data?.id} clicked={() => del(data?.id)} title={'Delete Show'}/>
               </div>
             </div>
           </div>
