@@ -12,6 +12,7 @@ import useGenres from '@/hooks/useGenres';
 import useShow from '@/hooks/useShow';
 import { CategoryInterface, ShowInterface } from '@/types';
 import { useRouter as RouterUse } from 'next/router';
+import BackButton from '@/components/BackButton';
 
 
 export async function getServerSideProps(context: NextPageContext) {
@@ -171,7 +172,8 @@ const AddShow = () => {
           <img onClick={() => router.push(`/`)} src="/images/logo.png" className="h-full w-[168px] cursor-pointer" alt="Logo" />
         </nav>
         <div className="flex justify-center mx-4">
-          <div className="bg-black bg-opacity-70 px-16 py-16 self-center mt-2 rounded-md w-full">
+          <div className="relative bg-black bg-opacity-70 px-16 py-16 self-center mt-2 rounded-md w-full">
+            <BackButton />
             <h2 className="text-white text-4xl mb-8 font-semibold">
               Update {title}
             </h2>

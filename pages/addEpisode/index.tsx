@@ -1,18 +1,17 @@
 import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
-import { getSession, signIn } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 import Input from "../../components/input";
-import serverAuth from '@/lib/serverAuth';
 import useCurrentUser from '@/hooks/useCurrentUser';
 import { useRouter } from 'next/navigation';
 import { NextPageContext } from 'next';
 import Dropdown from '@/components/Dropdown';
 import useSeriesList from '@/hooks/useSeriesList';
-import useShow from '@/hooks/useShow';
 import { SeriesInterface } from '@/types';
 import prismadb from '@/lib/prismadb';
 import Select from 'react-select';
 import useShows from '@/hooks/useShowList';
+import BackButton from '@/components/BackButton';
 
 
 export async function getServerSideProps(context: NextPageContext) {
@@ -138,7 +137,8 @@ const AddEpisode= () => {
           <img onClick={() => router.push(`/`)} src="/images/logo.png" className="h-full w-[168px] cursor-pointer" alt="Logo" />
         </nav>
         <div className="flex justify-center">
-          <div className="bg-black bg-opacity-70 px-16 py-16 self-center mt-2 lg:w-2/5 lg:max-w-md rounded-md w-full">
+          <div className="relative bg-black bg-opacity-70 px-16 py-16 self-center mt-2 lg:w-2/5 lg:max-w-md rounded-md w-full">
+            <BackButton />
             <h2 className="text-white text-4xl mb-8 font-semibold">
               Add New Episode
             </h2>

@@ -7,6 +7,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { NextPageContext } from 'next';
 import { SeriesInterface } from '@/types';
 import { useRouter as RouterUse } from 'next/router';
+import BackButton from '@/components/BackButton';
 
 
 export async function getServerSideProps(context: NextPageContext) {
@@ -68,7 +69,8 @@ const AddGenre= () => {
           <img onClick={() => router.push(`/`)} src="/images/logo.png" className="h-full w-[168px] cursor-pointer" alt="Logo" />
         </nav>
         <div className="flex justify-center">
-          <div className="bg-black bg-opacity-70 px-16 py-16 self-center mt-2 lg:w-2/5 lg:max-w-md rounded-md w-full">
+          <div className="relative bg-black bg-opacity-70 px-16 py-16 self-center mt-2 lg:w-2/5 lg:max-w-md rounded-md w-full">
+            <BackButton />
             <h2 className="text-white text-4xl mb-8 font-semibold">
               Update Genre
             </h2>

@@ -18,8 +18,8 @@ const Mute: React.FC<Muter> = ({mute, toggler}) => {
         <div onClick={toggler} className="flex flex-row border-2 border-zinc-600 rounded-full bg-black bg-opacity-5 p-1 items-center justify-center">
           {mute ? <VscMute className="w-[25px] h-[25px] md:w-[35px] md:h-[35px] text-white" /> : <VscUnmute className="w-[25px] h-[25px] md:w-40 md:h-50 text-white" />}
         </div>
-        <div className="flex border-l border-l-2 h-full w-full border-zinc-500 bg-zinc-800 ml-0">
-          
+        <div className="flex justify-start align-center border-l border-l-2 h-full w-full border-zinc-500 bg-zinc-800 ml-0">
+          <p className="text-gray-400 my-auto ml-2 text-[18px]">15</p>
         </div>
       </div>
     </div>
@@ -45,8 +45,8 @@ const Billboard: React.FC = () => {
        loop 
        src={data?.videoUrl}
        muted={mute ? true : false}></video>
-      <div className="absolute top-[30%] md:top-[40%] ml-4 md:ml-16">
-        <p className="text-white whitespace-nowrap text-1xl md:text-5xl h-full w-[50%] lg:text-6xl font-bold drop-shadow-xl">
+      <div className="absolute top-[30%] md:top-[40%] lg:top-[30%] ml-4 md:ml-16">
+        <p className="text-white whitespace-nowrap text-1xl sm:text-3xl md:text-7xl h-full w-[50%] lg:text-9xl font-bold drop-shadow-xl">
           {data?.title}
         </p>
         <p className="text-white text-[10px] truncate w-16 md:whitespace-normal md:text-lg mt-3 md:mt-8 md:w-[80%] lg:w-[50%] drop-shadow-xl">
@@ -57,7 +57,7 @@ const Billboard: React.FC = () => {
           <button
             onClick={handleOpenModal}
             className="
-              bg-white
+              bg-gray-300
               text-white
               bg-opacity-30 
               rounded-md 

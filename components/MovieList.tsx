@@ -21,7 +21,7 @@ const MovieList: React.FC<ItemInterface> = ({ movies, shows, title }) => {
   };
   
   return (
-    <div className="flex justify-center flex-col">
+    <div className="flex justify-center flex-col z-40">
       <div>
         <p className="text-white text-md md:text-xl lg:text-2xl font-semibold ">{title}</p>
       </div>

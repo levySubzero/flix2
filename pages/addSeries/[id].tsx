@@ -2,15 +2,14 @@ import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import { getSession, signIn } from 'next-auth/react';
 import Input from "../../components/input";
-import serverAuth from '@/lib/serverAuth';
 import useCurrentUser from '@/hooks/useCurrentUser';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { NextPageContext } from 'next';
 import useShows from '@/hooks/useShowList';
 import Select from 'react-select';
 import { useRouter as RouterUse } from 'next/router';
 import { SeriesInterface, ShowInterface } from '@/types';
-import useFindSeries from '@/hooks/useFindSeries';
+import BackButton from '@/components/BackButton';
 
 export async function getServerSideProps(context: NextPageContext) {
     const session = await getSession(context);
@@ -137,7 +136,8 @@ const AddSeries = () => {
           <img onClick={() => router.push(`/`)} src="/images/logo.png" className="h-full w-[168px] cursor-pointer" alt="Logo" />
         </nav>
         <div className="flex justify-center mx-4">
-          <div className="bg-black bg-opacity-70 px-16 py-16 self-center mt-2 rounded-md w-full">
+          <div className="relative bg-black bg-opacity-70 px-16 py-16 self-center mt-2 rounded-md w-full">
+            <BackButton />
             <h2 className="text-white text-4xl mb-8 font-semibold">
               Update {title}
             </h2>

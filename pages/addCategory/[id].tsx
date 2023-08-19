@@ -2,15 +2,12 @@ import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import { getSession, signIn } from 'next-auth/react';
 import Input from "../../components/input";
-import serverAuth from '@/lib/serverAuth';
 import useCurrentUser from '@/hooks/useCurrentUser';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useRouter as RouterUse } from 'next/router';
 import { NextPageContext } from 'next';
-import Dropdown from '@/components/Dropdown';
-import useSeriesList from '@/hooks/useSeriesList';
 import { SeriesInterface } from '@/types';
-import prismadb from '@/lib/prismadb';
+import BackButton from '@/components/BackButton';
 
 
 export async function getServerSideProps(context: NextPageContext) {
@@ -73,7 +70,8 @@ const AddCategory= () => {
           <img onClick={() => router.push(`/`)} src="/images/logo.png" className="h-full w-28 pointer" alt="Logo" />
         </nav>
         <div className="flex justify-center">
-          <div className="bg-black bg-opacity-70 px-16 py-16 self-center mt-2 lg:w-2/5 lg:max-w-md rounded-md w-full">
+          <div className="relative bg-black bg-opacity-70 px-16 py-16 self-center mt-2 lg:w-2/5 lg:max-w-md rounded-md w-full">
+            <BackButton />
             <h2 className="text-white text-4xl mb-8 font-semibold">
               Update Category
             </h2>
