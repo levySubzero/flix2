@@ -16,7 +16,7 @@ const Mute: React.FC<Muter> = ({mute, toggler}) => {
     <div className="flex flex-row w-[96vw] sm:w-[99vw] md:w-[95vw] xl:w-[96vw] p-0">
       <div className="flex flex-row w-2/5 md:w-1/4 lg:w-1/5 h-[40px] md:h-[50px] ml-auto gap-4 items-center justify-start">
         <div onClick={toggler} className="flex flex-row border-2 border-zinc-600 rounded-full bg-black bg-opacity-5 p-1 items-center justify-center">
-          {mute ? <VscMute className="w-[25px] h-[25px] md:w-[35px] md:h-[35px] text-white" /> : <VscUnmute className="w-[25px] h-[25px] md:w-40 md:h-50 text-white" />}
+          {mute ? <VscMute className="w-[25px] h-[25px] md:w-[35px] md:h-[35px] text-white" /> : <VscUnmute className="w-[25px] h-[25px] md:w-[35px] md:h-[35px] text-white" />}
         </div>
         <div className="flex justify-start align-center border-l border-l-2 h-full w-full border-zinc-500 bg-zinc-800 ml-0">
           <p className="text-gray-400 my-auto ml-2 text-[18px]">15</p>
