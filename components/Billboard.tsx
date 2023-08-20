@@ -45,7 +45,7 @@ const Billboard: React.FC = () => {
        loop 
        src={data?.videoUrl}
        muted={mute ? true : false}></video>
-      <div className="absolute top-[30%] md:top-[40%] lg:top-[30%] ml-4 md:ml-16">
+      <div className="absolute top-[30%] md:top-[30%] lg:top-[30%] ml-4 md:ml-16">
         <p className="text-white whitespace-nowrap text-1xl sm:text-3xl md:text-7xl h-full w-[50%] lg:text-9xl font-bold drop-shadow-xl">
           {data?.title}
         </p>
