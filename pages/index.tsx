@@ -48,7 +48,7 @@ const Home = () => {
       <InfoModal visible={isOpen} onClose={closeModal} />
       <Navbar home={true} />
       <Billboard />
-      <div className="flex flex-col gap-4 mx-4 my-[-45px] md:my-[-75px] lg:my-[-120px] xl:my-[-175px] z-40">
+      <div className="flex flex-col gap-4 mx-4 my-[-55px] md:my-[-85px] lg:my-[-130px] xl:my-[-215px] z-40">
           {favorites.length > 0 && (<MovieList  title="My List" movies={favorites} shows={[]}/>)}
           {categorys.map((cat: CategoryInterface, i: any) => {
             return (
