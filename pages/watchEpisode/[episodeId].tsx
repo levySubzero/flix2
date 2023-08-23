@@ -41,7 +41,7 @@ const Watch = () => {
           loading="lazy"
           className="absolute top-0 h-full w-full"
           style={{ border: 'none' }}
-          allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+          allow="accelerometer; gyroscope; fullscreen autoplay; encrypted-media; picture-in-picture;"
           allowFullScreen
         ></iframe>
       </div>}

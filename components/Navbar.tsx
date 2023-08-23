@@ -58,7 +58,7 @@ const Navbar: React.FC<NavbarProps> = ({ home }) => {
             <Link href={"/"}><NavbarItem label="Home" /></Link>
             <Link href={"/seriesP"}><NavbarItem label="Series" /></Link>
             <Link href={"/films"}><NavbarItem label="Films" /></Link>
-            <Link href={"/myList"}><NavbarItem label="My List" /></Link>
+            {/* <Link href={"/myList"}><NavbarItem label="My List" /></Link> */}
           </div>
           <div onClick={toggleMobileMenu} className="lg:hidden flex flex-row items-center gap-2 ml-4 md:ml-8 cursor-pointer relative">
             <p className="text-white text-sm">Browse</p>
