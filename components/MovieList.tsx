@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import { ItemInterface, MovieInterface, ShowInterface } from '@/types';
 import MovieCard from '@/components/MovieCard';
-import SeriesList from './SeriesList';
 import SeriesCard from './SeriesCard';
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 
