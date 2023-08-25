@@ -142,3 +142,10 @@ model Genre {
 
 }
 
+model Search {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  type Int
+  itemId String @db.ObjectId
+}
+

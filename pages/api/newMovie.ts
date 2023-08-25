@@ -21,7 +21,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           cast, 
           shortDesc
         }
-      })
+      });
+      const search = await prismadb.search.create({
+        data: {
+          title,
+          type: 1,
+          itemId: movie.id
+        }
+      });
       await prismadb.category.update({
         where: {
           id: categoryId,
@@ -52,7 +59,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           cast, 
           shortDesc
         }
-      })
+      });
+      const search = await prismadb.search.create({
+        data: {
+          title,
+          type: 1,
+          itemId: movie.id
+        }
+      });
       return res.status(200).json(movie);
     }
     return res.status(405).end();

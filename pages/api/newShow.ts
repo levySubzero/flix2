@@ -19,7 +19,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           cast, 
           shortDesc
         }
-      })
+      });
+      const search = await prismadb.search.create({
+        data: {
+          title,
+          type: 2,
+          itemId: show.id
+        }
+      });
       await prismadb.category.update({
         where: {
           id: categoryId,
@@ -48,11 +55,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           cast, 
           shortDesc
         }
-      })
+      });
+      const search = await prismadb.search.create({
+        data: {
+          title,
+          type: 2,
+          itemId: show.id
+        }
+      });
       return res.status(200).json(show);  
     }
-
-    
     return res.status(405).end();
   } catch (error) {
     return res.status(400).json({ error: `Something went wrong: ${error}` });

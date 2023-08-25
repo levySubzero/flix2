@@ -1,13 +1,8 @@
 import React from 'react';
 
 import { MovieInterface } from '@/types';
-import MovieCardDel from '@/components/MovieCardDel';
+import MovieCard from '@/components/MovieCard';
 import { isEmpty } from 'lodash';
-
-interface MovieListProps {
-  data: MovieInterface[];
-  title: string;
-}
 
 interface MovieListProps {
   data: MovieInterface[];
@@ -25,7 +20,7 @@ const MovieListDel: React.FC<MovieListProps> = ({ data, title }) => {
         <p className="text-white text-md md:text-xl lg:text-2xl font-semibold mb-4">{title}</p>
         <div className="grid grid-cols-4 gap-2">
           {data.map((movie) => (
-            <MovieCardDel key={movie.id} data={movie} />
+            <MovieCard key={movie.id} data={movie} />
           ))}
         </div>
       </div>
