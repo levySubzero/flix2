@@ -3,13 +3,9 @@ import { NextPageContext } from 'next';
 import { getSession } from 'next-auth/react';
 import Navbar from '@/components/Navbar';
 import Search from '@/components/Search';
-import MovieListDel from '@/components/MovieListDel';
-import useMovieList from '@/hooks/useMovieList';
-import useDeleteModal from '@/hooks/useDeleteModal';
-import DeleteModal from '@/components/DeleteModal';
-import axios from 'axios';
-import useCurrentUser from '@/hooks/useCurrentUser';
 import { useRouter } from 'next/navigation';
+import MovieListSearch from '@/components/MovieListSearch';
+import axios from 'axios';
 
 export async function getServerSideProps(context: NextPageContext) {
     const session = await getSession(context);
@@ -98,8 +94,8 @@ export default function SearchPage() {
         <p className='text-white'>{selectedOption}</p>
         <Search onChange={handleSearch} value={searchQuery} />
         <div className='pt-3 flex flex-col items-center'>
-            {selectedOption === 'movie' && <MovieListDel title="Search Results" data2={[]} type={selectedOption} data={searchResults} />}
-            {selectedOption === 'series' && <MovieListDel title="Search Results" data2={searchResults} type={selectedOption} data={[]} />}
+            {selectedOption === 'movie' && <MovieListSearch title="Search Results" data2={[]} type={selectedOption} data={searchResults} />}
+            {selectedOption === 'series' && <MovieListSearch title="Search Results" data2={searchResults} type={selectedOption} data={[]} />}
         </div>
       </div>
     </>
