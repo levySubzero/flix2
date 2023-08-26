@@ -70,7 +70,6 @@ export default function SearchPage() {
 
   const handleSearch = async (query: string) => {
     setSearchQuery(query);
-    console.log(query);
     // Perform a search API request
     if (query.length > 0) {
       if (selectedOption === 'movie') {
@@ -78,7 +77,6 @@ export default function SearchPage() {
         setSearchResults(response.data.results);
       } else {
         const response = await axios.get(`/api/searchSeries/${query}`);
-        console.log(response.data.results);
         setSearchResults(response.data.results);
       }
     } else {
@@ -91,7 +89,6 @@ export default function SearchPage() {
       <Navbar home={false} />
       <div className='pt-40 flex flex-col items-center'>
         <RadioButton selected={selectedOption} onSelect={handleOptionChange}/>
-        <p className='text-white'>{selectedOption}</p>
         <Search onChange={handleSearch} value={searchQuery} />
         <div className='pt-3 flex flex-col items-center'>
             {selectedOption === 'movie' && <MovieListSearch title="Search Results" data2={[]} type={selectedOption} data={searchResults} />}
