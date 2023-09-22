@@ -77,13 +77,14 @@ const Billboard: React.FC = () => {
               More Info
           </button>
         </div>
-      <Mute mute={mute} toggler={toggleMute} />
+        <Mute mute={mute} toggler={toggleMute} />
       </div>
       {/* <div onClick={toggleMute} className="absolute top-[70%] left-[60%] md:top-[70%] sm:left-[70%] md:left-[85%] ml-4 md:ml-16">
         <div className="flex flex-row bg-black bg-opacity-5 items-center mt-3 md:mt-4 gap-3">
           {mute ? <VscMute className="w-40 h-50 text-white text-3xl md:w-7 mr-1" /> : <VscUnmute className="w-40 h-50 text-white text-3xl md:w-7 mr-1" />}
         </div>
       </div> */}
+      <div className="absolute inset-x-0 bottom-0 h-8 mb-[-15px] bg-black filter blur-lg"></div>
     </div>
   )
 }
