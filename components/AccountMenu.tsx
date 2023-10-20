@@ -16,10 +16,11 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ visible }) => {
   useEffect(() => {
     if (currentUser?.isAdmin) { 
         setIsAdmin(true)
+        setIsAuthed(true)
     } else if (currentUser !== undefined) {
-      setIsAuthed(false)
+      setIsAuthed(true)
     }
-
+    console.log(isAuthed)
   }, [currentUser]); 
 
   if (!visible) {
@@ -30,7 +31,8 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ visible }) => {
     <div className="bg-black w-56 absolute top-14 right-0 py-5 flex-col border-2 border-gray-800 flex">
       <div onClick={() => router.push(`/profiles/`)} className="px-3 group/item flex flex-row gap-3 items-center w-full">
         <img className="w-8 rounded-md" src="/images/default-blue.png" alt="" />
-        <p className="text-white text-sm group-hover/item:underline">{currentUser?.name}</p>
+        
+        {isAuthed ? (<p className="text-white text-sm group-hover/item:underline">{currentUser?.name}</p>) : (<p className="text-white text-sm group-hover/item:underline">Guest</p>)}
       </div>
       <hr className="bg-gray-600 border-0 h-px my-4" />
       {isAdmin && <><div onClick={() => router.push(`/manager/`)} className="px-3 text-center text-white text-sm hover:underline">

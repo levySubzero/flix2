@@ -22,23 +22,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           shortDesc
         }
       });
-      const search = await prismadb.search.create({
-        data: {
-          title,
-          type: 1,
-          itemId: movie.id
-        }
-      });
-      await prismadb.category.update({
+      
+      const cate = await prismadb.category.update({
         where: {
           id: categoryId,
         },
         data: {
           movieIds: {
-            push: movie.id
+            push: movie?.id
           }
         }
       });
+      
       return res.status(200).json(movie);
     }
     if (req.method === 'PUT') {
@@ -58,13 +53,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           trailerUrl, 
           cast, 
           shortDesc
-        }
-      });
-      const search = await prismadb.search.create({
-        data: {
-          title,
-          type: 1,
-          itemId: movie.id
         }
       });
       return res.status(200).json(movie);

@@ -55,12 +55,12 @@ const AddShow = () => {
   }
 
   const genres: Category[] = [];
-  cats.forEach((genre: { name: string; id: string; }) => {
+  gnres.forEach((genre: { name: string; id: string; }) => {
     genres.push({label: genre.name, value: genre.id })
   });
 
   const categories: Category[] = [];
-  gnres.forEach((category: { name: string; id: string; }) => {
+  cats.forEach((category: { name: string; id: string; }) => {
     categories.push({label: category.name, value: category.id })
   });
 
