@@ -14,24 +14,23 @@ import { CategoryInterface } from '@/types';
 import useCatsHome from '@/hooks/useCatsHome';
 import MovieListHome from '@/components/MovieListHome';
 
-export async function getServerSideProps(context: NextPageContext) {
-  const session = await getSession(context);
+type MyData = {
+  isAuthed: boolean; // Replace 'string' with the actual type of your data
+};
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/auth',
-        permanent: false,
-      }
-    }
-  }
-  return {
-    props: {}
-  }
-}
+// export async function getServerSideProps(context: NextPageContext) {
+//   const session = await getSession(context);
+//   let isAuthed = true;
+//   if (!session) {
+//     return isAuthed = false;
+//   }
+//   return {
+//     props: { isAuthed }
+//   }
+// }
 
 const Home = () => {
-  const { data: favorites = [] } = useFavorites();
+  // const { data: favorites = [] } = useFavorites();
   const { data: categorys = [] } = useCatsHome();
   const { isOpen: modalOpen, closeModal: modalClose } = useInfoModalSeriesStore();
   const { isOpen, closeModal } = useInfoModalStore();
@@ -44,7 +43,13 @@ const Home = () => {
       <Billboard />
       <div className="flex flex-col gap-4 mx-4 my-[-55px] md:my-[-85px] lg:my-[-130px] xl:my-[-235px] 2xl:my-[-265px] z-30">
         <div className="absolute inset-x-0 top-0 h-5 bg-gray-800 filter blur-lg"></div>
-          {favorites.length > 0 && (<MovieList  title="My List" movies={favorites} shows={[]}/>)}
+          {/*isAuthed ? (
+            favorites.length > 0 ? (
+              <MovieList  title="My List" movies={favorites} shows={[]}/>
+            ) : ('')
+          ) : ('')
+            */}
+
           {categorys.map((cat: CategoryInterface, i: any) => {
             return (
               <MovieListHome key={i} data={cat}/>

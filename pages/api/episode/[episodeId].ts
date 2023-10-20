@@ -5,7 +5,6 @@ import serverAuth from "@/lib/serverAuth";
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const { episodeId } = req.query;
-    await serverAuth(req, res);
 
     if (typeof episodeId !== 'string') {
       throw new Error('Invalid Id');
@@ -29,6 +28,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     }
     if (req.method === 'DELETE') {
+      await serverAuth(req, res);
       // Delete the data by ID
       const deletedData = await prismadb.episode.delete({
         where: {

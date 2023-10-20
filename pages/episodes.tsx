@@ -10,16 +10,7 @@ import useInfoModalStore from '@/hooks/useInfoModalStore';
 import InfoModal from '@/components/InfoModal';
 
 export async function getServerSideProps(context: NextPageContext) {
-  const session = await getSession(context);
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/auth',
-        permanent: false,
-      }
-    }
-  }
+  const session = await getSession(context);  
 
   return {
     props: {}

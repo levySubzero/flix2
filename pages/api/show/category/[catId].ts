@@ -5,7 +5,7 @@ import serverAuth from "@/lib/serverAuth";
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { catId } = req.query;
   try {
-    await serverAuth(req, res);
+    // await serverAuth(req, res);
     
     if (typeof catId !== 'string') {
       console.log(typeof catId);

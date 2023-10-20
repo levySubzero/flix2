@@ -11,12 +11,13 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ visible }) => {
   const { data: currentUser } = useCurrentUser();
   const router = useRouter();
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isAuthed, setIsAuthed] = useState(false);
 
   useEffect(() => {
     if (currentUser?.isAdmin) { 
         setIsAdmin(true)
-    } else {
-      // router.push('/');
+    } else if (currentUser !== undefined) {
+      setIsAuthed(true)
     }
 
   }, [currentUser]); 
@@ -35,9 +36,11 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ visible }) => {
       {isAdmin && <><div onClick={() => router.push(`/manager/`)} className="px-3 text-center text-white text-sm hover:underline">
         Manage Webflix
       </div><hr className="bg-gray-600 border-0 h-px my-4" /></>}
-      <div onClick={() => signOut()} className="px-3 text-center text-white text-sm hover:underline">
+      {isAuthed ? (<div onClick={() => signOut()} className="px-3 text-center text-white text-sm hover:underline">
         Sign out of Webflix
-      </div>
+      </div>) : ( <div onClick={() => router.push(`/auth/`)} className="px-3 text-center text-white text-sm hover:underline">
+        Signin to Webflix
+      </div>)}
     </div>
   )
 }
