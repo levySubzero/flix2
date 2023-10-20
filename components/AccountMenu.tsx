@@ -17,7 +17,7 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ visible }) => {
     if (currentUser?.isAdmin) { 
         setIsAdmin(true)
     } else if (currentUser !== undefined) {
-      setIsAuthed(true)
+      setIsAuthed(false)
     }
 
   }, [currentUser]); 
