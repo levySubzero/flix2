@@ -5,7 +5,7 @@ import serverAuth from "@/lib/serverAuth";
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const { movieId } = req.query;
-    await serverAuth(req, res);
+    // await serverAuth(req, res);
     
     if (typeof movieId !== 'string') {
       throw new Error('Invalid Id');

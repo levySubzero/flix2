@@ -8,22 +8,6 @@ import useInfoModalSeriesStore from '@/hooks/useInfoModalSeriesStore';
 import InfoModalSeries from '@/components/InfoModalSeries';
 import SeriesBillboard from '@/components/SeriesBillboard';
 
-export async function getServerSideProps(context: NextPageContext) {
-  const session = await getSession(context);
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/auth',
-        permanent: false,
-      }
-    }
-  }
-
-  return {
-    props: {}
-  }
-}
 
 export default function Series() {
   const { data: shows = [] } = useShowList();

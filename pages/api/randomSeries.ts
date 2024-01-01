@@ -8,12 +8,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(405).end();
     }
 
-    await serverAuth(req, res);
+    // await serverAuth(req, res);
 
-    const seriesCount = await prismadb.series.count();
+    const seriesCount = await prismadb.show.count();
     const randomIndex = Math.floor(Math.random() * seriesCount);
 
-    const randomseries = await prismadb.series.findMany({
+    const randomseries = await prismadb.show.findMany({
       take: 1,
       skip: randomIndex
     });

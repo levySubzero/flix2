@@ -20,13 +20,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           shortDesc
         }
       });
-      const search = await prismadb.search.create({
-        data: {
-          title,
-          type: 2,
-          itemId: show.id
-        }
-      });
       await prismadb.category.update({
         where: {
           id: categoryId,
@@ -54,13 +47,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           trailerUrl, 
           cast, 
           shortDesc
-        }
-      });
-      const search = await prismadb.search.create({
-        data: {
-          title,
-          type: 2,
-          itemId: show.id
         }
       });
       return res.status(200).json(show);  

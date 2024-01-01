@@ -8,23 +8,6 @@ import useInfoModalStore from '@/hooks/useInfoModalStore';
 import InfoModal from '@/components/InfoModal';
 import Billboard from '@/components/Billboard';
 
-export async function getServerSideProps(context: NextPageContext) {
-  const session = await getSession(context);
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/auth',
-        permanent: false,
-      }
-    }
-  }
-
-  return {
-    props: {}
-  }
-}
-
 export default function Films() {
   const { data: movies = [] } = useMovieList();
   const { isOpen, closeModal } = useInfoModalStore();

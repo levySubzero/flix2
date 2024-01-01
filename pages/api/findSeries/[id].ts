@@ -5,7 +5,7 @@ import serverAuth from "@/lib/serverAuth";
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const { id } = req.query;
-    await serverAuth(req, res);
+    // await serverAuth(req, res);
 
     if (typeof id !== 'string') {
       throw new Error('Invalid Id');
