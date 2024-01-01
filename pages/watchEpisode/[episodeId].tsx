@@ -51,7 +51,7 @@ const Watch = () => {
     <>
     <Head>
       <link href="https://unpkg.com/video.js/dist/video-js.min.css" rel="stylesheet"/>
-      <script src="https://unpkg.com/video.js/dist/video.min.js"></script>
+      <script src="https://unpkg.com/video.js/dist/video.min.js" async></script>
     </Head>
     <AdModal visible={isOpen} onClose={handleClose} />
     <div className="h-screen w-screen bg-black">
