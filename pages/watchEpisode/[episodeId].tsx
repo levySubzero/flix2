@@ -50,6 +50,7 @@ const Watch = () => {
   return (
     <>
     <Head>
+      <meta name="clickaine-site-verification" content="a5fff43d2a593281d8def9d2cdc5c0dd9130729260ebddeef8a6be286f16657482b1eea9895278563ffdfa2cf303a38bdcae5b22e8048948aa2e23eccc32b21a"></meta>
       <link href="https://unpkg.com/video.js/dist/video-js.min.css" rel="stylesheet"/>
       <script src="https://unpkg.com/video.js/dist/video.min.js" async></script>
     </Head>
